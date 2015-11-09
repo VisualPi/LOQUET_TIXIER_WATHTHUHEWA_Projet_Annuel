@@ -1294,4 +1294,120 @@ Script call stack:
 [2015.10.28-19.57.03:557][517]LogScript:Warning: Attempted to get an item from array stringBoard out of bounds [841/840]!
 [2015.10.28-19.57.03:558][517]PIE: Info Play in editor start time for /Game/Scenes/UEDPIE_0_mainScene 10.367
 [2015.10.28-19.57.03:559][517]LogBlueprintUserMessages: Late PlayInEditor Detection: Level '/Game/Scenes/mainScene.mainScene:PersistentLevel' has LevelScriptBlueprint '/Game/Scenes/mainScene.mainScene:PersistentLevel.mainScene' with GeneratedClass '/Game/Scenes/mainScene.mainScene_C' with ClassGeneratedBy '/Game/Scenes/mainScene.mainScene:PersistentLevel.mainScene'
-[2015.10.28-19.57.05:985][788]LogSelection:Warning: PIE object was selected: "BP_Case_C /Game/Scenes/UEDPIE_0_mainScene.mai
+[2015.10.28-19.57.05:985][788]LogSelection:Warning: PIE object was selected: "BP_Case_C /Game/Scenes/UEDPIE_0_mainScene.mainScene:PersistentLevel.BP_Case_C_157"
+[2015.10.28-19.57.23:971][760]LogSelection:Warning: PIE object was selected: "BP_Case_C /Game/Scenes/UEDPIE_0_mainScene.mainScene:PersistentLevel.BP_Case_C_303"
+[2015.10.28-19.57.44:384][617]LogSelection:Warning: PIE object was selected: "Brush /Game/Scenes/UEDPIE_0_mainScene.mainScene:PersistentLevel.BoxBrush"
+[2015.10.28-19.57.49:024][142]LogSelection:Warning: PIE object was selected: "Brush /Game/Scenes/UEDPIE_0_mainScene.mainScene:PersistentLevel.BoxBrush"
+[2015.10.28-19.57.49:337][178]Cmd: DELETE
+[2015.10.28-19.57.49:337][178]Cmd: ACTOR DELETE
+[2015.10.28-19.57.49:343][178]LogEditorActor: Deleted Actor: Brush
+[2015.10.28-19.57.49:364][178]LogEditorActor: Deleted 1 Actors (0.022 secs)
+[2015.10.28-19.57.51:987][482]LogBlueprintUserMessages: Early EndPlayMap Detection: Level '/Game/Scenes/mainScene.mainScene:PersistentLevel' has LevelScriptBlueprint '/Game/Scenes/mainScene.mainScene:PersistentLevel.mainScene' with GeneratedClass '/Game/Scenes/mainScene.mainScene_C' with ClassGeneratedBy '/Game/Scenes/mainScene.mainScene:PersistentLevel.mainScene'
+[2015.10.28-19.57.52:027][482]LogBlueprintUserMessages: Late EndPlayMap Detection: Level '/Game/Scenes/mainScene.mainScene:PersistentLevel' has LevelScriptBlueprint '/Game/Scenes/mainScene.mainScene:PersistentLevel.mainScene' with GeneratedClass '/Game/Scenes/mainScene.mainScene_C' with ClassGeneratedBy '/Game/Scenes/mainScene.mainScene:PersistentLevel.mainScene'
+[2015.10.28-19.57.52:062][483]LogParticles: Destroying 0 GPU particle simulations for FXSystem 0x00000056CD4F0B80
+[2015.10.28-19.57.53:659][672]BlueprintLog: New page: Compile mainScene
+[2015.10.28-19.57.53:734][672]BlueprintEditorCompileResults: Info [8563.37] Compile of mainScene successful! [in 74 ms]
+[2015.10.28-19.57.53:794][679]BlueprintLog: New page: Compile mainScene
+[2015.10.28-19.57.53:867][679]BlueprintEditorCompileResults: Info [8563.50] Compile of mainScene successful! [in 72 ms]
+[2015.10.28-19.57.59:269][ 62]Cmd: OBJ SAVEPACKAGE PACKAGE="/Game/Scenes/mainScene" FILE="D:/ESGI/5A/Projet_Annuel/trunk/ProjetAnnuel/ProjetAnnuel/Content/Scenes/mainScene.umap" SILENT=true AUTOSAVING=false KEEPDIRTY=false
+[2015.10.28-19.57.59:432][ 62]LogSavePackage: Save=138.079330ms
+[2015.10.28-19.57.59:432][ 62]LogSavePackage: Moving 'D:/ESGI/5A/Projet_Annuel/trunk/ProjetAnnuel/ProjetAnnuel/Saved/mainSceneFAEE315248A3758E9F2BBD81EDA78363.tmp' to 'D:/ESGI/5A/Projet_Annuel/trunk/ProjetAnnuel/ProjetAnnuel/Content/Scenes/mainScene.umap'
+[2015.10.28-19.57.59:434][ 62]LogSavePackage: Total save time: 143.668078ms
+[2015.10.28-19.57.59:434][ 62]LogSavePackage:Warning: Finished SavePackage D:/ESGI/5A/Projet_Annuel/trunk/ProjetAnnuel/ProjetAnnuel/Content/Scenes/mainScene.umap
+[2015.10.28-19.57.59:450][ 62]LogFileHelpers: Saving map 'mainScene' took 2.335
+[2015.10.28-19.59.22:875][258]LogBlueprintUserMessages: CustomizeDetails for Blueprint 'mainScene', cached variable property's owner is '/Game/Scenes/mainScene.SKEL_mainScene_C'
+[2015.10.28-19.59.32:218][371]LogEditorTransaction: Undo Collapses selected nodes into a single node
+[2015.10.28-19.59.33:204][464]LogBlueprintUserMessages: CustomizeDetails for Blueprint 'mainScene', cached variable property's owner is '/Game/Scenes/mainScene.SKEL_mainScene_C'
+[2015.10.28-19.59.36:901][906]BlueprintLog: New page: Collapse to Macro
+[2015.10.28-19.59.39:353][193]LogEditorTransaction: Undo Collapses selected nodes into a single node
+[2015.10.28-19.59.43:115][619]LogBlueprintUserMessages: CustomizeDetails for Blueprint 'mainScene', cached variable property's owner is '/Game/Scenes/mainScene.SKEL_mainScene_C'
+[2015.10.28-19.59.49:237][347]LogEditorTransaction: Undo Collapses selected nodes into a single node
+[2015.10.28-19.59.50:118][428]LogBlueprintUserMessages: CustomizeDetails for Blueprint 'mainScene', cached variable property's owner is '/Game/Scenes/mainScene.SKEL_mainScene_C'
+[2015.10.28-19.59.55:253][ 41]BlueprintLog: New page: Collapse to Macro
+[2015.10.28-20.00.34:278][657]LogBlueprintUserMessages: CustomizeDetails for Blueprint 'mainScene', cached variable property's owner is '/Game/Scenes/mainScene.SKEL_mainScene_C'
+[2015.10.28-20.02.42:904][ 85]LogBlueprintUserMessages: CustomizeDetails for Blueprint 'mainScene', cached variable property's owner is '/Game/Scenes/mainScene.SKEL_mainScene_C'
+[2015.10.28-20.02.48:454][736]BlueprintLog: New page: Collapse to Macro
+[2015.10.28-20.03.53:732][538]LogBlueprintUserMessages: CustomizeDetails for Blueprint 'mainScene', cached variable property's owner is '/Game/Scenes/mainScene.SKEL_mainScene_C'
+[2015.10.28-20.04.46:084][818]LogBlueprintUserMessages: CustomizeDetails for Blueprint 'mainScene', cached variable property's owner is '/Game/Scenes/mainScene.SKEL_mainScene_C'
+[2015.10.28-20.05.26:295][642]LogBlueprintUserMessages: CustomizeDetails for Blueprint 'mainScene', cached variable property's owner is '/Game/Scenes/mainScene.SKEL_mainScene_C'
+[2015.10.28-20.05.32:330][366]LogBlueprintUserMessages: CustomizeDetails for Blueprint 'mainScene', cached variable property's owner is '/Game/Scenes/mainScene.SKEL_mainScene_C'
+[2015.10.28-20.06.32:428][556]BlueprintLog: New page: Compile mainScene
+[2015.10.28-20.06.32:512][556]LogParticles: Destroying 0 GPU particle simulations for FXSystem 0x00000056C6BA37E0
+[2015.10.28-20.06.32:525][556]BlueprintEditorCompileResults: Info [9082.16] Compile of mainScene successful! [in 96 ms]
+[2015.10.28-20.07.15:504][698]BlueprintLog: New page: Collapse to Function
+[2015.10.28-20.07.46:312][378]LogEditorTransaction: Undo Rename Function
+[2015.10.28-20.07.46:567][400]LogEditorTransaction: Undo Collapses selected nodes into a single node
+[2015.10.28-20.07.47:033][437]LogEditorTransaction: Undo Move Nodes
+[2015.10.28-20.07.47:901][537]LogEditorTransaction: Undo Expands the node's internal graph into the current graph and removes this node.
+[2015.10.28-20.08.05:220][602]LogEditorTransaction: Undo Collapses selected nodes into a single node
+[2015.10.28-20.08.57:791][879]BlueprintLog: New page: Compile mainScene
+[2015.10.28-20.08.57:880][879]BlueprintEditorCompileResults: Info [9227.51] Compile of mainScene successful! [in 88 ms]
+[2015.10.28-20.09.20:967][640]LogBlueprintUserMessages: Early PlayInEditor Detection: Level '/Game/Scenes/mainScene.mainScene:PersistentLevel' has LevelScriptBlueprint '/Game/Scenes/mainScene.mainScene:PersistentLevel.mainScene' with GeneratedClass '/Game/Scenes/mainScene.mainScene_C' with ClassGeneratedBy '/Game/Scenes/mainScene.mainScene:PersistentLevel.mainScene'
+[2015.10.28-20.09.20:967][640]BlueprintLog: New page: Pre-Play auto-recompile
+[2015.10.28-20.09.20:970][640]LogPlayLevel: [PlayLevel] Compiling mainScene before play...
+[2015.10.28-20.09.21:026][640]LogPlayLevel: PlayLevel: Blueprint regeneration took 58 ms (1 blueprints)
+[2015.10.28-20.09.21:049][640]PIE: New page: SIE session: mainScene (Oct 28, 2015, 10:09:21 PM)
+[2015.10.28-20.09.21:049][640]LogPlayLevel: Creating play world package: /Game/Scenes/UEDPIE_0_mainScene
+[2015.10.28-20.09.21:060][640]LogPlayLevel: PIE: StaticDuplicateObject took: (0.010891s)
+[2015.10.28-20.09.21:060][640]LogAIModule: Creating AISystem for world mainScene
+[2015.10.28-20.09.21:060][640]LogPlayLevel: PIE: World Init took: (0.000500s)
+[2015.10.28-20.09.21:060][640]LogPlayLevel: PIE: Created PIE world by copying editor world from /Game/Scenes/mainScene.mainScene to /Game/Scenes/UEDPIE_0_mainScene.mainScene (0.011512s)
+[2015.10.28-20.09.21:083][640]LogInit: XAudio2 using 'Haut-parleurs (Realtek High Definition Audio)' : 2 channels at 48 kHz using 32 bits per sample (channel mask 0x3)
+[2015.10.28-20.09.21:091][640]LogInit: FAudioDevice initialized.
+[2015.10.28-20.09.21:121][640]LogWorld: Game class is 'GameMode'
+[2015.10.28-20.09.21:123][640]LogWorld: Bringing World /Game/Scenes/UEDPIE_0_mainScene.mainScene up for play (max tick rate 0) at 2015.10.28-21.09.21
+[2015.10.28-20.09.21:123][640]LogActor:Warning: GameSession /Game/Scenes/UEDPIE_0_mainScene.mainScene:PersistentLevel.GameSession_12 has natively added scene component(s), but none of them were set as the actor's RootComponent - picking one arbitrarily
+[2015.10.28-20.09.21:123][640]LogActor:Warning: GameNetworkManager /Game/Scenes/UEDPIE_0_mainScene.mainScene:PersistentLevel.GameNetworkManager_12 has natively added scene component(s), but none of them were set as the actor's RootComponent - picking one arbitrarily
+[2015.10.28-20.09.21:123][640]LogWorld: Bringing up level for play took: 0.001279
+[2015.10.28-20.09.21:124][640]LogGameMode: Warning - PATHS NOT DEFINED or NO PLAYERSTART with positive rating
+[2015.10.28-20.09.21:266][640]LogBlueprintDebug:Warning: Hit breakpoint on node 'K2Node_VariableSet', from offset 66
+[2015.10.28-20.09.21:266][640]LogBlueprintDebug: 
+Script call stack:
+	Function /Game/Scenes/mainScene.mainScene_C:ExecuteUbergraph_mainScene
+	Function /Game/Scenes/mainScene.mainScene_C:SpawnCases
+
+[2015.10.28-20.09.21:303][640]LogBlueprintUserMessages: CustomizeDetails for Blueprint 'mainScene', cached variable property's owner is '/Game/Scenes/mainScene.SKEL_mainScene_C'
+[2015.10.28-20.09.25:364][640]LogScript:Warning: Attempted to get an item from array stringBoard out of bounds [841/840]!
+[2015.10.28-20.09.25:365][640]PIE: Info Play in editor start time for /Game/Scenes/UEDPIE_0_mainScene 4.173
+[2015.10.28-20.09.25:366][640]LogBlueprintUserMessages: Late PlayInEditor Detection: Level '/Game/Scenes/mainScene.mainScene:PersistentLevel' has LevelScriptBlueprint '/Game/Scenes/mainScene.mainScene:PersistentLevel.mainScene' with GeneratedClass '/Game/Scenes/mainScene.mainScene_C' with ClassGeneratedBy '/Game/Scenes/mainScene.mainScene:PersistentLevel.mainScene'
+[2015.10.28-20.09.28:217][928]LogSelection:Warning: PIE object was selected: "Brush /Game/Scenes/UEDPIE_0_mainScene.mainScene:PersistentLevel.BoxBrush"
+[2015.10.28-20.09.28:586][971]LogSelection:Warning: PIE object was selected: "BP_Case_C /Game/Scenes/UEDPIE_0_mainScene.mainScene:PersistentLevel.BP_Case_C_304"
+[2015.10.28-20.09.32:958][448]LogBlueprintUserMessages: Early EndPlayMap Detection: Level '/Game/Scenes/mainScene.mainScene:PersistentLevel' has LevelScriptBlueprint '/Game/Scenes/mainScene.mainScene:PersistentLevel.mainScene' with GeneratedClass '/Game/Scenes/mainScene.mainScene_C' with ClassGeneratedBy '/Game/Scenes/mainScene.mainScene:PersistentLevel.mainScene'
+[2015.10.28-20.09.32:969][448]LogBlueprintUserMessages: PostEditorRefresh for Blueprint 'mainScene', cached variable property's owner is '/Game/Scenes/mainScene.SKEL_mainScene_C'
+[2015.10.28-20.09.32:993][448]LogBlueprintUserMessages: Late EndPlayMap Detection: Level '/Game/Scenes/mainScene.mainScene:PersistentLevel' has LevelScriptBlueprint '/Game/Scenes/mainScene.mainScene:PersistentLevel.mainScene' with GeneratedClass '/Game/Scenes/mainScene.mainScene_C' with ClassGeneratedBy '/Game/Scenes/mainScene.mainScene:PersistentLevel.mainScene'
+[2015.10.28-20.09.33:030][449]LogParticles: Destroying 0 GPU particle simulations for FXSystem 0x00000056A6649620
+[2015.10.28-20.09.34:340][602]LogBlueprintUserMessages: CustomizeDetails for Blueprint 'mainScene', cached variable property's owner is '/Game/Scenes/mainScene.SKEL_mainScene_C'
+[2015.10.28-20.09.55:877][185]BlueprintLog: New page: Compile mainScene
+[2015.10.28-20.09.55:956][185]BlueprintEditorCompileResults: Info [9285.59] Compile of mainScene successful! [in 78 ms]
+[2015.10.28-20.09.57:048][313]LogBlueprintUserMessages: Early PlayInEditor Detection: Level '/Game/Scenes/mainScene.mainScene:PersistentLevel' has LevelScriptBlueprint '/Game/Scenes/mainScene.mainScene:PersistentLevel.mainScene' with GeneratedClass '/Game/Scenes/mainScene.mainScene_C' with ClassGeneratedBy '/Game/Scenes/mainScene.mainScene:PersistentLevel.mainScene'
+[2015.10.28-20.09.57:048][313]LogPlayLevel: PlayLevel: No blueprints needed recompiling
+[2015.10.28-20.09.57:048][313]PIE: New page: SIE session: mainScene (Oct 28, 2015, 10:09:57 PM)
+[2015.10.28-20.09.57:048][313]LogPlayLevel: Creating play world package: /Game/Scenes/UEDPIE_0_mainScene
+[2015.10.28-20.09.57:061][313]LogPlayLevel: PIE: StaticDuplicateObject took: (0.012447s)
+[2015.10.28-20.09.57:061][313]LogAIModule: Creating AISystem for world mainScene
+[2015.10.28-20.09.57:061][313]LogPlayLevel: PIE: World Init took: (0.000488s)
+[2015.10.28-20.09.57:062][313]LogPlayLevel: PIE: Created PIE world by copying editor world from /Game/Scenes/mainScene.mainScene to /Game/Scenes/UEDPIE_0_mainScene.mainScene (0.013070s)
+[2015.10.28-20.09.57:089][313]LogInit: XAudio2 using 'Haut-parleurs (Realtek High Definition Audio)' : 2 channels at 48 kHz using 32 bits per sample (channel mask 0x3)
+[2015.10.28-20.09.57:096][313]LogInit: FAudioDevice initialized.
+[2015.10.28-20.09.57:131][313]LogWorld: Game class is 'GameMode'
+[2015.10.28-20.09.57:133][313]LogWorld: Bringing World /Game/Scenes/UEDPIE_0_mainScene.mainScene up for play (max tick rate 0) at 2015.10.28-21.09.57
+[2015.10.28-20.09.57:133][313]LogActor:Warning: GameSession /Game/Scenes/UEDPIE_0_mainScene.mainScene:PersistentLevel.GameSession_13 has natively added scene component(s), but none of them were set as the actor's RootComponent - picking one arbitrarily
+[2015.10.28-20.09.57:133][313]LogActor:Warning: GameNetworkManager /Game/Scenes/UEDPIE_0_mainScene.mainScene:PersistentLevel.GameNetworkManager_13 has natively added scene component(s), but none of them were set as the actor's RootComponent - picking one arbitrarily
+[2015.10.28-20.09.57:133][313]LogWorld: Bringing up level for play took: 0.001270
+[2015.10.28-20.09.57:134][313]LogGameMode: Warning - PATHS NOT DEFINED or NO PLAYERSTART with positive rating
+[2015.10.28-20.09.57:299][313]LogScript:Warning: Attempted to get an item from array stringBoard out of bounds [841/840]!
+[2015.10.28-20.09.57:300][313]PIE: Info Play in editor start time for /Game/Scenes/UEDPIE_0_mainScene 0.109
+[2015.10.28-20.09.57:301][313]LogBlueprintUserMessages: Late PlayInEditor Detection: Level '/Game/Scenes/mainScene.mainScene:PersistentLevel' has LevelScriptBlueprint '/Game/Scenes/mainScene.mainScene:PersistentLevel.mainScene' with GeneratedClass '/Game/Scenes/mainScene.mainScene_C' with ClassGeneratedBy '/Game/Scenes/mainScene.mainScene:PersistentLevel.mainScene'
+[2015.10.28-20.09.59:686][569]LogSelection:Warning: PIE object was selected: "Brush /Game/Scenes/UEDPIE_0_mainScene.mainScene:PersistentLevel.BoxBrush"
+[2015.10.28-20.10.01:040][712]LogBlueprintUserMessages: Early EndPlayMap Detection: Level '/Game/Scenes/mainScene.mainScene:PersistentLevel' has LevelScriptBlueprint '/Game/Scenes/mainScene.mainScene:PersistentLevel.mainScene' with GeneratedClass '/Game/Scenes/mainScene.mainScene_C' with ClassGeneratedBy '/Game/Scenes/mainScene.mainScene:PersistentLevel.mainScene'
+[2015.10.28-20.10.01:076][712]LogBlueprintUserMessages: Late EndPlayMap Detection: Level '/Game/Scenes/mainScene.mainScene:PersistentLevel' has LevelScriptBlueprint '/Game/Scenes/mainScene.mainScene:PersistentLevel.mainScene' with GeneratedClass '/Game/Scenes/mainScene.mainScene_C' with ClassGeneratedBy '/Game/Scenes/mainScene.mainScene:PersistentLevel.mainScene'
+[2015.10.28-20.10.01:099][712]LogParticles: Destroying 0 GPU particle simulations for FXSystem 0x000000568A18B740
+[2015.10.28-20.10.04:031][ 62]LogEditorActor: Deleted Actor: Brush
+[2015.10.28-20.10.04:053][ 62]LogEditorActor: Deleted 1 Actors (0.022 secs)
+[2015.10.28-20.10.07:240][238]Cmd: OBJ SAVEPACKAGE PACKAGE="/Game/Scenes/mainScene" FILE="D:/ESGI/5A/Projet_Annuel/trunk/ProjetAnnuel/ProjetAnnuel/Content/Scenes/mainScene.umap" SILENT=true AUTOSAVING=false KEEPDIRTY=false
+[2015.10.28-20.10.07:395][238]LogSavePackage: Save=132.630630ms
+[2015.10.28-20.10.07:395][238]LogSavePackage: Moving 'D:/ESGI/5A/Projet_Annuel/trunk/ProjetAnnuel/ProjetAnnuel/Saved/mainScene5320B9A24786B85105034B966BACF428.tmp' to 'D:/ESGI/5A/Projet_Annuel/trunk/ProjetAnnuel/ProjetAnnuel/Content/Scenes/mainScene.umap'
+[2015.10.28-20.10.07:397][238]LogSavePackage: Total save time: 137.413993ms
+[2015.10.28-20.10.07:397][238]LogSavePackage:Warning: Finished SavePackage D:/ESGI/5A/Projet_Annuel/trunk/ProjetAnnuel/ProjetAnnuel/Content/Scenes/mainScene.umap
+[2015.10.28-20.10.07:413][238]LogFileHelpers: Saving map 'mainScene' took 1.848
+[2
