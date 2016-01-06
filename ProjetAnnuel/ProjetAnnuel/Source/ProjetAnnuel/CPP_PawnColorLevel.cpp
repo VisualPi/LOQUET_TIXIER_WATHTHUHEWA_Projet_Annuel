@@ -3,6 +3,7 @@
 #include "ProjetAnnuel.h"
 #include "CPP_PawnColorLevel.h"
 
+int ACPP_PawnColorLevel::nbPlayer = 0;
 
 // Sets default values
 ACPP_PawnColorLevel::ACPP_PawnColorLevel()
@@ -24,6 +25,7 @@ ACPP_PawnColorLevel::ACPP_PawnColorLevel()
 	ObjectMesh->SetNotifyRigidBodyCollision(true);
 
 	ObjectMesh->AttachTo(RootComponent);
+	
 
 	//Camera
 	/*RootComponent = CreateDefaultSubobject<USceneComponent>(TEXT("RootComponent"))*/;
@@ -39,7 +41,7 @@ ACPP_PawnColorLevel::ACPP_PawnColorLevel()
 	//OurCamera->SetWorldLocationAndRotation(FVector(960.0f, 10050.0f, 4650.0f), FRotator(0.0f, -1.0f, -90.0f));
 
 	//Take control of the default Player
-	//AutoPossessPlayer = EAutoReceiveInput::Player0;
+	
 
 
 }
@@ -48,16 +50,48 @@ ACPP_PawnColorLevel::ACPP_PawnColorLevel()
 void ACPP_PawnColorLevel::BeginPlay()
 {
 	Super::BeginPlay();
-	currentPosition = FVector(-4110.f, -4110.f, 500.f);
+	switch (nbPlayer)
+	{
+	case 0:
+		AutoPossessPlayer = EAutoReceiveInput::Player0;
+		currentPosition = FVector(-4110.f, -4110.f, 500.f);
+		nbPlayer++;
+		break;
+	case 1:
+		AutoPossessPlayer = EAutoReceiveInput::Player0;
+		currentPosition = FVector(7410.f, -4110.f, 500.f);
+		nbPlayer++;
+		break;
+	case 2:
+		AutoPossessPlayer = EAutoReceiveInput::Player0;
+		currentPosition = FVector(7410.f, 7410.f, 500.f);
+		nbPlayer++;
+		break;
+	case 3:
+		AutoPossessPlayer = EAutoReceiveInput::Player0;
+		currentPosition = FVector(-4110.f, 7410.f, 500.f);
+		nbPlayer++;
+		break;
+	default:
+		//GEngine->AddOnScreenDebugMessage(-1, 50.f, FColor::Red, FString::Printf(TEXT("Too many player ! nb = %d"), nbPlayer));
+		break;
+	}
 	this->SetActorLocation(currentPosition, false, nullptr, ETeleportType::TeleportPhysics);
 	this->SetActorScale3D(FVector(1, 1, 2));
 	//UE_LOG(LogTemp, Error, TEXT("BEGIN PLAY!!"));
 	
 }
 
+void ACPP_PawnColorLevel::EndPlay(const EEndPlayReason::Type EndPlayReason)
+{
+	Super::EndPlay(EndPlayReason);
+	nbPlayer = 0;
+}
+
 // Called every frame
 void ACPP_PawnColorLevel::Tick(float DeltaTime)
 {
+	//GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, FString::Printf(TEXT("%f"), DeltaTime));
 	Super::Tick(DeltaTime);
 	currentPosition = this->GetActorLocation();
 

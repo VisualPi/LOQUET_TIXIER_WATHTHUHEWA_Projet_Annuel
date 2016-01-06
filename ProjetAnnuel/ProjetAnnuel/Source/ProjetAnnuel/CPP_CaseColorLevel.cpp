@@ -79,8 +79,8 @@ void ACPP_CaseColorLevel::Tick(float DeltaTime)
 
 void ACPP_CaseColorLevel::OnHit(class AActor* OtherActor, class UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit)
 {
-	GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, TEXT("COLLIDING !"));
-	GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, FString::Printf(TEXT("Collide with %s !!"), *OtherActor->GetName()));
+	//GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, TEXT("COLLIDING !"));
+	//GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, FString::Printf(TEXT("Collide with %s !!"), *OtherActor->GetName()));
 	if (OtherActor->IsA(ACPP_PawnColorLevel::StaticClass()))
 	{
 		ACPP_PawnColorLevel* pawn = Cast<ACPP_PawnColorLevel>(OtherActor);
