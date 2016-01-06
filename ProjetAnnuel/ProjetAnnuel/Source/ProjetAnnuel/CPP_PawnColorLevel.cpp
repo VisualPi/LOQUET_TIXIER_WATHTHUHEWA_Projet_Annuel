@@ -76,6 +76,7 @@ void ACPP_PawnColorLevel::BeginPlay()
 		//GEngine->AddOnScreenDebugMessage(-1, 50.f, FColor::Red, FString::Printf(TEXT("Too many player ! nb = %d"), nbPlayer));
 		break;
 	}
+	nextPosition = currentPosition;
 	this->SetActorLocation(currentPosition, false, nullptr, ETeleportType::TeleportPhysics);
 	this->SetActorScale3D(FVector(1, 1, 2));
 	//UE_LOG(LogTemp, Error, TEXT("BEGIN PLAY!!"));
@@ -97,9 +98,10 @@ void ACPP_PawnColorLevel::Tick(float DeltaTime)
 
 }
 
-void ACPP_PawnColorLevel::Move(FVector& pos)
+void ACPP_PawnColorLevel::Move(FVector pos)
 {
-	currentPosition = pos;
+	currentPosition = FVector(pos.X, pos.Y, currentPosition.Z);
+	nextPosition = currentPosition;
 	SetActorLocation(currentPosition, false, nullptr, ETeleportType::TeleportPhysics);
 }
 

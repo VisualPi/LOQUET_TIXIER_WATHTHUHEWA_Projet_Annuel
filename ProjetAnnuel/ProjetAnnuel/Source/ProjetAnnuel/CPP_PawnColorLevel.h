@@ -48,9 +48,11 @@ public:
 	//static int nbPlayer;
 
 	FVector GetCurrentPos() const { return currentPosition; }
-	void SetCurrentPos(FVector& vec) { currentPosition = vec; }
+	FVector GetNextPos() const { return nextPosition; }
+	void SetCurrentPos(FVector vec) { currentPosition = vec; }
+	void SetNextPos(FVector vec) { nextPosition = vec; }
 
-	void Move(FVector& pos);
+	void Move(FVector pos);
 
 protected:
 	//UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Mesh")
@@ -70,4 +72,5 @@ protected:
 	static int nbPlayer;
 private:
 	FVector currentPosition;
+	FVector nextPosition;
 };

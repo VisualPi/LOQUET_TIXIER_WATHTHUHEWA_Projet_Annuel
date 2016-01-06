@@ -61,7 +61,7 @@ void ACPP_PlayerControllerColorLevel::MoveRight()
 	{
 		FVector pos = FVector(pawn->GetCurrentPos().X + 1280.f, pawn->GetCurrentPos().Y, pawn->GetCurrentPos().Z);
 		//GEngine->AddOnScreenDebugMessage(-1, 50.f, FColor::Red, FString::Printf(TEXT("supposed to move to : (%f, %f, %f)"), pos.X, pos.Y, pos.Z));
-		pawn->Move(pos);
+		pawn->SetNextPos(pos);
 	}
 }
 void ACPP_PlayerControllerColorLevel::MoveLeft()
@@ -70,7 +70,7 @@ void ACPP_PlayerControllerColorLevel::MoveLeft()
 	{
 		FVector pos = FVector(pawn->GetCurrentPos().X - 1280.f, pawn->GetCurrentPos().Y, pawn->GetCurrentPos().Z);
 		//GEngine->AddOnScreenDebugMessage(-1, 50.f, FColor::Red, FString::Printf(TEXT("supposed to move to : (%f, %f, %f)"), pos.X, pos.Y, pos.Z));
-		pawn->Move(pos);
+		pawn->SetNextPos(pos);
 	}
 }
 void ACPP_PlayerControllerColorLevel::MoveUp()
@@ -79,7 +79,7 @@ void ACPP_PlayerControllerColorLevel::MoveUp()
 	{
 		FVector pos = FVector(pawn->GetCurrentPos().X, pawn->GetCurrentPos().Y - 1280.f, pawn->GetCurrentPos().Z);
 		//GEngine->AddOnScreenDebugMessage(-1, 50.f, FColor::Red, FString::Printf(TEXT("supposed to move to : (%f, %f, %f)"), pos.X, pos.Y, pos.Z));
-		pawn->Move(pos);
+		pawn->SetNextPos(pos);
 	}
 }
 void ACPP_PlayerControllerColorLevel::MoveDown()
@@ -88,6 +88,6 @@ void ACPP_PlayerControllerColorLevel::MoveDown()
 	{
 		FVector pos = FVector(pawn->GetCurrentPos().X, pawn->GetCurrentPos().Y + 1280.f, pawn->GetCurrentPos().Z);
 		//GEngine->AddOnScreenDebugMessage(-1, 50.f, FColor::Red, FString::Printf(TEXT("supposed to move to : (%f, %f, %f)"), pos.X, pos.Y, pos.Z));
-		pawn->Move(pos);
+		pawn->SetNextPos(pos);
 	}
 }
