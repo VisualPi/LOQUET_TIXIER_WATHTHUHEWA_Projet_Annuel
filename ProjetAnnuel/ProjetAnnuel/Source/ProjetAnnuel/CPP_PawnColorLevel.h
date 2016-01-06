@@ -34,18 +34,23 @@ public:
 	virtual void Tick( float DeltaSeconds ) override;
 
 	// Called to bind functionality to input
-	virtual void SetupPlayerInputComponent(class UInputComponent* InputComponent) override;
+	//virtual void SetupPlayerInputComponent(class UInputComponent* InputComponent) override;
 
 	UFUNCTION(BlueprintCallable, Category = "Color")
 	EType GetColor() {return type;}
 
-	void ACPP_PawnColorLevel::MoveRight();
+	/*void ACPP_PawnColorLevel::MoveRight();
 	void ACPP_PawnColorLevel::MoveLeft();
 	void ACPP_PawnColorLevel::MoveUp();
-	void ACPP_PawnColorLevel::MoveDown();
+	void ACPP_PawnColorLevel::MoveDown();*/
 
 	//UPROPERTY(EditAnywhere)
 	//static int nbPlayer;
+
+	FVector GetCurrentPos() const { return currentPosition; }
+	void SetCurrentPos(FVector& vec) { currentPosition = vec; }
+
+	void Move(FVector& pos);
 
 protected:
 	//UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Mesh")

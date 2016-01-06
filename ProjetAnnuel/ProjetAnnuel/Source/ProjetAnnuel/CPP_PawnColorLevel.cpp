@@ -97,35 +97,9 @@ void ACPP_PawnColorLevel::Tick(float DeltaTime)
 
 }
 
-// Called to bind functionality to input
-void ACPP_PawnColorLevel::SetupPlayerInputComponent(class UInputComponent* InputComponent)
+void ACPP_PawnColorLevel::Move(FVector& pos)
 {
-	Super::SetupPlayerInputComponent(InputComponent);
-
-	InputComponent->BindAction("moveRight", IE_Pressed, this, &ACPP_PawnColorLevel::MoveRight);
-	InputComponent->BindAction("moveLeft", IE_Pressed, this, &ACPP_PawnColorLevel::MoveLeft);
-	InputComponent->BindAction("moveUp", IE_Pressed, this, &ACPP_PawnColorLevel::MoveUp);
-	InputComponent->BindAction("moveDown", IE_Pressed, this, &ACPP_PawnColorLevel::MoveDown);
-
+	currentPosition = pos;
+	SetActorLocation(currentPosition, false, nullptr, ETeleportType::TeleportPhysics);
 }
 
-void ACPP_PawnColorLevel::MoveRight()
-{
-	currentPosition = FVector(currentPosition.X + 1280.f, currentPosition.Y, currentPosition.Z);// + 20);
-	this->SetActorLocation(currentPosition, false, nullptr, ETeleportType::TeleportPhysics);
-}
-void ACPP_PawnColorLevel::MoveLeft()
-{
-	currentPosition = FVector(currentPosition.X - 1280.f, currentPosition.Y, currentPosition.Z);// + 20);
-	this->SetActorLocation(currentPosition, false, nullptr, ETeleportType::TeleportPhysics);
-}
-void ACPP_PawnColorLevel::MoveUp()
-{
-	currentPosition = FVector(currentPosition.X, currentPosition.Y - 1280.f, currentPosition.Z);// + 20);
-	this->SetActorLocation(currentPosition, false, nullptr, ETeleportType::TeleportPhysics);
-}
-void ACPP_PawnColorLevel::MoveDown()
-{
-	currentPosition = FVector(currentPosition.X, currentPosition.Y + 1280.f, currentPosition.Z);// + 20);
-	this->SetActorLocation(currentPosition, false, nullptr, ETeleportType::TeleportPhysics);
-}
