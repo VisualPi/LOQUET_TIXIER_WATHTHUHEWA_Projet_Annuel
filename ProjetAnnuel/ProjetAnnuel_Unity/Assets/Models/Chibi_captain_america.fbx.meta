@@ -1,0 +1,178 @@
+fileFormatVersion: 2
+guid: ffe160601d9eb8f408097136e814a048
+timeCreated: 1455748788
+licenseType: Free
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: Armature
+    100002: bintang.001
+    100004: captain america.001
+    100006: //RootNode
+    100008: dada
+    100010: dada.001
+    100012: dada.002
+    100014: dada.003
+    100016: dada.004
+    100018: dada.005
+    100020: dada.006
+    100022: dada.007
+    100024: dada.007_end
+    100026: dada.008
+    100028: dada.009
+    100030: dada.010
+    100032: dada.011
+    100034: dada.012
+    100036: dada.013
+    100038: dada.014
+    100040: dada.014_end
+    100042: dada.015
+    100044: dada.015_end
+    100046: dada.016
+    100048: dada.016_end
+    100050: kepala
+    100052: kepala_end
+    100054: leher
+    100056: perut
+    100058: perut.001
+    100060: perut.001_end
+    100062: perut.002
+    100064: perut.003
+    100066: perut.004
+    100068: perut.005
+    100070: perut.005_end
+    100072: perut.006
+    100074: perut.007
+    100076: perut.008
+    100078: perut.009
+    100080: perut.009_end
+    100082: sabuk1.001
+    100084: sabuk2.001
+    100086: sabuk3.001
+    100088: wajah.001
+    400000: Armature
+    400002: bintang.001
+    400004: captain america.001
+    400006: //RootNode
+    400008: dada
+    400010: dada.001
+    400012: dada.002
+    400014: dada.003
+    400016: dada.004
+    400018: dada.005
+    400020: dada.006
+    400022: dada.007
+    400024: dada.007_end
+    400026: dada.008
+    400028: dada.009
+    400030: dada.010
+    400032: dada.011
+    400034: dada.012
+    400036: dada.013
+    400038: dada.014
+    400040: dada.014_end
+    400042: dada.015
+    400044: dada.015_end
+    400046: dada.016
+    400048: dada.016_end
+    400050: kepala
+    400052: kepala_end
+    400054: leher
+    400056: perut
+    400058: perut.001
+    400060: perut.001_end
+    400062: perut.002
+    400064: perut.003
+    400066: perut.004
+    400068: perut.005
+    400070: perut.005_end
+    400072: perut.006
+    400074: perut.007
+    400076: perut.008
+    400078: perut.009
+    400080: perut.009_end
+    400082: sabuk1.001
+    400084: sabuk2.001
+    400086: sabuk3.001
+    400088: wajah.001
+    2300000: bintang.001
+    2300002: sabuk1.001
+    2300004: sabuk2.001
+    2300006: sabuk3.001
+    3300000: bintang.001
+    3300002: sabuk1.001
+    3300004: sabuk2.001
+    3300006: sabuk3.001
+    4300000: bintang.001
+    4300002: captain america.001
+    4300004: sabuk3.001
+    4300006: sabuk2.001
+    4300008: sabuk1.001
+    4300010: wajah.001
+    9500000: //RootNode
+    13700000: captain america.001
+    13700002: wajah.001
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleRotations: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

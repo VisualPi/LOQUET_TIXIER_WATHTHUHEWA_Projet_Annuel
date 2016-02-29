@@ -1,0 +1,153 @@
+fileFormatVersion: 2
+guid: 798934370dcf33b4fbf6509525feb6b9
+timeCreated: 1456679510
+licenseType: Free
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: Boca_cilindro
+    100002: Boca_tapa
+    100004: Bolas_Esfera2
+    100006: Bolas_Esfera_1
+    100008: Bolas_Esfera_2
+    100010: Bolas_Esfera_3
+    100012: Bolas_Esfera_4
+    100014: Bolas_Esfera_5
+    100016: Bolas_Esfera_6
+    100018: //RootNode
+    100020: Cola
+    100022: Cuerno_C_psula
+    100024: Cuerno_C_psula_1
+    100026: Ojo_1_Esfera1
+    100028: Ojo_1_ojo1
+    100030: Ojo_Esfera
+    100032: Ojo_ojo
+    400000: Boca_cilindro
+    400002: Boca_tapa
+    400004: Bolas_Esfera2
+    400006: Bolas_Esfera_1
+    400008: Bolas_Esfera_2
+    400010: Bolas_Esfera_3
+    400012: Bolas_Esfera_4
+    400014: Bolas_Esfera_5
+    400016: Bolas_Esfera_6
+    400018: //RootNode
+    400020: Cola
+    400022: Cuerno_C_psula
+    400024: Cuerno_C_psula_1
+    400026: Ojo_1_Esfera1
+    400028: Ojo_1_ojo1
+    400030: Ojo_Esfera
+    400032: Ojo_ojo
+    2300000: Boca_cilindro
+    2300002: Boca_tapa
+    2300004: Bolas_Esfera2
+    2300006: Bolas_Esfera_1
+    2300008: Bolas_Esfera_2
+    2300010: Bolas_Esfera_3
+    2300012: Bolas_Esfera_4
+    2300014: Bolas_Esfera_5
+    2300016: Bolas_Esfera_6
+    2300018: Cola
+    2300020: Cuerno_C_psula
+    2300022: Cuerno_C_psula_1
+    2300024: Ojo_1_Esfera1
+    2300026: Ojo_1_ojo1
+    2300028: Ojo_Esfera
+    2300030: Ojo_ojo
+    3300000: Boca_cilindro
+    3300002: Boca_tapa
+    3300004: Bolas_Esfera2
+    3300006: Bolas_Esfera_1
+    3300008: Bolas_Esfera_2
+    3300010: Bolas_Esfera_3
+    3300012: Bolas_Esfera_4
+    3300014: Bolas_Esfera_5
+    3300016: Bolas_Esfera_6
+    3300018: Cola
+    3300020: Cuerno_C_psula
+    3300022: Cuerno_C_psula_1
+    3300024: Ojo_1_Esfera1
+    3300026: Ojo_1_ojo1
+    3300028: Ojo_Esfera
+    3300030: Ojo_ojo
+    4300000: Boca_cilindro
+    4300002: Boca_tapa
+    4300004: Bolas_Esfera2
+    4300006: Bolas_Esfera_1
+    4300008: Bolas_Esfera_2
+    4300010: Bolas_Esfera_3
+    4300012: Bolas_Esfera_4
+    4300014: Bolas_Esfera_5
+    4300016: Bolas_Esfera_6
+    4300018: Cola
+    4300020: Cuerno_C_psula
+    4300022: Cuerno_C_psula_1
+    4300024: Ojo_1_Esfera1
+    4300026: Ojo_1_ojo1
+    4300028: Ojo_Esfera
+    4300030: Ojo_ojo
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleRotations: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
