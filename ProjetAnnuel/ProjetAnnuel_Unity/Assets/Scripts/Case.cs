@@ -6,8 +6,6 @@ public enum ECaseType { DEPART, FIN, BLUE, RED, GREEN, YELLOW }
 public class Case : MonoBehaviour
 {
 	[SerializeField]
-	private Case            _previousCase;
-	[SerializeField]
 	private Case            _nextCase;
 	[SerializeField]
 	private ECaseType       _caseType;
