@@ -23,22 +23,22 @@ public class Case : MonoBehaviour
 		switch( _caseType )
 		{
 		case ECaseType.DEPART:
-			_meshRenderer.material = Resources.Load("Materials/Case/Purple", typeof(Material)) as Material;
+			_meshRenderer.material = Utils.Instance.purple;
 			break;
 		case ECaseType.FIN:
-			_meshRenderer.material = Resources.Load("Materials/Case/Black", typeof(Material)) as Material;
+			_meshRenderer.material = Utils.Instance.black;
 			break;
 		case ECaseType.BLUE:
-			_meshRenderer.material = Resources.Load("Materials/Case/Blue", typeof(Material)) as Material;
+			_meshRenderer.material = Utils.Instance.blue;
 			break;
 		case ECaseType.RED:
-			_meshRenderer.material = Resources.Load("Materials/Case/Red", typeof(Material)) as Material;
+			_meshRenderer.material = Utils.Instance.red;
 			break;
 		case ECaseType.GREEN:
-			_meshRenderer.material = Resources.Load("Materials/Case/Green", typeof(Material)) as Material;
+			_meshRenderer.material = Utils.Instance.green;
 			break;
 		case ECaseType.YELLOW:
-			_meshRenderer.material = Resources.Load("Materials/Case/Yellow", typeof(Material)) as Material;
+			_meshRenderer.material = Utils.Instance.yellow;
 			break;
 		}
 		if( _caseType != ECaseType.DEPART )
@@ -60,14 +60,6 @@ public class Case : MonoBehaviour
 	public void SetNbPlayerOnCase( int value )
 	{
 		_nbPlayerOnCase = value;
-	}
-	public Case GetPreviousCase()
-	{
-		return _previousCase;
-	}
-	public void SetPreviousCase( Case value )
-	{
-		_previousCase = value;
 	}
 	public Case GetNextCase()
 	{
