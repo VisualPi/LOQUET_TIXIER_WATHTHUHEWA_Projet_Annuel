@@ -12,6 +12,8 @@ public abstract class AbstractCase : MonoBehaviour
 	[SerializeField]
 	private Transform       _transform;
 
+	private int _nbPlayerOnCase;
+
 
 	public AbstractCase GetNextCase()
 	{
@@ -36,6 +38,14 @@ public abstract class AbstractCase : MonoBehaviour
 	public Transform GetTransform()
 	{
 		return _transform;
+	}
+	public int GetNbPlayerOnCase()
+	{
+		return _nbPlayerOnCase;
+	}
+	public void SetNbPlayerOnCase(int value)
+	{
+		_nbPlayerOnCase = value;
 	}
 
 }
