@@ -61,14 +61,7 @@ public class Case : MonoBehaviour
 	{
 		_nbPlayerOnCase = value;
 	}
-	public Case GetNextCase()
-	{
-		return _nextCase;
-	}
-	public void SetNextCase( Case value )
-	{
-		_nextCase = value;
-	}
+
 	#endregion
 
 }
