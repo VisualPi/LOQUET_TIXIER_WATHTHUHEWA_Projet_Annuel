@@ -11,17 +11,19 @@ public abstract class AbstractCase : MonoBehaviour
     private MeshRenderer _meshRenderer;
     [SerializeField]
     private Transform _transform;
-
+    
     private int _nbPlayerOnCase;
+    [SerializeField]
+    private int _caseID;
 
     [SerializeField]
-    private Vector3 _alternativePosition1; //Les positions alternative sont en remplacements de la position de la case
+    private Transform _alternativePosition1; //Les positions alternative sont en remplacements de la position de la case
     [SerializeField]
-    private Vector3 _alternativePosition2; //Elles sont utilisées si plusieur personnages sont sur la meme cases
+    private Transform _alternativePosition2; //Elles sont utilisées si plusieur personnages sont sur la meme cases
     [SerializeField]
-    private Vector3 _alternativePosition3; //dans ce cas le premier sera sur la position1, le deuxieme sur la position2 etc...
+    private Transform _alternativePosition3; //dans ce cas le premier sera sur la position1, le deuxieme sur la position2 etc...
     [SerializeField]
-    private Vector3 _alternativePosition4; //TODO: les mettre en serialize pour le setter directement sur le prefab
+    private Transform _alternativePosition4; //TODO: les mettre en serialize pour le setter directement sur le prefab
 
 
     public AbstractCase GetNextCase()
@@ -56,38 +58,35 @@ public abstract class AbstractCase : MonoBehaviour
     {
         _nbPlayerOnCase = value;
     }
+    public int GetCaseID()
+    {
+        return _caseID;
+    }
+    public int GetNextCaseID()
+    {
+        return GetNextCase().GetCaseID();
+    }
+    public void SetCaseID(int value)
+    {
+        _caseID = value;
+    }
     public Vector3 GetAlternatePosition1()
     {
-        return _alternativePosition1;
+        return _alternativePosition1.position;
     }
     public Vector3 GetAlternatePosition2()
     {
-        return _alternativePosition2;
+        return _alternativePosition2.position;
     }
     public Vector3 GetAlternatePosition3()
     {
-        return _alternativePosition3;
+        return _alternativePosition3.position;
     }
     public Vector3 GetAlternatePosition4()
     {
-        return _alternativePosition4;
+        return _alternativePosition4.position;
     }
 
-    public Vector3 GetPositionForPlayer()//Retourne la position ou le joueur doit etre sur la case
-    {
-        switch(_nbPlayerOnCase)
-        {
-            case 0:
-                return this.transform.position;
-            case 1:
-                return _alternativePosition2;
-            case 2:
-                return _alternativePosition3;
-            case 3:
-                return _alternativePosition4;
-            default:
-                return Vector3.zero;
-        }
-    }
+    public abstract void ApplyEffect(int playerID);
 
 }

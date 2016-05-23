@@ -12,4 +12,10 @@ public class BlueCase : AbstractCase
 	{
 
 	}
+
+    public override void ApplyEffect(int playerID)
+    {
+        //Not implemented yet
+        //Utils.Instance.GetPlayerByID(playerID).AddPoints(50) 
+    }
 }

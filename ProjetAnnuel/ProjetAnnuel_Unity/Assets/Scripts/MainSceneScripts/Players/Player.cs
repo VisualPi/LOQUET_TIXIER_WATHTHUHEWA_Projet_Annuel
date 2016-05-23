@@ -1,15 +1,26 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Player : MonoBehaviour {
+public enum EPlayer { BLUE = 0, GREEN, RED, YELLOW};
 
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
+public class Player : MonoBehaviour
+{
+    [SerializeField]
+    private bool _isAI;
+    [SerializeField]
+    private EPlayer _playerColor;
+
+    public void SetIsAI(bool value)
+    {
+        _isAI = value;
+    }
+    public bool GetIsAI()
+    {
+        return _isAI;
+    }
+    public EPlayer GetPlayerColor()
+    {
+        return _playerColor;
+    }
+
 }

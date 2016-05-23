@@ -13,4 +13,9 @@ public class DepartCase : AbstractCase
 	{
 
 	}
+
+    public override void ApplyEffect(int playerID)
+    {
+
+    }
 }
