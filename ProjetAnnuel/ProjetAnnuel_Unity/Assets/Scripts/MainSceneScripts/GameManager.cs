@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 public class GameManager : MonoBehaviour
 {
-    private List<int> playersCaseID;//list contenant l'ID de la case de chaque joueur dans l'ordre de l'enum EPlayer
+    private List<int> playersCaseID;//list contenant l'ID de la case de chaque joueur dans l'ordre de l'enum EPlayer. Par exemple playersCaseID[0] correspondra a la case sur laquelle est le joueur 0 (bleu)
 
     private EPlayer _currentPlayer;
     void Start()
@@ -33,7 +33,7 @@ public class GameManager : MonoBehaviour
         else
         {
             playersCaseID[(int)_currentPlayer] = Utils.Instance.GetCaseByID(playersCaseID[(int)_currentPlayer]).GetNextCaseID(); //Met l'id de la case actuelle dans la list a la position currentPlayer
-            Utils.Instance.GetPlayerByColor(_currentPlayer).transform.position = Utils.Instance.GetCaseByID(playersCaseID[(int)_currentPlayer]).transform.position;
+            Utils.Instance.GetPlayerByColor(_currentPlayer).transform.position = Utils.Instance.GetCaseByID(playersCaseID[(int)_currentPlayer]).GetCasePosition(_currentPlayer);
             if (currentNumber == diceNumber)
             {
                 diceNumber = -1;
