@@ -39,6 +39,7 @@ public class GameManager : MonoBehaviour
                 diceNumber = -1;
                 currentNumber = 1;
                 _currentPlayer = NextPlayer();
+                diceChoosed = false;
             }
             else
                 currentNumber++;

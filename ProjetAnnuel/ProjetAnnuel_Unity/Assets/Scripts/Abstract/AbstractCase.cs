@@ -66,7 +66,7 @@ public abstract class AbstractCase : MonoBehaviour
         }
     }
 
-    void Start()
+    void Awake()
     {
         _playersOnCase = new List<SPlayerCasePos>();
     }
