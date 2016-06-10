@@ -34,14 +34,6 @@ public class MoveScript : MonoBehaviour
     {
         Vector3 direction = Vector3.zero;
 
-        if (Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.DownArrow))
-        {
-            if (_speed < _maxSpeed)
-                _speed = (_speed + _acceleration) * Time.deltaTime;
-            else
-                _speed = _maxSpeed;
-        }
-
         if (Input.GetKey(KeyCode.UpArrow))
         {
             direction += Vector3.forward;
@@ -51,20 +43,31 @@ public class MoveScript : MonoBehaviour
             direction += Vector3.back;
         }
 
+
         if (direction != Vector3.zero)
         {
             direction = direction.normalized;
-            _lastDirection = direction;
+
+            if (direction != _lastDirection)
+            {
+                _lastDirection = direction;
+                _speed /= 3;
+            }
+
+            if (_speed < _maxSpeed)
+                _speed += (_acceleration * Time.deltaTime);
+            else
+                _speed = _maxSpeed;
         }
 
 
         if (Input.GetKey(KeyCode.LeftArrow))
         {
-            _playerTransform.Rotate(Vector3.down * Time.deltaTime * _rotationSpeed, Space.Self);
+            _playerTransform.Rotate(Vector3.down * _rotationSpeed * Time.deltaTime, Space.Self);
         }
         if (Input.GetKey(KeyCode.RightArrow))
         {
-            _playerTransform.Rotate(Vector3.up * Time.deltaTime * _rotationSpeed, Space.Self);
+            _playerTransform.Rotate(Vector3.up * _rotationSpeed * Time.deltaTime, Space.Self);
         }
 
 
