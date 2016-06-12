@@ -6,13 +6,18 @@ public class MainMenu : MonoBehaviour
     public Transform MainMenuPanel;
     public Transform StartGamePanel;
 
-    public string playerBlueName;
-    private string playerRedName;
-    private string playerGreenName;
-    private string playerYellowName;
+	private string playerBlueName = "PlayerName1";
+    private string playerRedName = "PlayerName2";
+    private string playerGreenName = "PlayerName3";
+    private string playerYellowName = "PlayerName4";
+
+	private bool playerBlueIsAI;
+	private bool playerRedIsAI;
+	private bool playerGreenIsAI;
+	private bool playerYellowIsAI;
 
 
-    public void OnClickExit()
+	public void OnClickExit()
     {
         Application.Quit();
     }
@@ -43,5 +48,30 @@ public class MainMenu : MonoBehaviour
     {
         playerYellowName = name;
     }
+	public void OnBlueAIChecked( bool value )
+	{
+		playerBlueIsAI = value;
+	}
+	public void OnRedAIChecked( bool value )
+	{
+		playerRedIsAI = value;
+	}
+	public void OnGreenAIChecked( bool value )
+	{
+		playerGreenIsAI = value;
+	}
+	public void OnYellowAIChecked( bool value )
+	{
+		playerYellowIsAI = value;
+	}
+	public void OnValidateButtonClick()
+	{
+		Debug.Log("Player Blue : " + playerBlueName + " is AI = " + playerBlueIsAI);
+		Debug.Log("Player Red : " + playerRedName + " is AI = " + playerRedIsAI);
+		Debug.Log("Player Green : " + playerGreenName + " is AI = " + playerGreenIsAI);
+		Debug.Log("Player Yellow : " + playerYellowName + " is AI = " + playerYellowIsAI);
+		//assigner variables
+		Application.LoadLevel(1);
+	}
 
 }
