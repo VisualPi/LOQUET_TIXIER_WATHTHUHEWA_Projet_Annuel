@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
 {
@@ -71,7 +72,15 @@ public class MainMenu : MonoBehaviour
 		Debug.Log("Player Green : " + playerGreenName + " is AI = " + playerGreenIsAI);
 		Debug.Log("Player Yellow : " + playerYellowName + " is AI = " + playerYellowIsAI);
 		//assigner variables
-		Application.LoadLevel(1);
+		PlayerPrefs.SetString("playerBlueName", playerBlueName);
+		PlayerPrefs.SetString("playerRedName", playerRedName);
+		PlayerPrefs.SetString("playerGreenName", playerGreenName);
+		PlayerPrefs.SetString("playerYellowName", playerYellowName);
+		PlayerPrefs.SetInt("playerBlueIsAI", playerBlueIsAI ? 1 : 0);
+		PlayerPrefs.SetInt("playerRedIsAI", playerRedIsAI ? 1 : 0);
+		PlayerPrefs.SetInt("playerGreenIsAI", playerGreenIsAI ? 1 : 0);
+		PlayerPrefs.SetInt("playerYellowIsAI", playerYellowIsAI ? 1 : 0);
+		SceneManager.LoadScene("main");
 	}
 
 }
