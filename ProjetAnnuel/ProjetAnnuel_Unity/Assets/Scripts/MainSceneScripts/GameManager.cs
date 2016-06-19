@@ -52,8 +52,9 @@ public class GameManager : MonoBehaviour
 				else
 				{
 					playersCaseID[(int)_currentPlayer] = Utils.Instance.GetCaseByID(playersCaseID[(int)_currentPlayer]).GetNextCaseID(); //Met l'id de la case actuelle dans la list a la position currentPlayer
-					Utils.Instance.GetPlayerByColor(_currentPlayer).InitAnim(Utils.Instance.GetCaseByID(playersCaseID[(int)_currentPlayer]).GetCasePosition(_currentPlayer));
-					//Debug.Log("Init Anim case : " + playersCaseID[(int)_currentPlayer] + " , to pos : " + Utils.Instance.GetCaseByID(playersCaseID[(int)_currentPlayer]).GetCasePosition(_currentPlayer));
+					var pos = Utils.Instance.GetCaseByID(playersCaseID[(int)_currentPlayer]).GetCasePosition(_currentPlayer);
+                    Utils.Instance.GetPlayerByColor(_currentPlayer).InitAnim(pos);
+					Debug.Log("Init Anim case : " + playersCaseID[(int)_currentPlayer] + " , to pos : " + pos);
 				}
 
 				//Utils.Instance.GetPlayerByColor(_currentPlayer).transform.position = Utils.Instance.GetCaseByID(playersCaseID[(int)_currentPlayer]).GetCasePosition(_currentPlayer);
