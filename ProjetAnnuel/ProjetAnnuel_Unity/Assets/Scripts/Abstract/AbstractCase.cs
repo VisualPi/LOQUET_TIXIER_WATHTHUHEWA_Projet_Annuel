@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 using System.Linq;
+using System;
 //public enum ECaseType { DEPART, FIN, BLUE, RED, GREEN, YELLOW }
 
 public struct SPlayerCasePos
@@ -133,6 +134,8 @@ public abstract class AbstractCase : MonoBehaviour
     }
     public Vector3 GetCasePosition(EPlayer currentPlayer)
     {
+		if(_previousCase) //exclu la case départ
+			_previousCase.RemovePlayerFromCase(currentPlayer);//on supprime le player actuelle de la liste de la case d'avant (sauf si c'est la case de départ)
         if (_playersOnCase.Count == 0)//si jamais la case est vide on ajoute dans la liste le joueur a la position 0 et on retourne la position de la case (position centrale)
         {
             _playersOnCase.Add(new SPlayerCasePos() { player = currentPlayer, casePos = 0 });//on pourrait assigner casePos avec la fonction GetNoneOccupiedPos mais bon
@@ -147,6 +150,20 @@ public abstract class AbstractCase : MonoBehaviour
         var i = GetNoneOccupiedPos();//on prend l'id d'une position alternative pas déja prise
         _playersOnCase.Add(new SPlayerCasePos() { player = currentPlayer, casePos = i });//on ajoute le joueur courant a la position retournée par la fonction
         return GetPositionByID(i);//on retourne cette position pour le mouvement dans le GameManager
+    }
+	public void RemovePlayerFromCase(EPlayer player)
+	{
+		try
+		{
+			var index = _playersOnCase.FindIndex(f => f.player == player);
+			Debug.Log("index : " + index);
+			_playersOnCase.RemoveAt(index);
+		}
+		catch(Exception ex)
+		{
+			Debug.Log(ex.ToString());
+		}
+		
     }
     public abstract void ApplyEffect(int playerID);
 
