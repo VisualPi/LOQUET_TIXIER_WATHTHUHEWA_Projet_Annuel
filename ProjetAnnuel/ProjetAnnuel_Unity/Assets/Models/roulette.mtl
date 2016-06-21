@@ -1,0 +1,91 @@
+# Blender MTL File: 'roulette.blend'
+# Material Count: 10
+
+newmtl None
+Ns 0
+Ka 0.000000 0.000000 0.000000
+Kd 0.8 0.8 0.8
+Ks 0.8 0.8 0.8
+d 1
+illum 2
+map_Kd C:\Users\Jonathan\Documents\ESGI\5A\Projet Annuel\trunk\ProjetAnnuel\ProjetAnnuel_Unity\Assets\Textures\UI\numbers\layout.png
+
+newmtl None_NONE
+Ns 0
+Ka 0.000000 0.000000 0.000000
+Kd 0.8 0.8 0.8
+Ks 0.8 0.8 0.8
+d 1
+illum 2
+
+newmtl None_layout2.png
+Ns 0
+Ka 0.000000 0.000000 0.000000
+Kd 0.8 0.8 0.8
+Ks 0.8 0.8 0.8
+d 1
+illum 2
+map_Kd C:\Users\Jonathan\Documents\ESGI\5A\Projet Annuel\trunk\ProjetAnnuel\ProjetAnnuel_Unity\Assets\Textures\UI\numbers\layout2.png
+
+newmtl None_layout3.png
+Ns 0
+Ka 0.000000 0.000000 0.000000
+Kd 0.8 0.8 0.8
+Ks 0.8 0.8 0.8
+d 1
+illum 2
+map_Kd C:\Users\Jonathan\Documents\ESGI\5A\Projet Annuel\trunk\ProjetAnnuel\ProjetAnnuel_Unity\Assets\Textures\UI\numbers\layout3.png
+
+newmtl None_layout4.png
+Ns 0
+Ka 0.000000 0.000000 0.000000
+Kd 0.8 0.8 0.8
+Ks 0.8 0.8 0.8
+d 1
+illum 2
+map_Kd C:\Users\Jonathan\Documents\ESGI\5A\Projet Annuel\trunk\ProjetAnnuel\ProjetAnnuel_Unity\Assets\Textures\UI\numbers\layout4.png
+
+newmtl None_layout5.png
+Ns 0
+Ka 0.000000 0.000000 0.000000
+Kd 0.8 0.8 0.8
+Ks 0.8 0.8 0.8
+d 1
+illum 2
+map_Kd C:\Users\Jonathan\Documents\ESGI\5A\Projet Annuel\trunk\ProjetAnnuel\ProjetAnnuel_Unity\Assets\Textures\UI\numbers\layout5.png
+
+newmtl None_layout6.png
+Ns 0
+Ka 0.000000 0.000000 0.000000
+Kd 0.8 0.8 0.8
+Ks 0.8 0.8 0.8
+d 1
+illum 2
+map_Kd C:\Users\Jonathan\Documents\ESGI\5A\Projet Annuel\trunk\ProjetAnnuel\ProjetAnnuel_Unity\Assets\Textures\UI\numbers\layout6.png
+
+newmtl None_layout7.png
+Ns 0
+Ka 0.000000 0.000000 0.000000
+Kd 0.8 0.8 0.8
+Ks 0.8 0.8 0.8
+d 1
+illum 2
+map_Kd C:\Users\Jonathan\Documents\ESGI\5A\Projet Annuel\trunk\ProjetAnnuel\ProjetAnnuel_Unity\Assets\Textures\UI\numbers\layout7.png
+
+newmtl None_layout8.png
+Ns 0
+Ka 0.000000 0.000000 0.000000
+Kd 0.8 0.8 0.8
+Ks 0.8 0.8 0.8
+d 1
+illum 2
+map_Kd C:\Users\Jonathan\Documents\ESGI\5A\Projet Annuel\trunk\ProjetAnnuel\ProjetAnnuel_Unity\Assets\Textures\UI\numbers\layout8.png
+
+newmtl None_layout9.png
+Ns 0
+Ka 0.000000 0.000000 0.000000
+Kd 0.8 0.8 0.8
+Ks 0.8 0.8 0.8
+d 1
+illum 2
+map_Kd C:\Users\Jonathan\Documents\ESGI\5A\Projet Annuel\trunk\ProjetAnnuel\ProjetAnnuel_Unity\Assets\Textures\UI\numbers\layout9.png

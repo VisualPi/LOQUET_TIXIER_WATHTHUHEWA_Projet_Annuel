@@ -4,13 +4,13 @@ using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
 {
-    public Transform MainMenuPanel;
-    public Transform StartGamePanel;
+	public Transform MainMenuPanel;
+	public Transform StartGamePanel;
 
-	private string playerBlueName = "PlayerName1";
-    private string playerRedName = "PlayerName2";
-    private string playerGreenName = "PlayerName3";
-    private string playerYellowName = "PlayerName4";
+	private string playerBlueName = "No name1";
+	private string playerRedName = "No name2";
+	private string playerGreenName = "No name3";
+	private string playerYellowName = "No name4";
 
 	private bool playerBlueIsAI;
 	private bool playerRedIsAI;
@@ -19,36 +19,36 @@ public class MainMenu : MonoBehaviour
 
 
 	public void OnClickExit()
-    {
-        Application.Quit();
-    }
-    public void OnClickStart()
-    {
-        MainMenuPanel.gameObject.SetActive(false);
-        StartGamePanel.gameObject.SetActive(true);
-    }
-    public void OnClickReturnFromStartPanel()
-    {
-        StartGamePanel.gameObject.SetActive(false);
-        MainMenuPanel.gameObject.SetActive(true);
-    }
+	{
+		Application.Quit();
+	}
+	public void OnClickStart()
+	{
+		MainMenuPanel.gameObject.SetActive(false);
+		StartGamePanel.gameObject.SetActive(true);
+	}
+	public void OnClickReturnFromStartPanel()
+	{
+		StartGamePanel.gameObject.SetActive(false);
+		MainMenuPanel.gameObject.SetActive(true);
+	}
 
-    public void OnBlueNameEdit(string name)
-    {
-        playerBlueName = name;
-    }
-    public void OnRedNameEdit(string name)
-    {
-        playerRedName = name;
-    }
-    public void OnGreenNameEdit(string name)
-    {
-        playerGreenName = name;
-    }
-    public void OnYellowNameEdit(string name)
-    {
-        playerYellowName = name;
-    }
+	public void OnBlueNameEdit( string name )
+	{
+		playerBlueName = name;
+	}
+	public void OnRedNameEdit( string name )
+	{
+		playerRedName = name;
+	}
+	public void OnGreenNameEdit( string name )
+	{
+		playerGreenName = name;
+	}
+	public void OnYellowNameEdit( string name )
+	{
+		playerYellowName = name;
+	}
 	public void OnBlueAIChecked( bool value )
 	{
 		playerBlueIsAI = value;

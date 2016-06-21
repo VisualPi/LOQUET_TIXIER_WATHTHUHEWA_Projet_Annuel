@@ -7,12 +7,24 @@ public class GameManager : MonoBehaviour
 
 	private EPlayer _currentPlayer;
 
+	[SerializeField]
+	private CameraManager _cameraManager;
+
 
 	void Start()
 	{
 		playersCaseID = new List<int>(4);
 		for( int i = 0 ; i < 4 ; i++ )
 			playersCaseID.Insert(i, 0);
+		Utils.Instance.GetPlayerByColor(EPlayer.BLUE).SetName(PlayerPrefs.GetString("playerBlueName"));
+		Utils.Instance.GetPlayerByColor(EPlayer.RED).SetName(PlayerPrefs.GetString("playerRedName"));
+		Utils.Instance.GetPlayerByColor(EPlayer.GREEN).SetName(PlayerPrefs.GetString("playerGreenName"));
+		Utils.Instance.GetPlayerByColor(EPlayer.YELLOW).SetName(PlayerPrefs.GetString("playerYellowName"));
+		Utils.Instance.GetPlayerByColor(EPlayer.BLUE).SetIsAI(PlayerPrefs.GetInt("playerBlueIsAI") == 1 ? true : false);
+		Utils.Instance.GetPlayerByColor(EPlayer.BLUE).SetIsAI(PlayerPrefs.GetInt("playerRedIsAI") == 1 ? true : false);
+		Utils.Instance.GetPlayerByColor(EPlayer.BLUE).SetIsAI(PlayerPrefs.GetInt("playerGreenIsAI") == 1 ? true : false);
+		Utils.Instance.GetPlayerByColor(EPlayer.BLUE).SetIsAI(PlayerPrefs.GetInt("playerYellowIsAI") == 1 ? true : false);
+
 		Utils.Instance.GetPlayerByColor(EPlayer.BLUE).transform.position = Utils.Instance.GetDepartCase().GetCasePosition(EPlayer.BLUE);
 		Utils.Instance.GetPlayerByColor(EPlayer.GREEN).transform.position = Utils.Instance.GetDepartCase().GetCasePosition(EPlayer.GREEN);
 		Utils.Instance.GetPlayerByColor(EPlayer.RED).transform.position = Utils.Instance.GetDepartCase().GetCasePosition(EPlayer.RED);
@@ -53,12 +65,20 @@ public class GameManager : MonoBehaviour
 				{
 					playersCaseID[(int)_currentPlayer] = Utils.Instance.GetCaseByID(playersCaseID[(int)_currentPlayer]).GetNextCaseID(); //Met l'id de la case actuelle dans la list a la position currentPlayer
 					var pos = Utils.Instance.GetCaseByID(playersCaseID[(int)_currentPlayer]).GetCasePosition(_currentPlayer);
-                    Utils.Instance.GetPlayerByColor(_currentPlayer).InitAnim(pos);
+					Utils.Instance.GetPlayerByColor(_currentPlayer).InitAnim(pos);
 					Debug.Log("Init Anim case : " + playersCaseID[(int)_currentPlayer] + " , to pos : " + pos);
 				}
-
-				//Utils.Instance.GetPlayerByColor(_currentPlayer).transform.position = Utils.Instance.GetCaseByID(playersCaseID[(int)_currentPlayer]).GetCasePosition(_currentPlayer);
-
+			}
+		}
+		else
+		{
+			if( !_cameraManager.GetIsFocused() )
+				_cameraManager.FocusOnPlayer(_currentPlayer);
+			else if( _cameraManager.IsProcessFinished() )
+			{
+				diceNumber = _cameraManager.GetNumber();
+				diceChoosed = true;
+				_cameraManager.UnfocusOnPlayer(_currentPlayer);
 			}
 		}
 
@@ -79,12 +99,5 @@ public class GameManager : MonoBehaviour
 		default:
 			return EPlayer.BLUE;
 		}
-	}
-
-	public void OnDiceClick( bool value )
-	{
-		diceNumber = Random.Range(1, 6);
-		Debug.Log("dice number : " + diceNumber);
-		diceChoosed = true;
 	}
 }
