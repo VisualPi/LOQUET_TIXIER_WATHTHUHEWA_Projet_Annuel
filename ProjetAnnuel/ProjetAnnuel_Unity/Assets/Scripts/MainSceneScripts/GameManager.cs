@@ -10,6 +10,8 @@ public class GameManager : MonoBehaviour
 	[SerializeField]
 	private CameraManager _cameraManager;
 
+	[SerializeField]
+	private Cinematique _cinematique;
 
 	void Start()
 	{
@@ -34,57 +36,23 @@ public class GameManager : MonoBehaviour
 	private int diceNumber = -1;//nombre de déplacement choisi par le dé
 	private int currentNumber = 1;//nombre actuel de déplacement
 	bool diceChoosed = false;
+
+
+
+
+	// Update is called once per frame
 	void Update()
 	{
-		if( diceChoosed )
+		if( _cinematique.GetCinematiqueFinished() )
 		{
-			if( diceNumber == -1 )
-			{
-				diceChoosed = false;
-			}
-			else
-			{
-				if( Utils.Instance.GetPlayerByColor(_currentPlayer).IsAnimStarted() )
-				{
-					if( Utils.Instance.GetPlayerByColor(_currentPlayer).IsPositionReached() )
-					{
-						Debug.Log("Position reached");
-						Utils.Instance.GetPlayerByColor(_currentPlayer).SetAnimStarted(false);
-						if( currentNumber == diceNumber )
-						{
-							diceNumber = -1;
-							currentNumber = 1;
-							_currentPlayer = NextPlayer();
-							diceChoosed = false;
-						}
-						else
-							currentNumber++;
-					}
-				}
-				else
-				{
-					playersCaseID[(int)_currentPlayer] = Utils.Instance.GetCaseByID(playersCaseID[(int)_currentPlayer]).GetNextCaseID(); //Met l'id de la case actuelle dans la list a la position currentPlayer
-					var pos = Utils.Instance.GetCaseByID(playersCaseID[(int)_currentPlayer]).GetCasePosition(_currentPlayer);
-					Utils.Instance.GetPlayerByColor(_currentPlayer).InitAnim(pos);
-					Debug.Log("Init Anim case : " + playersCaseID[(int)_currentPlayer] + " , to pos : " + pos);
-				}
-			}
+			_cinematique.gameObject.SetActive(false);
+			_cameraManager.GetMainCamera().gameObject.SetActive(true);
+			GetComponent<Animator>().SetBool("IsCinematiqueFinished", true);
 		}
-		else
-		{
-			if( !_cameraManager.GetIsFocused() )
-				_cameraManager.FocusOnPlayer(_currentPlayer);
-			else if( _cameraManager.IsProcessFinished() )
-			{
-				diceNumber = _cameraManager.GetNumber();
-				diceChoosed = true;
-				_cameraManager.UnfocusOnPlayer(_currentPlayer);
-			}
-		}
-
 	}
 
-	public EPlayer NextPlayer()//TODO: faire un ordre aleatoire en début de partie
+
+	public EPlayer GetNextPlayer()//TODO: faire un ordre aleatoire en début de partie
 	{
 		switch( _currentPlayer )
 		{
@@ -99,5 +67,22 @@ public class GameManager : MonoBehaviour
 		default:
 			return EPlayer.BLUE;
 		}
+	}
+
+	public EPlayer GetCurrentPlayer()
+	{
+		return _currentPlayer;
+	}
+	public void NextPlayer()
+	{
+		_currentPlayer = GetNextPlayer();
+	}
+	public void SetDiceNumber(int number)
+	{
+		diceNumber = number;
+	}
+	public int GetDiceNumber()
+	{
+		return diceNumber;
 	}
 }

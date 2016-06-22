@@ -156,7 +156,6 @@ public abstract class AbstractCase : MonoBehaviour
 		try
 		{
 			var index = _playersOnCase.FindIndex(f => f.player == player);
-			Debug.Log("index : " + index);
 			_playersOnCase.RemoveAt(index);
 		}
 		catch(Exception ex)

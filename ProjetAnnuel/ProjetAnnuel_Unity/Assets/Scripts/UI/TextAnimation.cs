@@ -30,9 +30,6 @@ public class TextAnimation : MonoBehaviour
 	}
 	public void PlayAnim()
 	{
-		if (_text.text == "TURN")//oui c'est deg !!!!
-			_animation.Play("TextTurnTranslate");
-		else
-			_animation.Play("TextTranslate");
+		_animation.SetTrigger("TranslateTrigger");
 	}
 }
