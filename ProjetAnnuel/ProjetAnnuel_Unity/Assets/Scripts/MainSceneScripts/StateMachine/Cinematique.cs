@@ -29,4 +29,9 @@ public class Cinematique : MonoBehaviour
 		return isAnimFinished;
 	}
 
+	public void OnIncreaseSpeed()
+	{
+		GetComponent<Animator>().speed = 1;
+	}
+
 }
