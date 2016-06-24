@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 public class GameManager : MonoBehaviour
 {
-	private List<int> playersCaseID;//list contenant l'ID de la case de chaque joueur dans l'ordre de l'enum EPlayer. Par exemple playersCaseID[0] correspondra a la case sur laquelle est le joueur 0 (bleu)
+	private List<EPlayer> _playerOrder;
 
 	private EPlayer _currentPlayer;
 
@@ -15,9 +15,7 @@ public class GameManager : MonoBehaviour
 
 	void Start()
 	{
-		playersCaseID = new List<int>(4);
-		for( int i = 0 ; i < 4 ; i++ )
-			playersCaseID.Insert(i, 0);
+		_playerOrder = new List<EPlayer>(4);
 		Utils.Instance.GetPlayerByColor(EPlayer.BLUE).SetName(PlayerPrefs.GetString("playerBlueName"));
 		Utils.Instance.GetPlayerByColor(EPlayer.RED).SetName(PlayerPrefs.GetString("playerRedName"));
 		Utils.Instance.GetPlayerByColor(EPlayer.GREEN).SetName(PlayerPrefs.GetString("playerGreenName"));
@@ -36,9 +34,6 @@ public class GameManager : MonoBehaviour
 	private int diceNumber = -1;//nombre de déplacement choisi par le dé
 	private int currentNumber = 1;//nombre actuel de déplacement
 	bool diceChoosed = false;
-
-
-
 
 	// Update is called once per frame
 	void Update()
@@ -68,6 +63,7 @@ public class GameManager : MonoBehaviour
 			return EPlayer.BLUE;
 		}
 	}
+
 
 	public EPlayer GetCurrentPlayer()
 	{
