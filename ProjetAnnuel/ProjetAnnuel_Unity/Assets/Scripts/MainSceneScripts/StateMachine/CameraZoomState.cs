@@ -10,6 +10,7 @@ public class CameraZoomState : StateMachineBehaviour
 		animator.GetComponent<CameraManager>().GetMainCamera().SetActive(false);
 		animator.GetComponent<CameraManager>().GetMainCamera().GetComponent<AudioListener>().enabled = false;
 		animator.GetComponent<CameraManager>().GetPlayerCamera().SetActive(true);
+		animator.GetComponent<CameraManager>().GetRoulette().gameObject.SetActive(false);
 		animator.GetComponent<CameraManager>().GetPlayerCamera().GetComponent<AudioListener>().enabled = true;
 		animator.GetComponent<CameraManager>().GetPlayerCanvas().SetActive(true);
 	}

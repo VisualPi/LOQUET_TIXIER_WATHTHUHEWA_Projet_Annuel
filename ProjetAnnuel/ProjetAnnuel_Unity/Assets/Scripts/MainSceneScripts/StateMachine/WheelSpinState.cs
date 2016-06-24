@@ -7,7 +7,8 @@ public class WheelSpinState : StateMachineBehaviour
 	// OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
 	override public void OnStateEnter( Animator animator, AnimatorStateInfo stateInfo, int layerIndex )
 	{
-		animator.GetComponent<CameraManager>().GetNameText().SetText(Utils.Instance.GetPlayerByColor(animator.GetComponent<GameManager>().GetCurrentPlayer()).GetName().ToUpper());
+		animator.GetComponent<CameraManager>().GetRoulette().gameObject.SetActive(true);
+        animator.GetComponent<CameraManager>().GetNameText().SetText(Utils.Instance.GetPlayerByColor(animator.GetComponent<GameManager>().GetCurrentPlayer()).GetName().ToUpper());
 		animator.GetComponent<CameraManager>().GetNameText().PlayAnim();
 		animator.GetComponent<CameraManager>().GetTurnText().PlayAnim();
 		animator.GetComponent<CameraManager>().GetRoulette().StartSpin();

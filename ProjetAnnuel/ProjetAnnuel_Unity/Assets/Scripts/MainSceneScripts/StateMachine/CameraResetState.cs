@@ -8,6 +8,7 @@ public class CameraResetState : StateMachineBehaviour
 	override public void OnStateEnter( Animator animator, AnimatorStateInfo stateInfo, int layerIndex )
 	{
 		animator.GetComponent<CameraManager>().UnfocusOnPlayer(animator.GetComponent<GameManager>().GetCurrentPlayer());
+		animator.GetComponent<CameraManager>().GetRoulette().gameObject.SetActive(false);
 
 	}
 
