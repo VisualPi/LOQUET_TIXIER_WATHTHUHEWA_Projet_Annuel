@@ -44,8 +44,10 @@ public class PlayerMoveState : StateMachineBehaviour
 			{
 				var nextID = Utils.Instance.GetCaseByID(_currentPlayer.GetCaseID()).GetNextCaseID();
 				_currentPlayer.SetCaseID(nextID);
+                if (Utils.Instance.GetCaseByID(nextID).GetCaseType() == ECaseType.INTERSECTION)
+                    animator.GetComponent<GameManager>().SetDiceNumber(animator.GetComponent<GameManager>().GetDiceNumber() + 1);
 
-				_startMarker = _currentPlayer.transform.position;
+                _startMarker = _currentPlayer.transform.position;
 				_endMarker = Utils.Instance.GetCaseByID(nextID).GetCasePosition(_currentPlayer.GetPlayerColor());
 				float animLength = Vector3.Distance(_startMarker, _endMarker);
 

@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public enum ECaseType { DEPART, FIN, BLUE, RED, GREEN, YELLOW }
+//public enum ECaseType { DEPART, FIN, BLUE, RED, GREEN, YELLOW }
 
 public class Case : MonoBehaviour
 {

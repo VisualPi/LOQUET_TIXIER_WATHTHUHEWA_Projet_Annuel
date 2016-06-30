@@ -3,15 +3,14 @@ using System.Collections;
 
 public class BlueCase : AbstractCase
 {
-	void Start()
-	{
-		SetNbPlayerOnCase(0);
-	}
+    void Start()
+    {
+    }
 
-	void Update()
-	{
+    void Update()
+    {
 
-	}
+    }
 
     public override void ApplyEffect(int playerID)
     {

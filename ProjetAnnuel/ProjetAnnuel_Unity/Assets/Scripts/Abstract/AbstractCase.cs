@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System;
-//public enum ECaseType { DEPART, FIN, BLUE, RED, GREEN, YELLOW }
+
+public enum ECaseType { DEPART, FIN, BLUE, RED, GREEN, YELLOW, INTERSECTION }
 
 public struct SPlayerCasePos
 {
@@ -23,6 +24,8 @@ public abstract class AbstractCase : MonoBehaviour
     private int _nbPlayerOnCase;
     [SerializeField]
     private int _caseID;
+    [SerializeField]
+    private ECaseType _caseType;
 
     [SerializeField]
     private Transform _alternativePosition1; //Les positions alternative sont en remplacements de la position de la case
@@ -34,6 +37,35 @@ public abstract class AbstractCase : MonoBehaviour
     private Transform _alternativePosition4; //TODO: les mettre en serialize pour le setter directement sur le prefab
 
     private List<SPlayerCasePos> _playersOnCase;
+
+    void Start()
+    {
+        switch (_caseType)
+        {
+            case ECaseType.DEPART:
+                _meshRenderer.material = Utils.Instance.purple;
+                break;
+            case ECaseType.FIN:
+                _meshRenderer.material = Utils.Instance.black;
+                break;
+            case ECaseType.BLUE:
+                _meshRenderer.material = Utils.Instance.blue;
+                break;
+            case ECaseType.RED:
+                _meshRenderer.material = Utils.Instance.red;
+                break;
+            case ECaseType.GREEN:
+                _meshRenderer.material = Utils.Instance.green;
+                break;
+            case ECaseType.YELLOW:
+                _meshRenderer.material = Utils.Instance.yellow;
+                break;
+        }
+        if (_caseType != ECaseType.DEPART)
+            _nbPlayerOnCase = 0;
+        else
+            _nbPlayerOnCase = 4;
+    }
 
     private int GetNoneOccupiedPos()
     {
@@ -132,8 +164,19 @@ public abstract class AbstractCase : MonoBehaviour
     {
         return _alternativePosition4.position;
     }
+
+    public ECaseType GetCaseType()
+    {
+        return _caseType;
+    }
+    public void SetCaseType(ECaseType type)
+    {
+        _caseType = type;
+    }
     public Vector3 GetCasePosition(EPlayer currentPlayer)
     {
+        if (_caseType == ECaseType.INTERSECTION)
+            return _transform.position;
 		if(_previousCase) //exclu la case départ
 			_previousCase.RemovePlayerFromCase(currentPlayer);//on supprime le player actuelle de la liste de la case d'avant (sauf si c'est la case de départ)
         if (_playersOnCase.Count == 0)//si jamais la case est vide on ajoute dans la liste le joueur a la position 0 et on retourne la position de la case (position centrale)
