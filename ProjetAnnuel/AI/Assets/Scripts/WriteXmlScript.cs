@@ -12,10 +12,6 @@ public class WriteXmlScript : MonoBehaviour
 
     RaceGameAi _raceGameAi;
 
-    List<PlayerMove> _playerMoves;
-    float _previousXAxis;
-    float _previousYAxis;
-
     List<PlayerInput> _playerInputs;
 
     int _tickStart;
@@ -55,99 +51,48 @@ public class WriteXmlScript : MonoBehaviour
 
         _tickStart = Time.frameCount;
 
-        _playerMoves = new List<PlayerMove>();
-        _previousXAxis = 0;
-        _previousYAxis = 0;
-
         _playerInputs = new List<PlayerInput>();
     }
 	
 	// Update is called once per frame
 	void Update ()
     {
-        
-	}
-
-    void FixedUpdate()
-    {
-        DetectMove();
         DetectKey();
 
-        if (Input.GetKey(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.A))
+            Debug.Log("A");
+
+        if (Input.GetKeyDown(KeyCode.Space))
         {
             if (_recording == true)
             {
-                _recording = false;
                 Debug.Log("Write - Begin");
                 WriteInXMLFile();
                 Debug.Log("Write - End");
+                _recording = false;
             }
-        }
-    }
-
-    void DetectMove()
-    {
-        float xAxis = Input.GetAxis("Vertical");
-        float yAxis = Input.GetAxis("Horizontal");
-
-        if ((xAxis != _previousXAxis) || (yAxis != _previousYAxis))
-        {
-            _playerMoves.Add(new PlayerMove(xAxis, yAxis, transform.position, transform.rotation, (Time.frameCount - _tickStart)));
-
-            _previousXAxis = xAxis;
-            _previousYAxis = yAxis;
         }
     }
 
     void DetectKey()
     {
-        DetectKeyDown();
-        DetectKeyUp();
-    }
-
-    void DetectKeyDown()
-    {
-        if(Input.GetKeyDown(KeyCode.UpArrow))
+        if (Input.anyKey)
         {
-            _playerInputs.Add(new PlayerInput((Time.frameCount - _tickStart), KeyCode.UpArrow, transform.position, transform.rotation));
-        }
+            List<KeyCode> keyCodes = new List<KeyCode>();
 
-        if (Input.GetKeyDown(KeyCode.DownArrow))
-        {
-            _playerInputs.Add(new PlayerInput((Time.frameCount - _tickStart), KeyCode.DownArrow, transform.position, transform.rotation));
-        }
+            if (Input.GetKey(KeyCode.UpArrow))
+                keyCodes.Add(KeyCode.UpArrow);
 
-        if (Input.GetKeyDown(KeyCode.LeftArrow))
-        {
-            _playerInputs.Add(new PlayerInput((Time.frameCount - _tickStart), KeyCode.LeftArrow, transform.position, transform.rotation));
-        }
+            if (Input.GetKey(KeyCode.DownArrow))
+                keyCodes.Add(KeyCode.DownArrow);
 
-        if (Input.GetKeyDown(KeyCode.RightArrow))
-        {
-            _playerInputs.Add(new PlayerInput((Time.frameCount - _tickStart), KeyCode.RightArrow, transform.position, transform.rotation));
-        }
-    }
+            if (Input.GetKey(KeyCode.RightArrow))
+                keyCodes.Add(KeyCode.RightArrow);
 
-    void DetectKeyUp()
-    {
-        if (Input.GetKeyUp(KeyCode.UpArrow))
-        {
-            _playerInputs.Add(new PlayerInput((Time.frameCount - _tickStart), KeyCode.UpArrow, transform.position, transform.rotation));
-        }
+            if (Input.GetKey(KeyCode.LeftArrow))
+                keyCodes.Add(KeyCode.LeftArrow);
 
-        if (Input.GetKeyUp(KeyCode.DownArrow))
-        {
-            _playerInputs.Add(new PlayerInput((Time.frameCount - _tickStart), KeyCode.DownArrow, transform.position, transform.rotation));
-        }
-
-        if (Input.GetKeyUp(KeyCode.LeftArrow))
-        {
-            _playerInputs.Add(new PlayerInput((Time.frameCount - _tickStart), KeyCode.LeftArrow, transform.position, transform.rotation));
-        }
-
-        if (Input.GetKeyUp(KeyCode.RightArrow))
-        {
-            _playerInputs.Add(new PlayerInput((Time.frameCount - _tickStart), KeyCode.RightArrow, transform.position, transform.rotation));
+            _playerInputs.Add(new PlayerInput((Time.frameCount - _tickStart), keyCodes, transform.position, transform.rotation));
         }
     }
 
@@ -163,7 +108,6 @@ public class WriteXmlScript : MonoBehaviour
 
     void WriteInXMLFile()
     {
-        _raceGameAi._patternVirage[0]._playerMoves = _playerMoves;
         _raceGameAi._patternVirage[0]._playerInputs = _playerInputs;
 
         System.Xml.Serialization.XmlSerializer writer = new XmlSerializer(typeof(RaceGameAi));

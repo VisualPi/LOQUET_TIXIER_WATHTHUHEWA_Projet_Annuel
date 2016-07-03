@@ -1,27 +1,30 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+using System.Collections.Generic;
+
 public class PlayerInput 
 {
     public int _frameNumber;
-    public KeyCode _inputKey;
+    public List<KeyCode> _keyCodes;
     public Vector3 _position;
     public Quaternion _rotation;
 
     public PlayerInput()
     {
+        _keyCodes = new List<KeyCode>();
     }
 
-    public PlayerInput(int frameNumber, KeyCode inputKey, Vector3 position, Quaternion rotation)
+    public PlayerInput(int frameNumber, List<KeyCode> keyCodes, Vector3 position, Quaternion rotation)
     { 
         _frameNumber = frameNumber;
-        _inputKey = inputKey;
+        _keyCodes = keyCodes;
         _position = position;
         _rotation = rotation;
     }
 
-    public override string ToString()
+    public PlayerInput(List<KeyCode> keyCodes)
     {
-        return "Input : " + _inputKey + " " + _frameNumber;
+        _keyCodes = keyCodes;
     }
 }

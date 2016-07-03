@@ -6,7 +6,7 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{F4D226B0-7B55-D25F-56A5-1B95F0218BAB}</ProjectGuid>
+    <ProjectGuid>{B3C401E3-0B46-F31E-904E-DC08456CB035}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>Assembly-CSharp</AssemblyName>
@@ -45,6 +45,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\Scripts\AI\AiScript.cs" />
+     <Compile Include="Assets\Scripts\AI\CheckPointScript.cs" />
+     <Compile Include="Assets\Scripts\AI\PathScript.cs" />
      <Compile Include="Assets\Scripts\AI\RaceGameAi.cs" />
      <Compile Include="Assets\Scripts\Class\Pattern.cs" />
      <Compile Include="Assets\Scripts\Class\PlayerInput.cs" />
@@ -52,6 +55,8 @@
      <Compile Include="Assets\Scripts\Class\PlayerMove.cs" />
      <Compile Include="Assets\Scripts\MakeActionsScript.cs" />
      <Compile Include="Assets\Scripts\MoveScript.cs" />
+     <Compile Include="Assets\Scripts\PlayerCollisionScript.cs" />
+     <Compile Include="Assets\Scripts\SetFrameRateScript.cs" />
      <Compile Include="Assets\Scripts\WriteXmlScript.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>

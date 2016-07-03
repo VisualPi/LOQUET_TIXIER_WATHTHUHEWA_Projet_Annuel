@@ -16,6 +16,9 @@ public class MoveScript : MonoBehaviour
     float _rotationSpeed;
 
     [SerializeField]
+    float _changeDirectionCoefficient;
+
+    [SerializeField]
     float _acceleration;
 
     [SerializeField]
@@ -25,6 +28,14 @@ public class MoveScript : MonoBehaviour
 
     Vector3 _lastDirection;
 
+
+    public float Speed
+    {
+        get { return _speed; }
+        set { _speed = value; }
+    }
+
+
     // Use this for initialization
     void Start()
     {
@@ -33,24 +44,16 @@ public class MoveScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     { 
-        //Input.
-    }
-
-    void FixedUpdate()
-    {
         if(_playerMove)
         {
+            // Devant / Derrière
             Vector3 direction = Vector3.zero;
 
-            float axisX = Input.GetAxis("Vertical");
-            float axisY = Input.GetAxis("Horizontal");
+            if (Input.GetKey(KeyCode.UpArrow))
+                direction = Vector3.forward;
+            if (Input.GetKey(KeyCode.DownArrow))
+                direction = Vector3.back;
 
-            if (axisX != 0)
-            {
-                direction += (Vector3.forward * axisX);
-            }
-
-            
             if (direction != Vector3.zero)
             {
                 direction = direction.normalized;
@@ -58,7 +61,7 @@ public class MoveScript : MonoBehaviour
                 if (direction != _lastDirection)
                 {
                     _lastDirection = direction;
-                    _speed /= 3;
+                    _speed *= _changeDirectionCoefficient;
                 }
 
                 if (_speed < _maxSpeed)
@@ -66,13 +69,6 @@ public class MoveScript : MonoBehaviour
                 else
                     _speed = _maxSpeed;
             }
-
-
-            if (axisY != 0)
-            {
-                _playerTransform.Rotate(Vector3.up * axisY * _rotationSpeed * Time.deltaTime, Space.Self);
-            }
-
 
             if (!(Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.DownArrow)))
             {
@@ -87,32 +83,35 @@ public class MoveScript : MonoBehaviour
             }
 
             _playerTransform.Translate(_lastDirection * Time.deltaTime * _speed, Space.Self);
+
+
+            // Gauche / Droite
+            Vector3 rotation = Vector3.zero;
+
+            if (Input.GetKey(KeyCode.RightArrow))
+                rotation = Vector3.up;
+            if (Input.GetKey(KeyCode.LeftArrow))
+                rotation = Vector3.down;
+
+            if (rotation != Vector3.zero)
+            {
+                _playerTransform.Rotate(rotation * _rotationSpeed * Time.deltaTime, Space.Self);
+            }
         }
     }
 
-    public void makeMove(PlayerMove playerMove, PlayerInput playerInput)
+    
+    public void makeMove(PlayerInput playerInput)
     {
-        if (!_playerMove)
+        if (!_playerMove && playerInput != null)
         {
+            // Devant / Derrière
             Vector3 direction = Vector3.zero;
 
-            float axisX = 0;
-            float axisY = 0;
-            
-            if(playerMove != null)
-            {
-                axisX = playerMove._xAxis;
-                axisY = playerMove._yAxis;
-            }
-
-            KeyCode keyCode = KeyCode.None;
-            if (playerInput != null)
-                keyCode = playerInput._inputKey;
-
-            if (axisX != 0)
-            {
-                direction += (Vector3.forward * axisX);
-            }
+            if (playerInput._keyCodes.Contains(KeyCode.UpArrow))
+                direction = Vector3.forward;
+            if (playerInput._keyCodes.Contains(KeyCode.DownArrow))
+                direction = Vector3.back;
 
             if (direction != Vector3.zero)
             {
@@ -121,7 +120,7 @@ public class MoveScript : MonoBehaviour
                 if (direction != _lastDirection)
                 {
                     _lastDirection = direction;
-                    _speed /= 3;
+                    _speed *= _changeDirectionCoefficient;
                 }
 
                 if (_speed < _maxSpeed)
@@ -130,13 +129,7 @@ public class MoveScript : MonoBehaviour
                     _speed = _maxSpeed;
             }
 
-            if (axisY != 0)
-            {
-                _playerTransform.Rotate(Vector3.up * axisY * _rotationSpeed * Time.deltaTime, Space.Self);
-            }
-
-            
-            if (!((keyCode != KeyCode.UpArrow) || (keyCode != KeyCode.DownArrow)))
+            if (!(playerInput._keyCodes.Contains(KeyCode.UpArrow) || playerInput._keyCodes.Contains(KeyCode.DownArrow)))
             {
                 float deceleration = _deceleration * Time.deltaTime;
 
@@ -149,6 +142,20 @@ public class MoveScript : MonoBehaviour
             }
 
             _playerTransform.Translate(_lastDirection * Time.deltaTime * _speed, Space.Self);
+
+
+            // Gauche / Droite
+            Vector3 rotation = Vector3.zero;
+
+            if (playerInput._keyCodes.Contains(KeyCode.RightArrow))
+                rotation = Vector3.up;
+            if (playerInput._keyCodes.Contains(KeyCode.LeftArrow))
+                rotation = Vector3.down;
+
+            if (rotation != Vector3.zero)
+            {
+                _playerTransform.Rotate(rotation * _rotationSpeed * Time.deltaTime, Space.Self);
+            }
         }
     }
 }

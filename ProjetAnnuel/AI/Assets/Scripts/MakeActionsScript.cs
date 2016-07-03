@@ -13,18 +13,12 @@ public class MakeActionsScript : MonoBehaviour
 
     RaceGameAi _raceGameAi;
 
-    List<PlayerMove> _playerMoves;
-    int _nbMovesToDo;
-    int _currentMoveToDo;
-    PlayerMove _currentPlayerMove;
-
     List<PlayerInput> _playerInputs;
     int _nbInputsToDo;
     int _currentInputToDo;
     PlayerInput _currentPlayerInput;
-    PlayerInput _previousPlayerInput;
 
-    int _tickStart;
+    //int _tickStart;
     
     bool _actionsLaunched;
 
@@ -36,28 +30,18 @@ public class MakeActionsScript : MonoBehaviour
 	
     void Initialization()
     {
-        _playerMoves = new List<PlayerMove>(); ;
-        _nbMovesToDo = 0;
-        _currentMoveToDo = 0;
-        _currentPlayerMove = null;
-
         _playerInputs = new List<PlayerInput>();
         _nbInputsToDo = 0;
         _currentInputToDo = 0;
         _currentPlayerInput = null;
-        _previousPlayerInput = null;
 
-        _tickStart = 0;
+        //_tickStart = 0;
 
         _actionsLaunched = false;
     }
 
 	// Update is called once per frame
     void Update()
-    {
-        //_moveScript.makeMove(_currentKey);
-    }
-	void FixedUpdate() 
     {
         if ((Input.GetKey(KeyCode.P)) && (_actionsLaunched == false))
         {
@@ -66,57 +50,25 @@ public class MakeActionsScript : MonoBehaviour
             MakePlayerActions();
         }
 
-        int currentTick = Time.frameCount - _tickStart;
-
-        if (_nbMovesToDo > 0)
-        {
-            if (currentTick >= _playerMoves[_currentMoveToDo]._frameNumber)
-            {
-                _currentPlayerMove = _playerMoves[_currentMoveToDo];
-
-                ++_currentMoveToDo;
-                --_nbMovesToDo;
-            }
-        }
-
         if (_nbInputsToDo > 0)
-        {
-            if (currentTick >= _playerInputs[_currentInputToDo]._frameNumber)
-            {
-                _previousPlayerInput = _currentPlayerInput;
-                _currentPlayerInput = _playerInputs[_currentInputToDo];
+        {            
+            _currentPlayerInput = _playerInputs[_currentInputToDo];
 
-                ++_currentInputToDo;
-                --_nbInputsToDo;
-            }
-        }
+            ++_currentInputToDo;
+            --_nbInputsToDo;
 
-        if (_currentPlayerMove != null || _currentPlayerInput != null)
-        {
-            if (currentTick >= _currentPlayerMove._frameNumber || currentTick >= _currentPlayerInput._frameNumber)
-            {
-                _moveScript.makeMove(_currentPlayerMove, _currentPlayerInput);
-            }
-            
-            if(_previousPlayerInput != null && _currentPlayerInput != null)
-            {
-                if(_previousPlayerInput._inputKey == _currentPlayerInput._inputKey)
-                {
-                    _previousPlayerInput = null;
-                    _currentPlayerInput = null;
-                }
-            }
-            
-            if (_nbMovesToDo == 0 && _nbInputsToDo == 0)
-            {
-                if (currentTick >= _currentPlayerMove._frameNumber)
-                {
-                    Debug.Log("----- End -----");
+            if (_currentPlayerInput != null)
+                _moveScript.makeMove(_currentPlayerInput);
 
-                    Initialization();
+            if (_nbInputsToDo <= 0)
+            {
+                _currentInputToDo = 0;
 
-                    _moveScript._playerMove = true;
-                }
+                _actionsLaunched = false;
+
+                _moveScript._playerMove = true;
+
+                Debug.Log("----- End -----");
             }
         }
 	}
@@ -130,27 +82,20 @@ public class MakeActionsScript : MonoBehaviour
 
         file.Close();
 
-        _playerMoves = _raceGameAi._patternVirage[0]._playerMoves;
         _playerInputs = _raceGameAi._patternVirage[0]._playerInputs;
 
-        _nbMovesToDo = _playerMoves.Count;
         _nbInputsToDo = _playerInputs.Count;
 
-        if (_nbMovesToDo > 0)
-        {
-            _currentMoveToDo = 0;
-        }
 
-        if(_nbInputsToDo > 0)
+        if (_nbInputsToDo > 0)
         {
-            _currentMoveToDo = 0;
-        }
+            _currentInputToDo = 0;
 
-        if (_nbMovesToDo > 0 || _nbInputsToDo > 0)
-        {
             _actionsLaunched = true;
+            
             _moveScript._playerMove = false;
-            _tickStart = Time.frameCount;
+            
+            //_tickStart = Time.frameCount;
 
             Debug.Log("----- Begin -----");
         }
