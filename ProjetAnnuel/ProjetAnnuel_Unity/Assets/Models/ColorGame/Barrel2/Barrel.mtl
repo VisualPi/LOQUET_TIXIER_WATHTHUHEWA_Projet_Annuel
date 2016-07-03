@@ -1,0 +1,16 @@
+# 3ds Max Wavefront OBJ Exporter v0.97b - (c)2007 guruware
+# File Created: 19.09.2014 14:06:13
+
+newmtl Tex_0104_0_dds
+	Ns 10.000000
+	Ni 1.500000
+	d 1.000000
+	Tr 0.000000
+	Tf 1.000000 1.000000 1.000000 
+	illum 2
+	Ka 0.588000 0.588000 0.588000
+	Kd 0.588000 0.588000 0.588000
+	Ks 0.000000 0.000000 0.000000
+	Ke 0.000000 0.000000 0.000000
+	map_Ka D:\Games\Chernobyl 3 - Underground\_Ripper\19.09.2014_12.20.44\Frames\Frame0001\Tex_0104_0.dds
+	map_Kd D:\Games\Chernobyl 3 - Underground\_Ripper\19.09.2014_12.20.44\Frames\Frame0001\Tex_0104_0.dds

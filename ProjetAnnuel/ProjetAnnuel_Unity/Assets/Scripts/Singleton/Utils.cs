@@ -27,9 +27,12 @@ public class Utils : MonoBehaviour
 	}
 	void Start()
 	{
-		departCase.SetCaseID(0);
-		for (var i = 0; i < allCases.Count; i++)
-			allCases[i].SetCaseID(i + 1); //met l'ID de chaque case a leur position+1 dans la liste
+        if(departCase)//empeche de passer par la si le script est utilisé sur une autre scene que le plateau (genre colorGame)
+        {
+            departCase.SetCaseID(0);
+            for (var i = 0; i < allCases.Count; i++)
+                allCases[i].SetCaseID(i + 1); //met l'ID de chaque case a leur position+1 dans la liste
+        }
 	}
 
 	public Player GetPlayerByID(int id)
@@ -64,6 +67,24 @@ public class Utils : MonoBehaviour
 				return null;
 		}
 	}
+
+    public Material GetMatFromColor(EPlayer color)
+    {
+        switch (color)
+        {
+            case EPlayer.BLUE:
+                return blue;
+            case EPlayer.GREEN:
+                return green;
+            case EPlayer.RED:
+                return red;
+            case EPlayer.YELLOW:
+                return yellow;
+            default:
+                return null;
+        }
+    }
+
 	public AbstractCase GetDepartCase()
 	{
 		return departCase;
