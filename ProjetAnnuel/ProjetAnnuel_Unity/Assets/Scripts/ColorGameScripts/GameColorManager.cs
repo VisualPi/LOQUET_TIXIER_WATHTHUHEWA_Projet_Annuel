@@ -11,8 +11,17 @@ public class GameColorManager : MonoBehaviour
     [SerializeField]
     private List<ColorCase> _colorCases;
 
+    private Vector2[][] _logicalCases;
+
     void Start()
     {
+        _logicalCases = new Vector2[10][];
+        for (var i = 0; i < 10; i++)
+            _logicalCases[i] = new Vector2[10];
+        for (var i = 0; i < 10; i++)
+            for (var j = 0; j < 10; j++)
+                _logicalCases[i][j] = new Vector2(i * 5, -j * 5);
+
         Utils.Instance.playerBlue.GetAnimator().SetTrigger("Fall");
         Utils.Instance.playerGreen.GetAnimator().SetTrigger("Fall");
         Utils.Instance.playerRed.GetAnimator().SetTrigger("Fall");
@@ -30,14 +39,33 @@ public class GameColorManager : MonoBehaviour
     [SerializeField]
     private bool _gameStarted;
 
-    public bool GetCaseByPos(Vector3 position)
+    public bool IsCaseByPos(Vector3 position)
     {
-        foreach (var c in _cases)
+        foreach (var c in _colorCases)
         {
-            if (c.position.x == (int)position.x && c.position.z == (int)position.z)
+            if (c.transform.position.x == (int)position.x && c.transform.position.z == (int)position.z)
                 return true;
         }
         return false;
+    }
+
+    public ColorCase GetCaseByPos(Vector3 position)
+    {
+        foreach (var c in _colorCases)
+        {
+            if (c.transform.position.x == (int)position.x && c.transform.position.z == (int)position.z)
+                return c;
+        }
+        return null;
+    }
+    public ColorCase GetCaseByPos(Vector2 position)
+    {
+        foreach (var c in _colorCases)
+        {
+            if (c.transform.position.x == (int)position.x && c.transform.position.z == (int)position.y)
+                return c;
+        }
+        return null;
     }
 
     private bool ComparePos(Vector3 pos1, Vector3 pos2)
@@ -83,7 +111,7 @@ public class GameColorManager : MonoBehaviour
         for (var i = 0; i < 4; i++)
         {
             var pos = Utils.Instance.GetPlayerByColor((EPlayer)i).GetComponent<PlayerMovement>().nextStep;
-            var c = GetCaseByPos(new Vector3(pos.x, 0f, pos.z));
+            var c = IsCaseByPos(new Vector3(pos.x, 0f, pos.z));
             if (c && !HasPlayerOnCase((EPlayer)i, pos))
                 Utils.Instance.GetPlayerByColor((EPlayer)i).transform.position = pos;
         }
@@ -112,6 +140,75 @@ public class GameColorManager : MonoBehaviour
         }
         //afficher les points sur le HUD
     }
+
+    private bool GetNeighboors(ColorCase c, EColorCaseType colorSearched)
+    {
+        var nbNeighboors = 0;
+        var cn = GetCaseByPos(new Vector2(c.transform.position.x + 5f, c.transform.position.z));
+        if (cn && cn.GetColor() == colorSearched)
+            nbNeighboors++;
+        cn = GetCaseByPos(new Vector2(c.transform.position.x - 5f, c.transform.position.z));
+        if (cn && cn.GetColor() == colorSearched)
+            nbNeighboors++;
+        cn = GetCaseByPos(new Vector2(c.transform.position.x, c.transform.position.z + 5f));
+        if (cn && cn.GetColor() == colorSearched)
+            nbNeighboors++;
+        cn = GetCaseByPos(new Vector2(c.transform.position.x, c.transform.position.z - 5f));
+        if (cn && cn.GetColor() == colorSearched)
+            nbNeighboors++;
+
+        return nbNeighboors >= 2;
+    }
+
+    private void CheckForSquares()
+    {
+        List<Vector2> tmpFill = new List<Vector2>();
+        bool possibleBegin = false;
+        for (var i = 1; i < 5; i++)
+        {
+            for (var y = 1; y < 9; y++)//skip la premiere et derniere ligne
+            {
+                for (var x = 1; x < 9; x++)//skip la premiere et derniere colonne
+                {
+                    if (GetCaseByPos(_logicalCases[x][y]).GetColor() == (EColorCaseType)i)
+                    {
+
+                    }
+                }
+                
+            }
+
+        }
+
+    }
+
+
+    private void Remplissage(ColorCase c, EColorCaseType colorcible, EColorCaseType colorRepere)
+    {
+        if (c.GetColor() != colorRepere)//si la couleur est autre que la couleur contour
+        {
+            c.SetColor(colorRepere);
+            var pos = new Vector3(c.transform.position.x, c.transform.position.y, c.transform.position.z + 5f); //case Nord
+            if (GetCaseByPos(pos))
+                Remplissage(GetCaseByPos(pos), colorcible, colorRepere);
+
+            pos = new Vector3(c.transform.position.x, c.transform.position.y, c.transform.position.z - 5f); //case Sud
+            if (GetCaseByPos(pos))
+                Remplissage(GetCaseByPos(pos), colorcible, colorRepere);
+
+            pos = new Vector3(c.transform.position.x + 5f, c.transform.position.y, c.transform.position.z); //case Est
+            if (GetCaseByPos(pos))
+                Remplissage(GetCaseByPos(pos), colorcible, colorRepere);
+
+            pos = new Vector3(c.transform.position.x - 5f, c.transform.position.y, c.transform.position.z - 5f); //case ouest
+            if (GetCaseByPos(pos))
+                Remplissage(GetCaseByPos(pos), colorcible, colorRepere);
+        }
+    }
+
+
+    [SerializeField]
+    private bool checkForSquare;
 
     void Update()
     {

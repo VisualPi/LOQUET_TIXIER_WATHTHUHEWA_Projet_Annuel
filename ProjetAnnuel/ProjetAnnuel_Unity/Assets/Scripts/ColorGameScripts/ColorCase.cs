@@ -62,12 +62,34 @@ public class ColorCase : MonoBehaviour
     }
     public void OnTriggerEnter(Collider col)
     {
-        Debug.Log("Collided with " + col.name);
         ConvertColor(col.gameObject.GetComponent<Player>().GetPlayerColor());
     }
 
     public EColorCaseType GetColor()
     {
         return _type;
+    }
+
+    public void SetColor(EColorCaseType type)
+    {
+        switch (type)
+        {
+            case EColorCaseType.BLUE:
+                _type = EColorCaseType.BLUE;
+                _meshRenderer.material = Utils.Instance.blue;
+                break;
+            case EColorCaseType.GREEN:
+                _type = EColorCaseType.GREEN;
+                _meshRenderer.material = Utils.Instance.green;
+                break;
+            case EColorCaseType.RED:
+                _type = EColorCaseType.RED;
+                _meshRenderer.material = Utils.Instance.red;
+                break;
+            case EColorCaseType.YELLOW:
+                _type = EColorCaseType.YELLOW;
+                _meshRenderer.material = Utils.Instance.yellow;
+                break;
+        }
     }
 }
