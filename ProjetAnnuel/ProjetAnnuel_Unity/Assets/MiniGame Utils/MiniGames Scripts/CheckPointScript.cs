@@ -63,7 +63,7 @@ public class CheckPointScript : MonoBehaviour {
         if (car.gameObject.name == "Yellow_Car")
         {
            YellowCarScript.checkpointReach = true;
-               
+           Debug.Log("CHECKPOINT");
         }
 
     }
