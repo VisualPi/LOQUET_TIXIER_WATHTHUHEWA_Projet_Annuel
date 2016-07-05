@@ -24,6 +24,18 @@ public class RaceManagerScript : MonoBehaviour {
     Text greenText;
 
     [SerializeField]
+    Text blueLapsText;
+
+    [SerializeField]
+    Text yellowLapsText;
+
+    [SerializeField]
+    Text redLapsText;
+
+    [SerializeField]
+    Text greenLapsText;
+
+    [SerializeField]
     GameObject BlueCar;
 
     [SerializeField]
@@ -44,6 +56,9 @@ public class RaceManagerScript : MonoBehaviour {
     [SerializeField]
     AudioClip audioChangingScene;
 
+    [SerializeField]
+    AudioClip raceMusic;
+
 
     AudioSource audio;
         
@@ -63,36 +78,32 @@ public class RaceManagerScript : MonoBehaviour {
 
 
 	// Use this for initialization
-	void Start () {
+	IEnumerator Start () {
 
-        SetDisplayInfo();
-
-        startCountdownText.gameObject.SetActive(false);
         
+
+        
+
+        //InitForPosition and game
         finishPosition = 1;
         isGameEnd = false;
+
         BlueCarScript = BlueCar.GetComponent<CarControl>();
         YellowCarScript = YellowCar.GetComponent<CarControl>();
         RedCarScript = RedCar.GetComponent<CarControl>();
         GreenCarScript = GreenCar.GetComponent<CarControl>();
-
         audio = GetComponent<AudioSource>();
-        
-        //TO DO : INCLURE LA MUSIQUE DE DEBUT et faire demarrer la coroutine à la fin de celle çi
-        //audio.PlayOneShot(startRaceSong);
 
-       
-       
 
+        SetDisplayInfo();
 
         //Movement of camera for starting
 
 
 
-        
 
         //Countdown for start
-        StartCoroutine(StartCountdown());
+        yield return StartCoroutine(IntroRoutine());
         
 	
 	}
@@ -101,6 +112,7 @@ public class RaceManagerScript : MonoBehaviour {
 	void Update () {
 
         // FINISH POSITION DOIT ETRE EGAL A 5 POUR LE CHANGEMENT DE SCENE
+        // finishPosition == 2 est la valeur de test (c'est a dire que des qu'une voiture passe la ligne la partie se finit)
         if (finishPosition == 2 && !isGameEnd)
         {
             
@@ -121,9 +133,12 @@ public class RaceManagerScript : MonoBehaviour {
             {
                 BlueCarScript.lapsDone++;
                 BlueCarScript.checkpointReach = false;
+                blueLapsText.text = (BlueCarScript.lapsDone + 1) + "/" + LapsToDo.ToString() + " Laps";
+
                 Debug.Log(BlueCarScript.lapsDone.ToString());
                 if (BlueCarScript.lapsDone == LapsToDo)
                 {
+                    blueLapsText.gameObject.SetActive(false);
                     BlueCarScript.position = finishPosition;
                     finishPosition++;
                     blueText.text = BlueCarScript.position.ToString();
@@ -140,9 +155,11 @@ public class RaceManagerScript : MonoBehaviour {
             {
                 RedCarScript.lapsDone++;
                 RedCarScript.checkpointReach = false;
+                redLapsText.text = (RedCarScript.lapsDone + 1) + "/" + LapsToDo.ToString() + " Laps";
                 Debug.Log(RedCarScript.lapsDone.ToString());
                 if (RedCarScript.lapsDone == LapsToDo)
                 {
+                    redLapsText.gameObject.SetActive(false);
                     RedCarScript.position = finishPosition;
                     finishPosition++;
                     redText.text = RedCarScript.position.ToString();
@@ -158,9 +175,11 @@ public class RaceManagerScript : MonoBehaviour {
             {
                 GreenCarScript.lapsDone++;
                 GreenCarScript.checkpointReach = false;
+                greenLapsText.text = (GreenCarScript.lapsDone + 1) + "/" + LapsToDo.ToString() + " Laps";
                 Debug.Log(GreenCarScript.lapsDone.ToString());
                 if (GreenCarScript.lapsDone == LapsToDo)
                 {
+                    greenLapsText.gameObject.SetActive(false);
                     GreenCarScript.position = finishPosition;
                     finishPosition++;
                     greenText.text = GreenCarScript.position.ToString();
@@ -175,9 +194,11 @@ public class RaceManagerScript : MonoBehaviour {
             {
                 YellowCarScript.lapsDone++;
                 YellowCarScript.checkpointReach = false;
+                yellowLapsText.text = (YellowCarScript.lapsDone + 1) + "/" + LapsToDo.ToString() + " Laps";
                 Debug.Log(YellowCarScript.lapsDone.ToString());
                 if (YellowCarScript.lapsDone == LapsToDo)
                 {
+                    yellowLapsText.gameObject.SetActive(false);
                     YellowCarScript.position = finishPosition;
                     finishPosition++;
                     Debug.Log("END");
@@ -193,45 +214,54 @@ public class RaceManagerScript : MonoBehaviour {
 
     void SetDisplayInfo()
     {
+        startCountdownText.gameObject.SetActive(false);
         blueText.gameObject.SetActive(false);
         redText.gameObject.SetActive(false);
         greenText.gameObject.SetActive(false);
         yellowText.gameObject.SetActive(false);
 
+        blueLapsText.text = (BlueCarScript.lapsDone+1) + "/" + LapsToDo.ToString() + " Laps";
+        redLapsText.text = (RedCarScript.lapsDone+1) + "/" + LapsToDo.ToString() + " Laps";
+        greenLapsText.text = (GreenCarScript.lapsDone+1) + "/" + LapsToDo.ToString() + " Laps";
+        yellowLapsText.text = (YellowCarScript.lapsDone+1) + "/" + LapsToDo.ToString() + " Laps";
+
+      
+
     }
 
-    IEnumerator StartCountdown()
+    IEnumerator IntroRoutine()
     {
+        audio.PlayOneShot(startRaceSong);
+        yield return new WaitForSeconds(startRaceSong.length-1);
 
         startCountdownText.gameObject.SetActive(true);
 
         yield return new WaitForSeconds(1);
         startCountdownText.text = "READY !";
-        //PLAY SOUND
+        
         yield return new WaitForSeconds(0.5f);
         audio.PlayOneShot(audioCountdown);
         yield return new WaitForSeconds(0.5f);
         startCountdownText.text = "3";
-        //PLAY SOUND
+        
         
         
 
         yield return new WaitForSeconds(1);
         startCountdownText.text = "2";
-        //PLAY SOUND
-
+       
         yield return new WaitForSeconds(1);
         startCountdownText.text = "1";
-        //PLAY SOUND
+        
         yield return new WaitForSeconds(1);
         startCountdownText.text = "GO !";
         //PLAY SOUND
-
-
+        
         BlueCarScript.enableController = true;
         RedCarScript.enableController = true;
         YellowCarScript.enableController = true;
         GreenCarScript.enableController = true;
+        audio.PlayOneShot(raceMusic);
 
         yield return new WaitForSeconds(1);
 
@@ -240,6 +270,8 @@ public class RaceManagerScript : MonoBehaviour {
 
 
     }
+
+   
 
     IEnumerator ChangingScene()
     {
