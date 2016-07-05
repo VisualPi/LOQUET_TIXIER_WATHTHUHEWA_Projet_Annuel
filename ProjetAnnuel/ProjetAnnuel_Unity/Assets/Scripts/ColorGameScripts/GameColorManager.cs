@@ -12,6 +12,8 @@ public class GameColorManager : MonoBehaviour
     private List<ColorCase> _colorCases;
 
     private Vector2[][] _logicalCases;
+    private int[][] _tmpLogicalCases;
+
 
     void Start()
     {
@@ -38,6 +40,16 @@ public class GameColorManager : MonoBehaviour
 
     [SerializeField]
     private bool _gameStarted;
+
+    private void InitTmpLogicalCase()
+    {
+        _tmpLogicalCases = new int[10][];
+        for (var i = 0; i < 10; i++)
+            _tmpLogicalCases[i] = new int[10];
+        for (var i = 0; i < 10; i++)
+            for (var j = 0; j < 10; j++)
+                _tmpLogicalCases[i][j] = 0;
+    }
 
     public bool IsCaseByPos(Vector3 position)
     {
@@ -141,7 +153,7 @@ public class GameColorManager : MonoBehaviour
         //afficher les points sur le HUD
     }
 
-    private bool GetNeighboors(ColorCase c, EColorCaseType colorSearched)
+    private bool HasAtLeast2Neighboors(ColorCase c, EColorCaseType colorSearched)
     {
         var nbNeighboors = 0;
         var cn = GetCaseByPos(new Vector2(c.transform.position.x + 5f, c.transform.position.z));
@@ -160,28 +172,143 @@ public class GameColorManager : MonoBehaviour
         return nbNeighboors >= 2;
     }
 
+    private List<Vector2> GetNeighboors(Vector2 coord)
+    {
+        List<Vector2> n = new List<Vector2>();
+        var pos = new Vector2(coord.x + 5f, coord.y);
+        if (GetCaseByPos(pos) != null)
+            n.Add(pos);
+        pos = new Vector2(coord.x - 5f, coord.y);
+        if (GetCaseByPos(pos) != null)
+            n.Add(pos);
+        pos = new Vector2(coord.x, coord.y + 5f);
+        if (GetCaseByPos(pos) != null)
+            n.Add(pos);
+        pos = new Vector2(coord.x, coord.y - 5f);
+        if (GetCaseByPos(pos) != null)
+            n.Add(pos);
+        return n;
+    }
+
+
+    private void FillTmpLogicalCases(EColorCaseType color)
+    {
+        InitTmpLogicalCase();
+        for (var y = 0; y < 10; y++)
+        {
+            for (var x = 0; x < 10; x++)
+            {
+                if (GetCaseByPos(_logicalCases[x][y]).GetColor() == color)
+                {
+                    _tmpLogicalCases[x][y] = 1;
+                }
+            }
+        }
+    }
+
     private void CheckForSquares()
     {
-        List<Vector2> tmpFill = new List<Vector2>();
-        bool possibleBegin = false;
-        for (var i = 1; i < 5; i++)
+        for (var i = 1; i < 5; i++)//de BLUE a YELLOW dans EColorCaseType
         {
-            for (var y = 1; y < 9; y++)//skip la premiere et derniere ligne
+            FillTmpLogicalCases((EColorCaseType)i);
+            for (var y = 0; y < 10; y++)
             {
-                for (var x = 1; x < 9; x++)//skip la premiere et derniere colonne
+                for (var x = 0; x < 10; x++)
                 {
-                    if (GetCaseByPos(_logicalCases[x][y]).GetColor() == (EColorCaseType)i)
+                    if (_tmpLogicalCases[x][y] == 0)
                     {
-
+                        CheckGoodSquare(_logicalCases[x][y]);
+                        if (ok)
+                        {
+                            ok = true;
+                            FillCurrentSquare(_logicalCases[x][y], (EColorCaseType)i);
+                            x = 10;
+                            y = 10;
+                            break;
+                        }
+                        ok = true;
                     }
                 }
-                
+            }
+        }
+    }
+
+    private bool IsOnBorder(Vector2 coord)
+    {
+        var pos = new Vector2(coord.x + 5f, coord.y);
+        if (GetCaseByPos(pos) == null)
+            return true;
+        pos = new Vector2(coord.x - 5f, coord.y);
+        if (GetCaseByPos(pos) == null)
+            return true;
+        pos = new Vector2(coord.x, coord.y + 5f);
+        if (GetCaseByPos(pos) == null)
+            return true;
+        pos = new Vector2(coord.x, coord.y - 5f);
+        if (GetCaseByPos(pos) == null)
+            return true;
+        return false;
+    }
+
+    private int[] GetLogicalCoord(Vector2 coord)
+    {
+        var ret = new int[2];
+        for (var y = 0; y < 10; y++)
+        {
+            for (var x = 0; x < 10; x++)
+            {
+                if (_logicalCases[x][y].x == coord.x && _logicalCases[x][y].y == coord.y)
+                {
+                    ret[0] = x;
+                    ret[1] = y;
+                    return ret;
+                }
+            }
+        }
+        return null;
+    }
+
+    private bool ok = true;
+
+    private void CheckGoodSquare(Vector2 coord)
+    {
+        if (ok)
+        {
+            if (IsOnBorder(coord))
+            {
+                ok = false;
             }
 
         }
-
+        var c = GetLogicalCoord(coord);
+        _tmpLogicalCases[c[0]][c[1]] = 2;
+        foreach (var n in GetNeighboors(coord))
+        {
+            var tmp = GetLogicalCoord(n);
+            if (_tmpLogicalCases[tmp[0]][tmp[1]] == 0)
+                CheckGoodSquare(n);
+        }
     }
 
+    private void FillCurrentSquare(Vector2 coord, EColorCaseType color)
+    {
+        List<Vector2> tmp = new List<Vector2>();
+        tmp.Add(coord);
+        foreach (var n in GetNeighboors(coord))
+        {
+            tmp.Add(n);
+        }
+        foreach (var t in tmp)
+        {
+            var n = GetLogicalCoord(t);
+            if (_tmpLogicalCases[n[0]][n[1]] == 2)
+            {
+                var c = GetLogicalCoord(t);
+                GetCaseByPos(t).SetColor(color);
+            }
+        }
+        
+    }
 
     private void Remplissage(ColorCase c, EColorCaseType colorcible, EColorCaseType colorRepere)
     {
@@ -234,6 +361,8 @@ public class GameColorManager : MonoBehaviour
                 GetPoints();
                 _timeLapEllapsed = 0f;
             }
+            CheckForSquares();
+
         }
     }
 }
