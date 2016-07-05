@@ -18,8 +18,17 @@ public class PathScript : MonoBehaviour
 
     void Update()
     {
-        foreach(CheckPointScript cps in _path)
-            cps._enableGizmos = _enableChildrenGizmos;
+        if (_path[0]._enableGizmos == _enableChildrenGizmos)
+        {
+ 
+        }
+        else
+        {
+            foreach (CheckPointScript cps in _path)
+            {
+                cps._enableGizmos = _enableChildrenGizmos;
+            }
+        }
     }
 
     void OnDrawGizmos()

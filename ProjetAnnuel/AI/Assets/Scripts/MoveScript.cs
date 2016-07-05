@@ -10,7 +10,10 @@ public class MoveScript : MonoBehaviour
     float _speed;
 
     [SerializeField]
-    float _maxSpeed;
+    float _maxSpeedFront;
+
+    [SerializeField]
+    float _maxSpeedBack;
 
     [SerializeField]
     float _rotationSpeed;
@@ -48,11 +51,18 @@ public class MoveScript : MonoBehaviour
         {
             // Devant / Derrière
             Vector3 direction = Vector3.zero;
+            KeyCode keyPressed = KeyCode.None;
 
             if (Input.GetKey(KeyCode.UpArrow))
+            {
+                keyPressed = KeyCode.UpArrow;
                 direction = Vector3.forward;
+            }
             if (Input.GetKey(KeyCode.DownArrow))
+            {
+                keyPressed = KeyCode.DownArrow;
                 direction = Vector3.back;
+            }
 
             if (direction != Vector3.zero)
             {
@@ -63,11 +73,21 @@ public class MoveScript : MonoBehaviour
                     _lastDirection = direction;
                     _speed *= _changeDirectionCoefficient;
                 }
-
-                if (_speed < _maxSpeed)
-                    _speed += (_acceleration * Time.deltaTime);
-                else
-                    _speed = _maxSpeed;
+                
+                if(keyPressed == KeyCode.UpArrow)
+                {
+                    if (_speed < _maxSpeedFront)
+                        _speed += (_acceleration * Time.deltaTime);
+                    else
+                        _speed = _maxSpeedFront;
+                }
+                else if(keyPressed == KeyCode.DownArrow)
+                {
+                    if (_speed < _maxSpeedBack)
+                        _speed += (_acceleration * Time.deltaTime);
+                    else
+                        _speed = _maxSpeedBack;
+                }
             }
 
             if (!(Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.DownArrow)))
@@ -123,10 +143,10 @@ public class MoveScript : MonoBehaviour
                     _speed *= _changeDirectionCoefficient;
                 }
 
-                if (_speed < _maxSpeed)
+                if (_speed < _maxSpeedFront)
                     _speed += (_acceleration * Time.deltaTime);
                 else
-                    _speed = _maxSpeed;
+                    _speed = _maxSpeedFront;
             }
 
             if (!(playerInput._keyCodes.Contains(KeyCode.UpArrow) || playerInput._keyCodes.Contains(KeyCode.DownArrow)))
