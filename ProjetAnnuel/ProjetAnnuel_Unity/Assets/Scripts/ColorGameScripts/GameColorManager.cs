@@ -123,7 +123,7 @@ public class GameColorManager : MonoBehaviour
         for (var i = 0; i < 4; i++)
         {
             var pos = Utils.Instance.GetPlayerByColor((EPlayer)i).GetComponent<PlayerMovement>().nextStep;
-            var c = IsCaseByPos(new Vector3(pos.x, 0f, pos.z));
+            var c = IsCaseByPos(new Vector2(pos.x, pos.z));
             if (c && !HasPlayerOnCase((EPlayer)i, pos))
                 Utils.Instance.GetPlayerByColor((EPlayer)i).transform.position = pos;
         }
@@ -309,31 +309,6 @@ public class GameColorManager : MonoBehaviour
         }
         
     }
-
-    private void Remplissage(ColorCase c, EColorCaseType colorcible, EColorCaseType colorRepere)
-    {
-        if (c.GetColor() != colorRepere)//si la couleur est autre que la couleur contour
-        {
-            c.SetColor(colorRepere);
-            var pos = new Vector3(c.transform.position.x, c.transform.position.y, c.transform.position.z + 5f); //case Nord
-            if (GetCaseByPos(pos))
-                Remplissage(GetCaseByPos(pos), colorcible, colorRepere);
-
-            pos = new Vector3(c.transform.position.x, c.transform.position.y, c.transform.position.z - 5f); //case Sud
-            if (GetCaseByPos(pos))
-                Remplissage(GetCaseByPos(pos), colorcible, colorRepere);
-
-            pos = new Vector3(c.transform.position.x + 5f, c.transform.position.y, c.transform.position.z); //case Est
-            if (GetCaseByPos(pos))
-                Remplissage(GetCaseByPos(pos), colorcible, colorRepere);
-
-            pos = new Vector3(c.transform.position.x - 5f, c.transform.position.y, c.transform.position.z - 5f); //case ouest
-            if (GetCaseByPos(pos))
-                Remplissage(GetCaseByPos(pos), colorcible, colorRepere);
-        }
-    }
-
-
     [SerializeField]
     private bool checkForSquare;
 
