@@ -51,11 +51,11 @@ public class GameColorManager : MonoBehaviour
                 _tmpLogicalCases[i][j] = 0;
     }
 
-    public bool IsCaseByPos(Vector3 position)
+    public bool IsCaseByPos(Vector2 position)//C'est un vector2 pour etre plus pratique mais on test bien x et z
     {
-        foreach (var c in _colorCases)
+        foreach (var c in _cases)
         {
-            if (c.transform.position.x == (int)position.x && c.transform.position.z == (int)position.z)
+            if (c.transform.position.x == (int)position.x && c.transform.position.z == (int)position.y)
                 return true;
         }
         return false;
@@ -123,9 +123,16 @@ public class GameColorManager : MonoBehaviour
         for (var i = 0; i < 4; i++)
         {
             var pos = Utils.Instance.GetPlayerByColor((EPlayer)i).GetComponent<PlayerMovement>().nextStep;
-            var c = IsCaseByPos(new Vector2(pos.x, pos.z));
-            if (c && !HasPlayerOnCase((EPlayer)i, pos))
-                Utils.Instance.GetPlayerByColor((EPlayer)i).transform.position = pos;
+            var pPos = Utils.Instance.GetPlayerByColor((EPlayer)i).GetComponent<PlayerMovement>().defaultPos;
+            if (pos.x != pPos.x && pos.z != pPos.z)
+            {
+                var c = IsCaseByPos(new Vector2(pos.x, pos.z));
+                if (c && !HasPlayerOnCase((EPlayer)i, pos))
+                {
+                    Utils.Instance.GetPlayerByColor((EPlayer)i).transform.position = pos;
+                }
+            }
+
         }
     }
 
@@ -153,25 +160,6 @@ public class GameColorManager : MonoBehaviour
         //afficher les points sur le HUD
     }
 
-    private bool HasAtLeast2Neighboors(ColorCase c, EColorCaseType colorSearched)
-    {
-        var nbNeighboors = 0;
-        var cn = GetCaseByPos(new Vector2(c.transform.position.x + 5f, c.transform.position.z));
-        if (cn && cn.GetColor() == colorSearched)
-            nbNeighboors++;
-        cn = GetCaseByPos(new Vector2(c.transform.position.x - 5f, c.transform.position.z));
-        if (cn && cn.GetColor() == colorSearched)
-            nbNeighboors++;
-        cn = GetCaseByPos(new Vector2(c.transform.position.x, c.transform.position.z + 5f));
-        if (cn && cn.GetColor() == colorSearched)
-            nbNeighboors++;
-        cn = GetCaseByPos(new Vector2(c.transform.position.x, c.transform.position.z - 5f));
-        if (cn && cn.GetColor() == colorSearched)
-            nbNeighboors++;
-
-        return nbNeighboors >= 2;
-    }
-
     private List<Vector2> GetNeighboors(Vector2 coord)
     {
         List<Vector2> n = new List<Vector2>();
@@ -189,7 +177,6 @@ public class GameColorManager : MonoBehaviour
             n.Add(pos);
         return n;
     }
-
 
     private void FillTmpLogicalCases(EColorCaseType color)
     {
@@ -307,7 +294,7 @@ public class GameColorManager : MonoBehaviour
                 GetCaseByPos(t).SetColor(color);
             }
         }
-        
+
     }
     [SerializeField]
     private bool checkForSquare;
