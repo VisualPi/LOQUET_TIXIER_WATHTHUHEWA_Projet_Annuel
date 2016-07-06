@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
-using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
+using UnityEngine.UI;
 
 public class GameColorManager : MonoBehaviour
 {
@@ -13,6 +12,15 @@ public class GameColorManager : MonoBehaviour
 
     private Vector2[][] _logicalCases;
     private int[][] _tmpLogicalCases;
+
+    [SerializeField]
+    private Text _scoreBlue;
+    [SerializeField]
+    private Text _scoreGreen;
+    [SerializeField]
+    private Text _scoreRed;
+    [SerializeField]
+    private Text _scoreYellow;
 
 
     void Start()
@@ -156,6 +164,10 @@ public class GameColorManager : MonoBehaviour
                 _redPoints++;
             if (c.GetColor() == EColorCaseType.YELLOW)
                 _yellowPoints++;
+            _scoreBlue.text     = _bluePoints.ToString();
+            _scoreGreen.text    = _greenPoints.ToString();
+            _scoreRed.text      = _redPoints.ToString();
+            _scoreYellow.text   = _yellowPoints.ToString();
         }
         //afficher les points sur le HUD
     }
