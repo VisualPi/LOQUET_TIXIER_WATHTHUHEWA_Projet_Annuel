@@ -39,26 +39,26 @@ public class AiScript : MonoBehaviour
     {
         if (_enableGizmos)
         {
-            if (_currentCheckPoint != null)
+            if (_currentCheckPoint)
             {
                 Gizmos.color = Color.red;
-                Gizmos.DrawWireSphere(_currentCheckPoint.transform.position, _currentCheckPoint._radius + 2.00f);
-
+                Gizmos.DrawWireSphere(_currentCheckPoint.transform.position, Mathf.Max(_currentCheckPoint._cubeSize.x, _currentCheckPoint._cubeSize.z)/1.5f);
+                
                 Gizmos.color = Color.black;
                 Gizmos.DrawRay(transform.position, (_currentCheckPoint.transform.position - transform.position));
                 Gizmos.DrawRay(transform.position, transform.forward * 5);
             }
 
-            if(_previousCheckPoint != null)
+            if(_previousCheckPoint)
             {
                 Gizmos.color = Color.yellow;
-                Gizmos.DrawWireSphere(_previousCheckPoint.transform.position, _currentCheckPoint._radius + 2.00f);
+                Gizmos.DrawWireSphere(_previousCheckPoint.transform.position, Mathf.Max(_previousCheckPoint._cubeSize.x, _previousCheckPoint._cubeSize.z) / 1.5f);
             }
 
-            if(_nextCheckPoint != null)
+            if(_nextCheckPoint)
             {
                 Gizmos.color = Color.magenta;
-                Gizmos.DrawWireSphere(_nextCheckPoint.transform.position, _currentCheckPoint._radius + 2.00f);
+                Gizmos.DrawWireSphere(_nextCheckPoint.transform.position, Mathf.Max(_nextCheckPoint._cubeSize.x, _nextCheckPoint._cubeSize.z) / 1.5f);
             }
             
             //Gizmos.color = Color.yellow;
@@ -87,7 +87,7 @@ public class AiScript : MonoBehaviour
 
         if (_path.Count >= 3)
         {
-            _previousCheckPoint = null;
+            _previousCheckPoint = _path[_path.Count - 1];
             _currentCheckPoint = _path[0];
             _nextCheckPoint = _path[1];
         }
@@ -108,7 +108,7 @@ public class AiScript : MonoBehaviour
         {
             _angleApproximation = Random.Range(0, _angleMaxRange);
 
-            yield return new WaitForSeconds(1);
+            yield return new WaitForSeconds(_secondsBetweenRandom);
         }
     }
 
@@ -117,32 +117,26 @@ public class AiScript : MonoBehaviour
         if (_currentCheckPoint != null)
         {
             List<KeyCode> iaKeyCodes = new List<KeyCode>();
-            
-            RaycastHit rayCastHit;
+            /*
+            RaycastHit rayCastHitCube;
+            RaycastHit rayCastHitCheckPoint;
+            RaycastHit rayCastHitPlayer;
 
-            if (Physics.Raycast(transform.position, transform.forward, out rayCastHit, 10, 1 << LayerMask.NameToLayer("Cube")))
+            if (Physics.Raycast(transform.position, transform.forward, out rayCastHitCube, 10, 1 << LayerMask.NameToLayer("Cube")))
             {
-                //Debug.Log("hit ");// + rayCastHit.collider.gameObject.name + " - " + rayCastHit.distance);
+                Debug.Log("Hit Wall");
             }
+            if (Physics.Raycast(transform.position, transform.forward, out rayCastHitCheckPoint, 10, 1 << LayerMask.NameToLayer("CheckPoint")))
+            {
+                Debug.Log("Hit CheckPoint");
+            }
+            if (Physics.Raycast(transform.position, transform.forward, out rayCastHitPlayer, 10, 1 << LayerMask.NameToLayer("Player")))
+            {
+                Debug.Log("Hit Player");
+            }
+            */
 
             float angle = Vector3.Angle((_currentCheckPoint.transform.position - transform.position), transform.forward);
-
-            if (_previousCheckPoint)
-            {
-                /*
-                Vector3 cross = Vector3.Cross((_previousCheckPoint.transform.position - transform.position), (_currentCheckPoint.transform.position - transform.position));
-                
-                if (cross.y < 0)
-                    Debug.Log("Interieur");
-                else
-                    Debug.Log("Exterieur");
-                */
-
-                /*
-                Vector3 currentPrevious = (_previousCheckPoint.transform.position - _currentCheckPoint.transform.position);
-                Vector3 currentNext = (_nextCheckPoint.transform.position - _currentCheckPoint.transform.position);
-                */
-            }
 
             // Si on est a peu près dans la direction du checkpoint à atteindre
             if (angle >= 0 && angle <= _angleApproximation)
@@ -264,7 +258,7 @@ public class AiScript : MonoBehaviour
     {
         Vector3 positionToCurrentCheckPoint = (_currentCheckPoint.transform.position - transform.position);
         
-        if(positionToCurrentCheckPoint.magnitude <= (_currentCheckPoint._radius))
+        if (positionToCurrentCheckPoint.magnitude <= (Mathf.Max(_currentCheckPoint._cubeSize.x, _currentCheckPoint._cubeSize.z)/1.5f))
         {
             if(_currentCheckPointIndex < (_path.Count-1))
             {

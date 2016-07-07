@@ -3,16 +3,18 @@ using System.Collections;
 
 public class CheckPointScript : MonoBehaviour 
 {
+    [SerializeField]
     public bool _enableGizmos;
 
-    public float _radius;
+    [SerializeField]
+    public Vector3 _cubeSize;
 
     void OnDrawGizmos()
     {
         if (_enableGizmos)
         {
             Gizmos.color = Color.blue;
-            Gizmos.DrawWireSphere(transform.position, _radius);
+            Gizmos.DrawWireCube(transform.position, _cubeSize);
         }
     }
 }

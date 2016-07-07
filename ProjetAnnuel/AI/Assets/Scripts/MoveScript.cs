@@ -27,6 +27,7 @@ public class MoveScript : MonoBehaviour
     [SerializeField]
     float _deceleration;
 
+    [SerializeField]
     public bool _playerMove;
 
     Vector3 _lastDirection;
