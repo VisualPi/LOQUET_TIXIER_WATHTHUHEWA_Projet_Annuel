@@ -21,6 +21,23 @@ public class GameColorManager : MonoBehaviour
     private Text _scoreRed;
     [SerializeField]
     private Text _scoreYellow;
+    [SerializeField]
+    private Text _blueWinner;
+    [SerializeField]
+    private Text _greenWinner;
+    [SerializeField]
+    private Text _redWinner;
+    [SerializeField]
+    private Text _yellowWinner;
+    [SerializeField]
+    private Text _chrono;
+
+    [SerializeField]
+    private GameObject _three;
+    [SerializeField]
+    private GameObject _two;
+    [SerializeField]
+    private GameObject _one;
 
 
     void Start()
@@ -308,22 +325,79 @@ public class GameColorManager : MonoBehaviour
         }
 
     }
+
+    private void GetWinner()
+    {
+        List<int> tmp = new List<int>() { _bluePoints, _greenPoints, _redPoints, _yellowPoints };
+        tmp.Sort();
+        if(tmp[3] == _bluePoints)
+        {
+            _blueWinner.gameObject.SetActive(true);
+        }
+        if (tmp[3] == _greenPoints)
+        {
+            _greenWinner.gameObject.SetActive(true);
+        }
+        if (tmp[3] == _redPoints)
+        {
+            _redWinner.gameObject.SetActive(true);
+        }
+        if (tmp[3] == _yellowPoints)
+        {
+            _yellowWinner.gameObject.SetActive(true);
+        }
+    }
+
     [SerializeField]
     private bool checkForSquare;
 
+    [SerializeField]
+    private bool _debut;
+    private float _timePerLetter = 1f;
     void Update()
     {
+        if(_debut)
+        {
+            _timePerLetter += Time.deltaTime;
+            if (_timePerLetter >= 1f)
+            {
+                _three.SetActive(true);
+            }
+            if(_timePerLetter >= 2f)
+            {
+                _three.SetActive(false);
+                _two.SetActive(true);
+            }
+            if (_timePerLetter >= 3f)
+            {
+                _two.SetActive(false);
+                _one.SetActive(true);
+            }
+            if (_timePerLetter >= 5f)
+            {
+                _one.SetActive(false);
+                _debut = false;
+                _gameStarted = true;
+                _chrono.gameObject.SetActive(true);
+            }
+        }
         if (_gameStarted)
         {
+            
             _timeGameEllapsed += Time.deltaTime;
             _timeLapEllapsed += Time.deltaTime;
             _timePerStepEllapsed += Time.deltaTime;
+            _chrono.text = (_gameDuration - (int)_timeGameEllapsed).ToString();
             if (_timeGameEllapsed >= _gameDuration)
             {
-                Debug.Log("Game Finished !!");
                 _gameStarted = false;
                 _timeGameEllapsed = 0f;
+                GetWinner();
                 //playerPref le winner
+            }
+            if(_timeGameEllapsed >= (_gameDuration - 10f))
+            {
+                _chrono.color = Color.red;
             }
             if (_timePerStepEllapsed >= _timePerStep)
             {
@@ -336,7 +410,6 @@ public class GameColorManager : MonoBehaviour
                 _timeLapEllapsed = 0f;
             }
             CheckForSquares();
-
         }
     }
 }

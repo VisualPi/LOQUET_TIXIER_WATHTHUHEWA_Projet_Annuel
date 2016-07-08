@@ -72,15 +72,16 @@ public class MainMenu : MonoBehaviour
 		Debug.Log("Player Green : " + playerGreenName + " is AI = " + playerGreenIsAI);
 		Debug.Log("Player Yellow : " + playerYellowName + " is AI = " + playerYellowIsAI);
 		//assigner variables
-		PlayerPrefs.SetString("playerBlueName", playerBlueName);
-		PlayerPrefs.SetString("playerRedName", playerRedName);
-		PlayerPrefs.SetString("playerGreenName", playerGreenName);
-		PlayerPrefs.SetString("playerYellowName", playerYellowName);
-		PlayerPrefs.SetInt("playerBlueIsAI", playerBlueIsAI ? 1 : 0);
-		PlayerPrefs.SetInt("playerRedIsAI", playerRedIsAI ? 1 : 0);
-		PlayerPrefs.SetInt("playerGreenIsAI", playerGreenIsAI ? 1 : 0);
-		PlayerPrefs.SetInt("playerYellowIsAI", playerYellowIsAI ? 1 : 0);
-		SceneManager.LoadScene("main");
+		PlayerPrefs.SetString("PLAYER_BLUE_NAME", playerBlueName);
+		PlayerPrefs.SetString("PLAYER_RED_NAME", playerRedName);
+		PlayerPrefs.SetString("PLAYER_GREEN_NAME", playerGreenName);
+		PlayerPrefs.SetString("PLAYER_YELLOW_NAME", playerYellowName);
+		PlayerPrefs.SetInt("PLAYER_BLUE_ISAI", playerBlueIsAI ? 1 : 0);
+		PlayerPrefs.SetInt("PLAYER_RED_ISAI", playerRedIsAI ? 1 : 0);
+		PlayerPrefs.SetInt("PLAYER_GREEN_ISAI", playerGreenIsAI ? 1 : 0);
+		PlayerPrefs.SetInt("PLAYER_YELLOW_ISAI", playerYellowIsAI ? 1 : 0);
+        PlayerPrefs.SetInt("GAME_ISFIRSTRUN", 1);
+        SceneManager.LoadScene("main");
 	}
 
 }

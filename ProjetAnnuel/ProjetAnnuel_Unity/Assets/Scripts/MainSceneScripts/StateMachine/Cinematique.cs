@@ -28,8 +28,12 @@ public class Cinematique : MonoBehaviour
 	{
 		return isAnimFinished;
 	}
+    public void SetCinematiqueFinished(bool value)
+    {
+        isAnimFinished = value;
+    }
 
-	public void OnIncreaseSpeed()
+    public void OnIncreaseSpeed()
 	{
 		GetComponent<Animator>().speed = 1;
 	}

@@ -173,11 +173,11 @@ public abstract class AbstractCase : MonoBehaviour
     {
         _caseType = type;
     }
-    public Vector3 GetCasePosition(EPlayer currentPlayer)
+    public Vector3 GetCasePosition(EPlayer currentPlayer, bool isReturningFromMiniGame)
     {
         if (_caseType == ECaseType.INTERSECTION)
             return _transform.position;
-		if(_previousCase) //exclu la case départ
+		if(_previousCase && !isReturningFromMiniGame) //exclu la case départ
 			_previousCase.RemovePlayerFromCase(currentPlayer);//on supprime le player actuelle de la liste de la case d'avant (sauf si c'est la case de départ)
         if (_playersOnCase.Count == 0)//si jamais la case est vide on ajoute dans la liste le joueur a la position 0 et on retourne la position de la case (position centrale)
         {

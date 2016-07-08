@@ -48,10 +48,27 @@ public class PlayerMoveState : StateMachineBehaviour
                     animator.GetComponent<GameManager>().SetDiceNumber(animator.GetComponent<GameManager>().GetDiceNumber() + 1);
 
                 _startMarker = _currentPlayer.transform.position;
-				_endMarker = Utils.Instance.GetCaseByID(nextID).GetCasePosition(_currentPlayer.GetPlayerColor());
+				_endMarker = Utils.Instance.GetCaseByID(nextID).GetCasePosition(_currentPlayer.GetPlayerColor(), false);
 				float animLength = Vector3.Distance(_startMarker, _endMarker);
+                
+                switch (_currentPlayer.GetPlayerColor())
+                {
+                    case EPlayer.BLUE:
+                        PlayerPrefs.SetInt("PLAYER_BLUE_CASEID", nextID);
+                        break;
+                    case EPlayer.GREEN:
+                        PlayerPrefs.SetInt("PLAYER_GREEN_CASEID", nextID);
+                        break;
+                    case EPlayer.RED:
+                        PlayerPrefs.SetInt("PLAYER_RED_CASEID", nextID);
+                        break;
+                    case EPlayer.YELLOW:
+                        PlayerPrefs.SetInt("PLAYER_YELLOW_CASEID", nextID);
+                        break;
+                }
 
-				animator.SetFloat("MoveInverseDuration", _speed / animLength);
+
+                animator.SetFloat("MoveInverseDuration", _speed / animLength);
 			}
 		}
 		if(!ok )//TODO : A voir !!
