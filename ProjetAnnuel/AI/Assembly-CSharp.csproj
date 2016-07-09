@@ -53,8 +53,10 @@
      <Compile Include="Assets\Scripts\Class\PlayerInput.cs" />
      <Compile Include="Assets\Scripts\Class\PlayerIntention.cs" />
      <Compile Include="Assets\Scripts\Class\PlayerMove.cs" />
-     <Compile Include="Assets\Scripts\ColorGame\AiColorGameScript.cs" />
      <Compile Include="Assets\Scripts\ColorGame\AiMoveColorGameScript.cs" />
+     <Compile Include="Assets\Scripts\ColorGame\ColorSquareScript.cs" />
+     <Compile Include="Assets\Scripts\ColorGame\MovePlayerColorGameScript.cs" />
+     <Compile Include="Assets\Scripts\ColorGame\PatternColorGame.cs" />
      <Compile Include="Assets\Scripts\MakeActionsScript.cs" />
      <Compile Include="Assets\Scripts\MoveScript.cs" />
      <Compile Include="Assets\Scripts\PlayerCollisionScript.cs" />

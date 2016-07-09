@@ -3,21 +3,27 @@ using System.Collections;
 
 using System.Collections.Generic;
 
-public class AiColorGameScript : MonoBehaviour
+public class ColorSquareScript : MonoBehaviour
 {
     [SerializeField]
-    List<GameObject> _board;
+    public List<GameObject> _board;
 
     [SerializeField]
-    Material _defaultMaterial;
+    public int _boardWidth;
 
     [SerializeField]
-    Material _playerOneMaterial;
+    public int _boardHeight;
+
+    [SerializeField]
+    public Material _defaultMaterial;
+
+    [SerializeField]
+    public Material _playerOneMaterial;
 
 	// Use this for initialization
 	void Start () 
     {
-	
+        ResetBoard();
 	}
 	
 	// Update is called once per frame
@@ -38,14 +44,20 @@ public class AiColorGameScript : MonoBehaviour
 
             if (row.Length > 0 && column.Length > 0)
             {
-                //Debug.Log("Case : " + row[1] + "-" + column[1]);
-
                 Renderer renderer = go.GetComponent<Renderer>();
                 if(renderer.material != _playerOneMaterial)
                     renderer.material = _playerOneMaterial;
             }
-            //else
-                //Debug.Log("Case");
+        }
+    }
+
+    public void ResetBoard()
+    {
+        foreach(GameObject go in _board)
+        {
+            Renderer renderer = go.GetComponent<Renderer>();
+            if (transform.position.x != go.transform.position.x || transform.position.z != go.transform.position.z)
+                renderer.material = _defaultMaterial;
         }
     }
 }

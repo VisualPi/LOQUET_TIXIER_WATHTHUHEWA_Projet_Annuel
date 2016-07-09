@@ -42,7 +42,7 @@ public class AiScript : MonoBehaviour
             if (_currentCheckPoint)
             {
                 Gizmos.color = Color.red;
-                Gizmos.DrawWireSphere(_currentCheckPoint.transform.position, Mathf.Max(_currentCheckPoint._cubeSize.x, _currentCheckPoint._cubeSize.z)/1.5f);
+                Gizmos.DrawWireSphere(_currentCheckPoint.transform.position, Mathf.Max(_currentCheckPoint._cubeSize.x, _currentCheckPoint._cubeSize.z) / 1.5f);
                 
                 Gizmos.color = Color.black;
                 Gizmos.DrawRay(transform.position, (_currentCheckPoint.transform.position - transform.position));
@@ -258,7 +258,7 @@ public class AiScript : MonoBehaviour
     {
         Vector3 positionToCurrentCheckPoint = (_currentCheckPoint.transform.position - transform.position);
         
-        if (positionToCurrentCheckPoint.magnitude <= (Mathf.Max(_currentCheckPoint._cubeSize.x, _currentCheckPoint._cubeSize.z)/1.5f))
+        if (positionToCurrentCheckPoint.magnitude <= (Mathf.Max(_currentCheckPoint._cubeSize.x, _currentCheckPoint._cubeSize.z) / 1.5f))
         {
             if(_currentCheckPointIndex < (_path.Count-1))
             {

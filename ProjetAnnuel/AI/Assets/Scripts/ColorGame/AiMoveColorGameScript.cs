@@ -6,40 +6,29 @@ using System.Collections.Generic;
 public class AiMoveColorGameScript : MonoBehaviour 
 {
     [SerializeField]
-    Transform _cubeBottomLeft;
+    ColorSquareScript _colorSquareScript;
 
     [SerializeField]
-    Transform _cubeBottomRight;
+    MovePlayerColorGameScript _movePlayerColorGameScript;
 
-    [SerializeField]
-    Transform _cubeTopLeft;
+    List<PatternColorGame> _listPatterns;
 
-    [SerializeField]
-    Transform _cubeTopRight;
+    PatternColorGame _currentPattern;
 
-    [SerializeField]
-    bool _playerMove;
+    List<int> _indexPattern;
 
-    [SerializeField]
-    float _secondBetweenMove;
-
-    //bool _playerCanMove;
-
-    List<List<Vector3>> _listPatterns;
-
-    List<Vector3> _currentPattern;
-
-    int _currentTargetIndex;
+    //int _currentTargetIndex;
     Vector3 _currentTarget;
 
 	// Use this for initialization
 	void Start () 
     {
-        //_playerCanMove = true;
+        if (!_movePlayerColorGameScript._playerMove)
+        {
+            InitializePatterns();
 
-        InitializePatterns();
-
-        StartCoroutine(WaitInputMove());
+            StartCoroutine(AiMove());
+        }
 	}
 	
 	// Update is called once per frame
@@ -47,140 +36,168 @@ public class AiMoveColorGameScript : MonoBehaviour
     {
     }
 
-    IEnumerator WaitInputMove()
-    {
+    IEnumerator AiMove()
+    {       
         while (true)
         {
-            if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.RightArrow))
+            SetCurrentPattern();
+
+            yield return new WaitForSeconds(1);
+
+            int j;
+            for (int i = 0; i < _currentPattern._count; ++i)
             {
-                bool hasMoved = false;
-
-                if (Input.GetKeyDown(KeyCode.UpArrow))
+                //_currentTargetIndex = i;
+                _currentTarget = _currentPattern._positions[i];
+                j = 0;
+                while (((transform.position.x != _currentTarget.x) || (transform.position.z != _currentTarget.z)) && j < 10)
                 {
-                    hasMoved = Move(KeyCode.UpArrow);
-                }
-                else if (Input.GetKeyDown(KeyCode.DownArrow))
-                {
-                    hasMoved = Move(KeyCode.DownArrow);
-                }
-                else if (Input.GetKeyDown(KeyCode.LeftArrow))
-                {
-                    hasMoved = Move(KeyCode.LeftArrow);
-                }
-                else if (Input.GetKeyDown(KeyCode.RightArrow))
-                {
-                    hasMoved = Move(KeyCode.RightArrow);
+                    MakeAiMove();
+                    ++j;
+                    yield return new WaitForSeconds(_movePlayerColorGameScript._secondBetweenMove + Random.Range(0.05f, 0.2f));
                 }
 
-                if (hasMoved)
-                {
-                    //_playerCanMove = false;
-                    yield return new WaitForSeconds(_secondBetweenMove);
-                    //_playerCanMove = true;
-                }
             }
 
-            yield return new WaitForSeconds(0);
+            //_currentTargetIndex = 0;
+            _currentTarget = _currentPattern._positions[0];
+            j = 0;
+            while (((transform.position.x != _currentTarget.x) || (transform.position.z != _currentTarget.z)) && j < 10)
+            {
+                MakeAiMove();
+                ++j;
+                yield return new WaitForSeconds(_movePlayerColorGameScript._secondBetweenMove + Random.Range(0.05f, 0.2f));
+            }
+
+            _colorSquareScript.ResetBoard();
+        }
+    }
+
+    void MakeAiMove()
+    {
+        Vector3 distance = transform.InverseTransformVector(_currentTarget - transform.position);
+
+        if (distance.z > 0)
+        {
+            _movePlayerColorGameScript.Move(KeyCode.UpArrow);
+        }
+        else if (distance.z < 0)
+        {
+            _movePlayerColorGameScript.Move(KeyCode.DownArrow);
+        }
+        else if (distance.x > 0)
+        {
+            _movePlayerColorGameScript.Move(KeyCode.RightArrow);
+        }
+        else if (distance.x < 0)
+        {
+            _movePlayerColorGameScript.Move(KeyCode.LeftArrow);
         }
     }
 
     void InitializePatterns()
     {
-        _listPatterns = new List<List<Vector3>>();
+        _listPatterns = new List<PatternColorGame>();
 
         List<Vector3> patternSquare = new List<Vector3>();
+
         patternSquare.Add(new Vector3(0, 0, 0));
         patternSquare.Add(new Vector3(4, 0, 0));
         patternSquare.Add(new Vector3(4, 0, 4));
         patternSquare.Add(new Vector3(0, 0, 4));
 
-        _listPatterns.Add(patternSquare);
+        /*
+        patternSquare.Add(new Vector3(6, 0, 0));
+        patternSquare.Add(new Vector3(10, 0, 0));
+        patternSquare.Add(new Vector3(10, 0, 4));
+        patternSquare.Add(new Vector3(6, 0, 4));
+        */
 
-        _currentPattern = patternSquare;
+        /*
+        patternSquare.Add(new Vector3(6, 0, 6));
+        patternSquare.Add(new Vector3(10, 0, 6));
+        patternSquare.Add(new Vector3(10, 0, 10));
+        patternSquare.Add(new Vector3(6, 0, 10));
+        */
+
+        /*
+        patternSquare.Add(new Vector3(0, 0, 6));
+        patternSquare.Add(new Vector3(4, 0, 6));
+        patternSquare.Add(new Vector3(4, 0, 10));
+        patternSquare.Add(new Vector3(0, 0, 10));
+        */
+
+        _listPatterns.Add(new PatternColorGame(patternSquare));
+
+        List<Vector3> patternBigSquare = new List<Vector3>();
+        patternBigSquare.Add(new Vector3(0, 0, 0));
+        patternBigSquare.Add(new Vector3(10, 0, 0));
+        patternBigSquare.Add(new Vector3(10, 0, 10));
+        patternBigSquare.Add(new Vector3(0, 0, 10));
+
+        _listPatterns.Add(new PatternColorGame(patternBigSquare));
+
+        List<Vector3> patternRandom = new List<Vector3>();
+        patternRandom.Add(new Vector3(0, 0, 0));
+        patternRandom.Add(new Vector3(0, 0, 4));
+        patternRandom.Add(new Vector3(4, 0, 4));
+        patternRandom.Add(new Vector3(4, 0, 8));
+        patternRandom.Add(new Vector3(8, 0, 8));
+        patternRandom.Add(new Vector3(8, 0, 0));
+
+        _listPatterns.Add(new PatternColorGame(patternRandom));
+
+        _currentPattern = _listPatterns[Random.Range(0, _listPatterns.Count)];
     }
 
-    void IaSetupPattern()
+    void SetCurrentPattern()
     {
-        _currentTargetIndex = 0;
-        _currentTarget = _currentPattern[_currentTargetIndex];
+        _currentPattern = new PatternColorGame();
+
+        List<Vector3> positions = new List<Vector3>();
+
+        int indexPattern = Random.Range(0, _listPatterns.Count);
+
+        _currentPattern._count = _listPatterns[indexPattern]._count;
+
+        _currentPattern._indexBottom = _listPatterns[indexPattern]._indexBottom;
+        _currentPattern._indexTop = _listPatterns[indexPattern]._indexTop;
+        _currentPattern._indexLeft = _listPatterns[indexPattern]._indexLeft;
+        _currentPattern._indexRight = _listPatterns[indexPattern]._indexRight;
+
+        for (int i = 0; i < _listPatterns[indexPattern]._count; ++i)
+        {
+            positions.Add(_listPatterns[indexPattern]._positions[i]);
+        }
+
+        Vector3 previousPosition = positions[0];
+        Vector3 currentPosition;
+        Vector3 difference;
+
+        positions[0] = transform.position;
+
+        for (int i = 1; i < positions.Count; ++i)
+        {
+            currentPosition = positions[i];
+
+            difference = currentPosition - previousPosition;
+
+            positions[i] = positions[i - 1] + difference;
+
+            previousPosition = currentPosition;
+        }
+
+        _currentPattern._positions = positions;
     }
 
-    void Move()
+    bool PatternPossible()
     {
-        if (_playerMove)
-        {
-            if (Input.GetKeyDown(KeyCode.UpArrow))
-            {
-                if ((transform.position + (Vector3.forward * 2)).z <= _cubeTopLeft.position.z)
-                {
-                    transform.position = transform.position + (Vector3.forward * 2);
-                }
-            }
-
-            else if (Input.GetKeyDown(KeyCode.DownArrow))
-            {
-                if ((transform.position + (Vector3.back * 2)).z >= _cubeBottomLeft.position.z)
-                {
-                    transform.position = transform.position + (Vector3.back * 2);
-                }
-            }
-
-            else if (Input.GetKeyDown(KeyCode.LeftArrow))
-            {
-                if ((transform.position + (Vector3.left * 2)).x >= _cubeTopLeft.position.x)
-                {
-                    transform.position = transform.position + (Vector3.left * 2);
-                }
-            }
-
-            else if (Input.GetKeyDown(KeyCode.RightArrow))
-            {
-                if ((transform.position + (Vector3.right * 2)).x <= _cubeTopRight.position.x)
-                {
-                    transform.position = transform.position + (Vector3.right * 2);
-                }
-            }
-        }
-    }
-
-    bool Move(KeyCode keyCode)
-    {
-        if (keyCode == KeyCode.UpArrow)
-        {
-            if ((transform.position + (Vector3.forward * 2)).z <= _cubeTopLeft.position.z)
-            {
-                transform.position = transform.position + (Vector3.forward * 2);
-                return true;
-            }
-        }
-
-        else if (keyCode == KeyCode.DownArrow)
-        {
-            if ((transform.position + (Vector3.back * 2)).z >= _cubeBottomLeft.position.z)
-            {
-                transform.position = transform.position + (Vector3.back * 2);
-                return true;
-            }
-        }
-
-        else if (keyCode == KeyCode.LeftArrow)
-        {
-            if ((transform.position + (Vector3.left * 2)).x >= _cubeTopLeft.position.x)
-            {
-                transform.position = transform.position + (Vector3.left * 2);
-                return true;
-            }
-        }
-
-        else if (keyCode == KeyCode.RightArrow)
-        {
-            if ((transform.position + (Vector3.right * 2)).x <= _cubeTopRight.position.x)
-            {
-                transform.position = transform.position + (Vector3.right * 2);
-                return true;
-            }
-        }
 
         return false;
+    }
+
+    void MakePatternPossible(List<Vector3> patterToDo)
+    {
+
     }
 }
