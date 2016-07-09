@@ -28,9 +28,10 @@ public class ScriptStateMachine : MonoBehaviour
     private bool _enterPlayerMoveState = true;
     private Player _currentPlayer;
     private int _iteration;
-    private float _timePerStep;
+    private float _startTime;
     private Vector3 _startMarker;
     private Vector3 _endMarker;
+    private bool _arriveAtCase = true;
 
     private float t = 0f;
 
@@ -44,9 +45,10 @@ public class ScriptStateMachine : MonoBehaviour
         _timeAfterWheelStop = 1f;
         _timeEllapsedWheelStop = 0f;
         _enterWheelStopState = true;
+        _speed = 50;
         _enterPlayerMoveState = true;
+        _arriveAtCase = true;
         t = 0f;
-
     }
 
 
@@ -155,56 +157,58 @@ public class ScriptStateMachine : MonoBehaviour
                         }
                         else
                         {
-                            if (_timePerStep >= 1f)//1 seconde par case
+                            if (_arriveAtCase)
                             {
-                                int currentIteration = _iteration++;
-                                if (currentIteration == GetComponent<GameManager>().GetDiceNumber())
+                                _iteration++;
+                                var nextID = Utils.Instance.GetCaseByID(_currentPlayer.GetCaseID()).GetNextCaseID();
+                                _currentPlayer.SetCaseID(nextID);
+                                if (Utils.Instance.GetCaseByID(nextID).GetCaseType() == ECaseType.INTERSECTION)
+                                    GetComponent<GameManager>().SetDiceNumber(GetComponent<GameManager>().GetDiceNumber() + 1);
+
+
+                                switch (_currentPlayer.GetPlayerColor())//a voir ! semble suffir player.SetCaseID(id)
                                 {
-                                    Debug.Log("iter = " + currentIteration);
-                                    _currentPlayer.GetAnimator().Play("idle");
-                                    GetComponent<CameraManager>().UnfocusOnPlayer(_currentPlayer.GetPlayerColor());
-                                    GetComponent<GameManager>().NextPlayer();
-                                    _state = EState.CAMERAZOOM;
-                                    return;
+                                    case EPlayer.BLUE:
+                                        PlayerPrefs.SetInt("PLAYER_BLUE_CASEID", nextID);
+                                        break;
+                                    case EPlayer.GREEN:
+                                        PlayerPrefs.SetInt("PLAYER_GREEN_CASEID", nextID);
+                                        break;
+                                    case EPlayer.RED:
+                                        PlayerPrefs.SetInt("PLAYER_RED_CASEID", nextID);
+                                        break;
+                                    case EPlayer.YELLOW:
+                                        PlayerPrefs.SetInt("PLAYER_YELLOW_CASEID", nextID);
+                                        break;
                                 }
-                                else
-                                {
-                                    var nextID = Utils.Instance.GetCaseByID(_currentPlayer.GetCaseID()).GetNextCaseID();
-                                    _currentPlayer.SetCaseID(nextID);
-                                    if (Utils.Instance.GetCaseByID(nextID).GetCaseType() == ECaseType.INTERSECTION)
-                                        GetComponent<GameManager>().SetDiceNumber(GetComponent<GameManager>().GetDiceNumber() + 1);
 
-                                    _startMarker = _currentPlayer.transform.position;
-                                    _endMarker = Utils.Instance.GetCaseByID(nextID).GetCasePosition(_currentPlayer.GetPlayerColor(), false);
-                                    float animLength = Vector3.Distance(_startMarker, _endMarker);
-
-                                    switch (_currentPlayer.GetPlayerColor())//a voir ! semble suffir player.SetCaseID(id)
-                                    {
-                                        case EPlayer.BLUE:
-                                            PlayerPrefs.SetInt("PLAYER_BLUE_CASEID", nextID);
-                                            break;
-                                        case EPlayer.GREEN:
-                                            PlayerPrefs.SetInt("PLAYER_GREEN_CASEID", nextID);
-                                            break;
-                                        case EPlayer.RED:
-                                            PlayerPrefs.SetInt("PLAYER_RED_CASEID", nextID);
-                                            break;
-                                        case EPlayer.YELLOW:
-                                            PlayerPrefs.SetInt("PLAYER_YELLOW_CASEID", nextID);
-                                            break;
-                                    }
-
-
-                                    //animator.SetFloat("MoveInverseDuration", _speed / animLength);
-                                    float fracJourney = Time.deltaTime / animLength;
-                                    _currentPlayer.transform.position = Vector3.Lerp(_startMarker, _endMarker, fracJourney);
-                                    _currentPlayer.transform.LookAt(_endMarker);
-
-                                    _timePerStep = 0f;
-                                }
+                                _startMarker = _currentPlayer.transform.position;
+                                _endMarker = Utils.Instance.GetCaseByID(nextID).GetCasePosition(_currentPlayer.GetPlayerColor(), false);
+                                _startTime = Time.time;
+                                _arriveAtCase = false;
                             }
                             else
-                                _timePerStep += Time.deltaTime;
+                            {
+                                float animLength = Vector3.Distance(_startMarker, _endMarker);
+                                float distCov = (Time.time - _startTime) * _speed;
+                                float fracJourney = distCov / animLength;
+                                _currentPlayer.transform.position = Vector3.Lerp(_startMarker, _endMarker, fracJourney);
+                                _currentPlayer.transform.LookAt(_endMarker);
+                                if ((Mathf.Abs(_currentPlayer.transform.position.x - _endMarker.x) <= 0.01f)
+                                    && (Mathf.Abs(_currentPlayer.transform.position.z - _endMarker.z) <= 0.01f))
+                                {
+                                    _arriveAtCase = true;
+                                    if (_iteration == GetComponent<GameManager>().GetDiceNumber())
+                                    {
+                                        Debug.Log("iter = " + _iteration);
+                                        _currentPlayer.GetAnimator().Play("idle");
+                                        GetComponent<CameraManager>().UnfocusOnPlayer(_currentPlayer.GetPlayerColor());
+                                        GetComponent<GameManager>().NextPlayer();
+                                        _state = EState.CAMERAZOOM;
+                                        InitValeurs();
+                                    }
+                                }
+                            }
 
                         }
                         break;
