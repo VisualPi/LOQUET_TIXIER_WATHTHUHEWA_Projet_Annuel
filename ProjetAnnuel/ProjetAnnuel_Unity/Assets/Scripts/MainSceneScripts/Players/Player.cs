@@ -71,4 +71,11 @@ public class Player : MonoBehaviour
 	{
 		_caseID = id;
 	}
+	
+	public void OnJumpFinished()
+	{
+		//Debug.Log("JUMP FINISHED");
+		//_animator.SetTrigger("Jump");
+		//_animator.Play("idle");
+	}
 }
