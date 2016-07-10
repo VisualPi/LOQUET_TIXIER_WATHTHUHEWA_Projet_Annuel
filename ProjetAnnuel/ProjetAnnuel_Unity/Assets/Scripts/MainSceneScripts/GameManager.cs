@@ -17,29 +17,29 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         //TMP
-/*
-        PlayerPrefs.SetString("PLAYER_BLUE_NAME", "NONAME1");
-        PlayerPrefs.SetString("PLAYER_GREEN_NAME", "NONAME2");
-        PlayerPrefs.SetString("PLAYER_RED_NAME", "NONAME3");
-        PlayerPrefs.SetString("PLAYER_YELLOW_NAME", "NONAME4");
 
-        PlayerPrefs.SetInt("PLAYER_BLUE_ISAI", 0);
-        PlayerPrefs.SetInt("PLAYER_GREEN_ISAI", 0);
-        PlayerPrefs.SetInt("PLAYER_RED_ISAI", 0);
-        PlayerPrefs.SetInt("PLAYER_YELLOW_ISAI", 0);
-
-        PlayerPrefs.SetInt("PLAYER_BLUE_STARS", 0);
-        PlayerPrefs.SetInt("PLAYER_GREEN_STARS", 0);
-        PlayerPrefs.SetInt("PLAYER_RED_STARS", 0);
-        PlayerPrefs.SetInt("PLAYER_YELLOW_STARS", 0);
-
-        PlayerPrefs.SetInt("PLAYER_BLUE_CASEID", 0);
-        PlayerPrefs.SetInt("PLAYER_GREEN_CASEID", 0);
-        PlayerPrefs.SetInt("PLAYER_RED_CASEID", 0);
-        PlayerPrefs.SetInt("PLAYER_YELLOW_CASEID", 0);
-
+       //PlayerPrefs.SetString("PLAYER_BLUE_NAME", "NONAME1");
+       //PlayerPrefs.SetString("PLAYER_GREEN_NAME", "NONAME2");
+       //PlayerPrefs.SetString("PLAYER_RED_NAME", "NONAME3");
+       //PlayerPrefs.SetString("PLAYER_YELLOW_NAME", "NONAME4");
+	   //
+       //PlayerPrefs.SetInt("PLAYER_BLUE_ISAI", 0);
+       //PlayerPrefs.SetInt("PLAYER_GREEN_ISAI", 0);
+       //PlayerPrefs.SetInt("PLAYER_RED_ISAI", 0);
+       //PlayerPrefs.SetInt("PLAYER_YELLOW_ISAI", 0);
+	   //
+       //PlayerPrefs.SetInt("PLAYER_BLUE_STARS", 0);
+       //PlayerPrefs.SetInt("PLAYER_GREEN_STARS", 0);
+       //PlayerPrefs.SetInt("PLAYER_RED_STARS", 0);
+       //PlayerPrefs.SetInt("PLAYER_YELLOW_STARS", 0);
+	   //
+       //PlayerPrefs.SetInt("PLAYER_BLUE_CASEID", 0);
+       //PlayerPrefs.SetInt("PLAYER_GREEN_CASEID", 0);
+       //PlayerPrefs.SetInt("PLAYER_RED_CASEID", 0);
+       //PlayerPrefs.SetInt("PLAYER_YELLOW_CASEID", 0);
+	   //
         PlayerPrefs.SetInt("GAME_ISFIRSTRUN", 1);
-        */
+        
         //TMP
 
 

@@ -25,13 +25,16 @@ public class CameraManager : MonoBehaviour
 
 	public void FocusOnPlayer( EPlayer player, float percentage )
 	{
-		var pos = Utils.Instance.GetPlayerByColor(player).transform.position;
-		_playerCamera.gameObject.transform.position = Vector3.Lerp(_mainCamera.gameObject.transform.position, new Vector3(pos.x + 4, pos.y + 5, pos.z - 15), percentage);
+		
 		_mainCamera.gameObject.SetActive(false);
 		_mainCamera.GetComponent<AudioListener>().enabled = false;
 		_playerCamera.gameObject.SetActive(true);
 		_playerCamera.GetComponent<AudioListener>().enabled = true;
 		_playerCanvas.gameObject.SetActive(true);
+		var pos = Utils.Instance.GetPlayerByColor(player).transform.position;
+		var rot = Utils.Instance.GetPlayerByColor(player).transform.rotation;
+		_playerCamera.gameObject.transform.position = Vector3.Lerp(_mainCamera.gameObject.transform.position, new Vector3(pos.x + 4, pos.y + 5, pos.z - 15), percentage);
+		_playerCamera.gameObject.transform.rotation = Quaternion.Lerp(_playerCamera.gameObject.transform.rotation, new Quaternion(rot.x + 4, rot.y + 5, rot.z - 15, rot.w), percentage);
 	}
 	public void UnfocusOnPlayer( EPlayer player )
 	{
