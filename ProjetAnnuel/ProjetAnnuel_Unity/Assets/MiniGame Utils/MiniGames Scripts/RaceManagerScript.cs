@@ -5,8 +5,6 @@ using UnityEngine.SceneManagement;
 
 [RequireComponent(typeof(AudioSource))]
 public class RaceManagerScript : MonoBehaviour {
-    
-
 
     [SerializeField]
     Text startCountdownText;
@@ -59,16 +57,16 @@ public class RaceManagerScript : MonoBehaviour {
     [SerializeField]
     AudioClip raceMusic;
 
+    [SerializeField]
+    PathScript path;
 
     AudioSource audio;
         
-
     CarControl BlueCarScript;
     CarControl YellowCarScript;
     CarControl RedCarScript;
     CarControl GreenCarScript;
 
-    
     public int LapsToDo;
     int finishPosition;
     bool isGameEnd;
@@ -76,14 +74,8 @@ public class RaceManagerScript : MonoBehaviour {
     //TODO
     //HASHTABLE POUR AFFICHER LES VAINQUEURS
 
-
 	// Use this for initialization
 	IEnumerator Start () {
-
-        
-
-        
-
         //InitForPosition and game
         finishPosition = 1;
         isGameEnd = false;
@@ -94,13 +86,10 @@ public class RaceManagerScript : MonoBehaviour {
         GreenCarScript = GreenCar.GetComponent<CarControl>();
         audio = GetComponent<AudioSource>();
 
-
         SetDisplayInfo();
 
         //Movement of camera for starting
-
-
-
+        
 
         //Countdown for start
         yield return StartCoroutine(IntroRoutine());
@@ -112,8 +101,8 @@ public class RaceManagerScript : MonoBehaviour {
 	void Update () {
 
         // FINISH POSITION DOIT ETRE EGAL A 5 POUR LE CHANGEMENT DE SCENE
-        // finishPosition == 2 est la valeur de test (c'est a dire que des qu'une voiture passe la ligne la partie se finit)
-        if (finishPosition == 2 && !isGameEnd)
+        // finishPosition == 2 est la valeur de test (c'est a dire que des qu'une voiture passe la ligne la partie se finit) mettre 5 pour la version release
+        if (finishPosition == 5 && !isGameEnd)
         {
             
             isGameEnd = true;
@@ -123,16 +112,16 @@ public class RaceManagerScript : MonoBehaviour {
         
 	}
 
-    
+    //Gestion des tours (Nombre de checkpoints codé en dur actuellement)
     void OnTriggerEnter(Collider car)
     {
-        
         if (car.gameObject.name == "Blue_Car")
         {
-            if (BlueCarScript.checkpointReach)
+            if (BlueCarScript.checkpointsPassed == path._path.Count)
             {
                 BlueCarScript.lapsDone++;
-                BlueCarScript.checkpointReach = false;
+                BlueCarScript.checkpointsPassed = 0;
+                //BlueCarScript.checkpointReach = false;
                 blueLapsText.text = (BlueCarScript.lapsDone + 1) + "/" + LapsToDo.ToString() + " Laps";
 
                 Debug.Log(BlueCarScript.lapsDone.ToString());
@@ -144,17 +133,16 @@ public class RaceManagerScript : MonoBehaviour {
                     blueText.text = BlueCarScript.position.ToString();
                     blueText.gameObject.SetActive(true);
                     BlueCarScript.enableController = false;
-                    
                 }
             }
-
         }
         if (car.gameObject.name == "Red_Car")
         {
-            if (RedCarScript.checkpointReach)
+            if (RedCarScript.checkpointsPassed == path._path.Count)
             {
                 RedCarScript.lapsDone++;
-                RedCarScript.checkpointReach = false;
+                RedCarScript.checkpointsPassed = 0;
+                //RedCarScript.checkpointReach = false;
                 redLapsText.text = (RedCarScript.lapsDone + 1) + "/" + LapsToDo.ToString() + " Laps";
                 Debug.Log(RedCarScript.lapsDone.ToString());
                 if (RedCarScript.lapsDone == LapsToDo)
@@ -167,14 +155,14 @@ public class RaceManagerScript : MonoBehaviour {
                     RedCarScript.enableController = false;
                 }
             }
-
         }
         if (car.gameObject.name == "Green_Car")
         {
-            if (GreenCarScript.checkpointReach)
+            if (GreenCarScript.checkpointsPassed == path._path.Count)
             {
                 GreenCarScript.lapsDone++;
-                GreenCarScript.checkpointReach = false;
+                GreenCarScript.checkpointsPassed = 0;
+                //GreenCarScript.checkpointReach = false;
                 greenLapsText.text = (GreenCarScript.lapsDone + 1) + "/" + LapsToDo.ToString() + " Laps";
                 Debug.Log(GreenCarScript.lapsDone.ToString());
                 if (GreenCarScript.lapsDone == LapsToDo)
@@ -190,10 +178,11 @@ public class RaceManagerScript : MonoBehaviour {
         }
         if (car.gameObject.name == "Yellow_Car")
         {
-            if (YellowCarScript.checkpointReach)
+            if (YellowCarScript.checkpointsPassed == path._path.Count)
             {
                 YellowCarScript.lapsDone++;
-                YellowCarScript.checkpointReach = false;
+                YellowCarScript.checkpointsPassed = 0;
+                //YellowCarScript.checkpointReach = false;
                 yellowLapsText.text = (YellowCarScript.lapsDone + 1) + "/" + LapsToDo.ToString() + " Laps";
                 Debug.Log(YellowCarScript.lapsDone.ToString());
                 if (YellowCarScript.lapsDone == LapsToDo)
@@ -244,9 +233,6 @@ public class RaceManagerScript : MonoBehaviour {
         yield return new WaitForSeconds(0.5f);
         startCountdownText.text = "3";
         
-        
-        
-
         yield return new WaitForSeconds(1);
         startCountdownText.text = "2";
        
@@ -255,7 +241,6 @@ public class RaceManagerScript : MonoBehaviour {
         
         yield return new WaitForSeconds(1);
         startCountdownText.text = "GO !";
-        //PLAY SOUND
         
         BlueCarScript.enableController = true;
         RedCarScript.enableController = true;

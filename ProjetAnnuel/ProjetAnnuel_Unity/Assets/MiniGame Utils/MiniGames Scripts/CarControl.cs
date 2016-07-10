@@ -5,12 +5,17 @@ using System.Collections;
 public class CarControl : MonoBehaviour {
     Rigidbody carRigid;
     Transform carTransform;
+    Quaternion rotato;
     public int playerID;
     public int lapsDone;
-    public bool checkpointReach;
+   // public bool checkpointReach;
+    public int checkpointsPassed;
     public int position;
     public bool enableController;
     bool isGrounded;
+
+    [SerializeField]
+    float _maxVelocity;
 
     [SerializeField]
     AudioClip accelerationSound;
@@ -21,25 +26,43 @@ public class CarControl : MonoBehaviour {
     AudioSource audio;
 
     Vector3 raycastForGround;
-    
 
+    [SerializeField]
+    public KeyCode _inputForwardCar;
 
-	// Use this for initialization
-	void Start () {
+    [SerializeField]
+    public KeyCode _inputBrakeCar;
 
-        
-        
+    [SerializeField]
+    public KeyCode _inputResetCar;
+
+    [SerializeField]
+    string axisNameCar;
+
+    [SerializeField]
+    PathScript Path;
+
+    public bool isAI;
+
+    [SerializeField]
+    string playerPrefName;
+
+    // Use this for initialization
+    void Start () {
+
+        if (PlayerPrefs.GetInt(playerPrefName) == 1)
+        {
+            isAI = true;
+        }
+
         enableController = false;
-        checkpointReach = false;
+        //checkpointReach = false;
         lapsDone = 0;
-
-
+        checkpointsPassed = 0;
         carRigid = GetComponent<Rigidbody>();
         carTransform = GetComponent<Transform>();
         audio = GetComponent<AudioSource>();
-
-        
-
+        rotato = carTransform.rotation;
 
     }
 
@@ -50,116 +73,81 @@ public class CarControl : MonoBehaviour {
        // Gizmos.DrawRay(carTransform.position, raycastForGround);
     }
 
-	// Update is called once per frame
-	void Update () {
-        if (enableController /*&& Physics.Raycast(carTransform.position, raycastForGround, 10.0F)*/)
+    void Update()
+    { }
+
+    // Update is called once per frame
+    void FixedUpdate() {
+        if (enableController)
         {
-            if (playerID == 1)
-            {
-                //Player 1
-                if (Input.GetKey(KeyCode.Z) || Input.GetKey(KeyCode.Joystick1Button5))
+                if (Input.GetKey(_inputForwardCar))
                 {
-                    
-                    carRigid.AddForce(carTransform.forward * 18, ForceMode.Acceleration);
-                    
-                    //Play Sound
+
+                    carRigid.AddForce(carTransform.forward * 18 * 1.5f, ForceMode.Acceleration);
+
+                  /*  //Play Sound
                     if (!audio.isPlaying)
                     {
                         audio.Play();
                     }
-
+                    */
                 }
-                if (Input.GetKey(KeyCode.Space) || Input.GetKey(KeyCode.Joystick1Button6))
+                if (Input.GetKey(_inputBrakeCar))
                 {
-                    carRigid.velocity = carRigid.velocity * 0.9f;
-                }
-
-                if (Input.GetAxis("Horizontal") == -1 || Input.GetAxis("Horizontal") == 1)
-                {
-                    carTransform.Rotate(new Vector3(0, Input.GetAxis("Horizontal") * 2, 0));
-                }
-            }
-            else if (playerID == 2)
-            {
-                //Player 2        
-                if (Input.GetKey(KeyCode.Z) || Input.GetKey(KeyCode.Joystick2Button6))
-                {
-                    Debug.Log(carTransform.position.ToString());
-                    carRigid.AddForce(carTransform.forward * 18, ForceMode.Acceleration);
-                    //Play SOUND 
-                    if (!audio.isPlaying)
-                    {
-                        audio.Play();
-                    }
-                }
-               
-                if (Input.GetKey(KeyCode.Space) || Input.GetKey(KeyCode.Joystick2Button5))
-                {
-                    carRigid.velocity = carRigid.velocity * 0.9f;
+                carRigid.AddForce(carTransform.forward * -18, ForceMode.Acceleration);
+                    //carRigid.velocity = carRigid.velocity * 0.9f;
                 }
 
-                if (Input.GetAxis("Horizontal2") == -1 || Input.GetAxis("Horizontal2") == 1)
+                if (Input.GetAxis(axisNameCar) >= -1 || Input.GetAxis(axisNameCar) <= 1)
                 {
-                    carTransform.Rotate(new Vector3(0, Input.GetAxis("Horizontal2") * 2, 0));
-                }
-            }
-
-            else if (playerID == 3)
-            {
-                //Player 3
-                if (Input.GetKey(KeyCode.Z) || Input.GetKey(KeyCode.Joystick3Button5))
-                {
-                    carRigid.AddForce(carTransform.forward * 12, ForceMode.Acceleration);
-                    //Play SOUND
-                    if (!audio.isPlaying)
-                    {
-                        audio.Play();
-                    }
-                }
-                if (Input.GetKey(KeyCode.Space) || Input.GetKey(KeyCode.Joystick3Button6))
-                {
-                    carRigid.velocity = carRigid.velocity * 0.9f;
+                    carTransform.Rotate(new Vector3(0, Input.GetAxis(axisNameCar) * 2, 0));
                 }
 
-                if (Input.GetAxis("Horizontal3") == -1 || Input.GetAxis("Horizontal3") == 1)
+                if (Input.GetKey(_inputResetCar))
                 {
-                    carTransform.Rotate(new Vector3(0, Input.GetAxis("Horizontal3") * 2, 0));
-                }
-            }
-            else if (playerID == 4)
-            {
-                //Player 4
-                if (Input.GetKey(KeyCode.Z) || Input.GetKey(KeyCode.Joystick4Button5))
-                {
-                    carRigid.AddForce(carTransform.forward * 12, ForceMode.Acceleration);
-                    //Play SOUND
-                    if (!audio.isPlaying)
-                    {
-                        audio.Play();
-                    }
-                }
-                if (Input.GetKey(KeyCode.Space) || Input.GetKey(KeyCode.Joystick4Button6))
-                {
-                    carRigid.velocity = carRigid.velocity * 0.9f;
-                }
+                    Debug.Log("ResetCar");
+                   // carTransform = Path.yellowTransform;
+                    carTransform.rotation = rotato;
 
-                if (Input.GetAxis("Horizontal4") == -1 || Input.GetAxis("Horizontal4") == 1)
-                {
-                    carTransform.Rotate(new Vector3(0, Input.GetAxis("Horizontal4") * 2, 0));
                 }
-            }
-            else if (playerID == 0)
-            {
-                //IA
-                // Let the IA system play
-
-            }
-
-            //audio.Stop();
+           
         }
 
-
-
-
     }
-}
+
+
+        public void MoveCarWithIA(PlayerInput playerInput)
+        {   
+            if (playerInput._keyCodes.Contains(_inputForwardCar))
+            {
+                carRigid.AddForce(carTransform.forward * 18 * 1.5f, ForceMode.Acceleration);
+
+            if(carRigid.velocity.magnitude > _maxVelocity)
+            {
+                carRigid.velocity = carRigid.velocity.normalized * _maxVelocity;
+            }
+
+                //Play Sound
+                if (!audio.isPlaying)
+                {
+                    audio.Play();
+                }
+
+            }
+            if (playerInput._keyCodes.Contains(_inputBrakeCar))
+            {
+                carRigid.velocity = carRigid.velocity * 0.9f;
+            }
+
+            if (playerInput._axeHorizontal <= 1 && playerInput._axeHorizontal >= -1) // peut etre zone morte a ajouter entre 0.1 et -0.1
+            {
+                carTransform.Rotate(new Vector3(0, playerInput._axeHorizontal * 2, 0));
+            }
+
+            if (playerInput._keyCodes.Contains(_inputResetCar))
+            {
+                Debug.Log("ResetCar");
+                carTransform.rotation = rotato;
+            }
+        }
+    }

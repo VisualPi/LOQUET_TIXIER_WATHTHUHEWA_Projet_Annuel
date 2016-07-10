@@ -18,20 +18,57 @@ public class CheckPointScript : MonoBehaviour {
     GameObject YellowCar;
 
 
+    [SerializeField]
+    CheckPointScript LastCkeckPoint;
+
+
+    [SerializeField]
+    int checkpointID;
+
+    [SerializeField]
+    BoxCollider colliderBox;
+
+    public Vector3 _cubeSize;
+
     CarControl BlueCarScript;
     CarControl YellowCarScript;
     CarControl RedCarScript;
     CarControl GreenCarScript;
 
+    public Transform yellowLastCheckpointTransform;
+
+    public bool yellowCheckpassed;
+    bool redCheckpassed;
+    bool greenCheckpassed;
+    bool blueCheckpassed;
+
 
     // Use this for initialization
     void Start()
     {
+        if(checkpointID == 23)
+        {
+            yellowCheckpassed = true;
+            redCheckpassed = true;
+            greenCheckpassed = true;
+            blueCheckpassed = true;
+
+        }
+        else
+        {
+            yellowCheckpassed = false;
+            redCheckpassed = false;
+            greenCheckpassed = false;
+            blueCheckpassed = false;
+        }
+        
         startLine = GetComponent<BoxCollider>();
         BlueCarScript = BlueCar.GetComponent<CarControl>();
         YellowCarScript = YellowCar.GetComponent<CarControl>();
         RedCarScript = RedCar.GetComponent<CarControl>();
         GreenCarScript = GreenCar.GetComponent<CarControl>();
+
+        _cubeSize = colliderBox.size;
     }
 
     // Update is called once per frame
@@ -44,26 +81,68 @@ public class CheckPointScript : MonoBehaviour {
     void OnTriggerEnter(Collider car)
     {
 
-        if (car.gameObject.name == "Blue_Car")
+        if (car.gameObject.name == "Blue_car")
         {
-            BlueCarScript.checkpointReach = true;
-               
-            
+            if (LastCkeckPoint.blueCheckpassed == true)
+            {
+
+                blueCheckpassed = true;
+                LastCkeckPoint.LastCkeckPoint.blueCheckpassed = false;
+                BlueCarScript.checkpointsPassed += 1;
+                //redLastCheckpointTransform = RedCar.transform;
+
+                 Debug.Log("CHECKPOINT " + checkpointID);
+                Debug.Log(BlueCarScript.checkpointsPassed);
+            }
+
+
         }
-        if (car.gameObject.name == "Red_Car")
+        if (car.gameObject.name == "Red_car")
         {
-            RedCarScript.checkpointReach = true;
+
+            if (LastCkeckPoint.redCheckpassed == true)
+            {
+
+                redCheckpassed = true;
+                LastCkeckPoint.LastCkeckPoint.redCheckpassed = false;
+                RedCarScript.checkpointsPassed += 1;
+                //redLastCheckpointTransform = RedCar.transform;
+
+                /* Debug.Log("CHECKPOINT " + checkpointID);
+                Debug.Log(YellowCarScript.checkpointsPassed);*/
+            }
+        }
+        if (car.gameObject.name == "Green_car")
+        {
+
+            if (LastCkeckPoint.greenCheckpassed == true)
+            {
+
+                greenCheckpassed = true;
+                LastCkeckPoint.LastCkeckPoint.greenCheckpassed = false;
+                GreenCarScript.checkpointsPassed += 1;
+                //greenLastCheckpointTransform = GreenCar.transform;
+
+                /* Debug.Log("CHECKPOINT " + checkpointID);
+                Debug.Log(YellowCarScript.checkpointsPassed);*/
+            }
+        }
+        if (car.gameObject.name == "Yellow_car")
+        {
+            if (LastCkeckPoint.yellowCheckpassed == true)
+            {
+
+                yellowCheckpassed = true;
+                LastCkeckPoint.LastCkeckPoint.yellowCheckpassed = false;
+                YellowCarScript.checkpointsPassed += 1;
+               // yellowLastCheckpointTransform = startLine.transform;
+              
+                 Debug.Log("CHECKPOINT " + checkpointID);
+                Debug.Log(YellowCarScript.checkpointsPassed);
+            }
            
-        }
-        if (car.gameObject.name == "Green_Car")
-        {
-            GreenCarScript.checkpointReach = true;
-                
-        }
-        if (car.gameObject.name == "Yellow_Car")
-        {
-           YellowCarScript.checkpointReach = true;
-           Debug.Log("CHECKPOINT");
+            
+            
         }
 
     }

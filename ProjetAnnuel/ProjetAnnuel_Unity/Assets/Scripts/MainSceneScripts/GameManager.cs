@@ -17,7 +17,7 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         //TMP
-
+/*
         PlayerPrefs.SetString("PLAYER_BLUE_NAME", "NONAME1");
         PlayerPrefs.SetString("PLAYER_GREEN_NAME", "NONAME2");
         PlayerPrefs.SetString("PLAYER_RED_NAME", "NONAME3");
@@ -39,7 +39,7 @@ public class GameManager : MonoBehaviour
         PlayerPrefs.SetInt("PLAYER_YELLOW_CASEID", 0);
 
         PlayerPrefs.SetInt("GAME_ISFIRSTRUN", 1);
-
+        */
         //TMP
 
 

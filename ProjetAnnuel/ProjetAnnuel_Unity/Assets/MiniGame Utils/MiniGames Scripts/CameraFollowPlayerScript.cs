@@ -30,7 +30,7 @@ public class CameraFollowPlayerScript : MonoBehaviour
 	}
 	
 	// Update is called once per frame
-	void Update () 
+	void LateUpdate () 
     {
         float x = _targetTransform.position.x + _distanceX;
         float y = _targetTransform.position.y + _distanceZ;

@@ -48,63 +48,63 @@ public class LapUtilitiesScript : MonoBehaviour {
 
         if (car.gameObject.name == "Blue_Car")
         {
-            if(BlueCarScript.checkpointReach)
+            if(BlueCarScript.checkpointsPassed == 24)
             {
                 BlueCarScript.lapsDone++;
-                BlueCarScript.checkpointReach = false;
-                Debug.Log(BlueCarScript.lapsDone.ToString());
+                BlueCarScript.checkpointsPassed = 0;
+               //Debug.Log(BlueCarScript.lapsDone.ToString());
                 if (BlueCarScript.lapsDone == LapsToDo)
                 {
                     BlueCarScript.position = finishPosition;
                     finishPosition++;
-                    Debug.Log(BlueCarScript.position.ToString());
+                    //Debug.Log(BlueCarScript.position.ToString());
                 }
             }
             
         }
         if (car.gameObject.name == "Red_Car") 
         {
-            if(RedCarScript.checkpointReach)
+            if(RedCarScript.checkpointsPassed == 24)
             {
                 RedCarScript.lapsDone++;
-                RedCarScript.checkpointReach = false;
-                Debug.Log(RedCarScript.lapsDone.ToString());
+                RedCarScript.checkpointsPassed = 0;
+                //Debug.Log(RedCarScript.lapsDone.ToString());
                 if (RedCarScript.lapsDone == LapsToDo)
                 {
                     RedCarScript.position = finishPosition;
                     finishPosition++;
-                    Debug.Log(RedCarScript.position.ToString());
+                    //Debug.Log(RedCarScript.position.ToString());
                 }
             }
             
         }
         if (car.gameObject.name == "Green_Car") 
         {
-            if (GreenCarScript.checkpointReach)
+            if (GreenCarScript.checkpointsPassed == 24)
             {
                 GreenCarScript.lapsDone++;
-                GreenCarScript.checkpointReach = false;
-                Debug.Log(GreenCarScript.lapsDone.ToString());
+                GreenCarScript.checkpointsPassed = 0;
+                //Debug.Log(GreenCarScript.lapsDone.ToString());
                 if (GreenCarScript.lapsDone == LapsToDo)
                 {
                     GreenCarScript.position = finishPosition;
                     finishPosition++;
-                    Debug.Log(GreenCarScript.position.ToString());
+                    //Debug.Log(GreenCarScript.position.ToString());
                 }
             }
         }
         if (car.gameObject.name == "Yellow_Car") 
         {
-            if (YellowCarScript.checkpointReach)
+            if (YellowCarScript.checkpointsPassed == 24)
             {
                 YellowCarScript.lapsDone++;
-                YellowCarScript.checkpointReach = false;
-                Debug.Log(YellowCarScript.lapsDone.ToString());
+                YellowCarScript.checkpointsPassed = 0;
+                //Debug.Log(YellowCarScript.lapsDone.ToString());
                 if (YellowCarScript.lapsDone == LapsToDo)
                 {
                     YellowCarScript.position = finishPosition;
                     finishPosition++;
-                    Debug.Log(YellowCarScript.position.ToString());
+                    //Debug.Log(YellowCarScript.position.ToString());
                 }
             }
         }

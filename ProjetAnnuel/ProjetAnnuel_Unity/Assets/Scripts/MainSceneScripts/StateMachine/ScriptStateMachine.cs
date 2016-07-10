@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
-public enum EState { CAMERAZOOM, WHEELSPIN, PLAYERPOINTING, WHEELFREEZE, CAMERARESET, PLAYERMOVE }
+public enum EState { CAMERAZOOM, WHEELSPIN, PLAYERPOINTING, WHEELFREEZE, CAMERARESET, PLAYERMOVE, CALLMINIGAME }
 
 public class ScriptStateMachine : MonoBehaviour
 {
@@ -204,13 +205,25 @@ public class ScriptStateMachine : MonoBehaviour
                                         _currentPlayer.GetAnimator().Play("idle");
                                         GetComponent<CameraManager>().UnfocusOnPlayer(_currentPlayer.GetPlayerColor());
                                         GetComponent<GameManager>().NextPlayer();
-                                        _state = EState.CAMERAZOOM;
+                                        if(_currentPlayer.GetPlayerColor()!=EPlayer.YELLOW)
+                                        {
+                                            _state = EState.CAMERAZOOM;
+                                        }
+                                        else
+                                        {
+                                            _state = EState.CALLMINIGAME;   
+                                        }
                                         InitValeurs();
                                     }
                                 }
                             }
 
                         }
+                        break;
+                    }
+                case EState.CALLMINIGAME:
+                    {
+                        SceneManager.LoadScene(Random.Range(0, 1) + 3);
                         break;
                     }
             }
@@ -227,15 +240,15 @@ public class ScriptStateMachine : MonoBehaviour
                     _isButtonHitted = true;
                 break;
             case EPlayer.GREEN:
-                if (Input.GetKeyDown(KeyCode.Joystick2Button0))
+                if (Input.GetKeyDown(KeyCode.Joystick1Button0))
                     _isButtonHitted = true;
                 break;
             case EPlayer.RED:
-                if (Input.GetKeyDown(KeyCode.Joystick3Button0))
+                if (Input.GetKeyDown(KeyCode.Joystick1Button0))
                     _isButtonHitted = true;
                 break;
             case EPlayer.YELLOW:
-                if (Input.GetKeyDown(KeyCode.Joystick4Button0))
+                if (Input.GetKeyDown(KeyCode.Joystick1Button0))
                     _isButtonHitted = true;
                 break;
         }
