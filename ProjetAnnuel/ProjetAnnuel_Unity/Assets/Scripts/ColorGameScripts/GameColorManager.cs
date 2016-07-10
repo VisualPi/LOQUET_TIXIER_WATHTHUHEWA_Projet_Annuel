@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine.UI;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class GameColorManager : MonoBehaviour
 {
@@ -227,6 +228,8 @@ public class GameColorManager : MonoBehaviour
 		}
 	}
 
+	private List<EColorCaseType> _toRes = new List<EColorCaseType>();
+
 	private void CheckForSquares()
 	{
 		for( var i = 1 ; i < 5 ; i++ )//de BLUE a YELLOW dans EColorCaseType
@@ -243,7 +246,10 @@ public class GameColorManager : MonoBehaviour
 						{
 							ok = true;
 							FillCurrentSquare(_logicalCases[x][y], (EColorCaseType)i);
-							GetPointAndRes((EColorCaseType)i);
+							GetPoints((EColorCaseType)i);
+							if (! _toRes.Contains((EColorCaseType)i) )
+								_toRes.Add((EColorCaseType)i);
+							//GetPointAndRes((EColorCaseType)i);
 							x = 10;
 							y = 10;
 							break;
@@ -354,13 +360,11 @@ public class GameColorManager : MonoBehaviour
 		}
 	}
 
-	private void GetPointAndRes( EColorCaseType type )
+	private void Reset( EColorCaseType type )
 	{
-		var pts = GetPoints(type);
 		switch( type )
 		{
 		case EColorCaseType.BLUE:
-			_bluePoints += pts;
 			EmptyCases(type);
 			_audioSource.PlayOneShot(_kaching);
 			break;
@@ -368,7 +372,7 @@ public class GameColorManager : MonoBehaviour
 		}
 	}
 
-	private int GetPoints( EColorCaseType type )
+	private void GetPoints( EColorCaseType type )
 	{
 		var pts = 0;
 		foreach( var c in _colorCases )
@@ -376,7 +380,21 @@ public class GameColorManager : MonoBehaviour
 			if( c.GetColor() == type )
 				pts++;
 		}
-		return pts;
+		switch (type)
+		{
+		case EColorCaseType.BLUE:
+			_bluePoints = pts;
+			break;
+		case EColorCaseType.GREEN:
+			_greenPoints = pts;
+			break;
+		case EColorCaseType.RED:
+			_redPoints = pts;
+			break;
+		case EColorCaseType.YELLOW:
+			_yellowPoints = pts;
+			break;
+		}
 	}
 
 	private void EmptyCases( EColorCaseType type )
@@ -421,6 +439,7 @@ public class GameColorManager : MonoBehaviour
 				_gameStarted = false;
 				_timeGameEllapsed = 0f;
 				GetWinner();
+				SceneManager.LoadScene("result");
 				//playerPref le winner
 			}
 			if( _timeGameEllapsed >= ( _gameDuration - 10f ) )
@@ -429,6 +448,14 @@ public class GameColorManager : MonoBehaviour
 			}
 			if( _timePerStepEllapsed >= _timePerStep )
 			{
+				if(_toRes.Count > 0)
+				{
+					foreach (var t in _toRes)
+					{
+						Reset(t);
+                    }
+					_toRes.Clear();
+				}
 				MovePlayers();
 				_timePerStepEllapsed = 0f;
 			}

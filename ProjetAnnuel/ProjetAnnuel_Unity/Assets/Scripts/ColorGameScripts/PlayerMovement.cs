@@ -42,12 +42,10 @@ public class PlayerMovement : MonoBehaviour
 		{
 			if( Input.GetAxis("Horizontal") == -1 || Input.GetAxis("Horizontal") == 1 )
 			{
-				Debug.Log("DROITE BLEU");
 				nextStep = new Vector3(transform.position.x + ( Input.GetAxis("Horizontal") * 5f ), transform.position.y, transform.position.z);
 			}
 			if( Input.GetAxis("Vertical") == -1 || Input.GetAxis("Vertical") == 1 )
 			{
-				Debug.Log("BAS BLEU");
 				nextStep = new Vector3(transform.position.x, transform.position.y, transform.position.z + ( Input.GetAxis("Vertical") * -5f ));
 			}
 		}
@@ -56,7 +54,6 @@ public class PlayerMovement : MonoBehaviour
 		{
 			if( Input.GetAxis("Horizontal2") == -1 || Input.GetAxis("Horizontal2") == 1 )
 			{
-				Debug.Log("DROITE VERT");
 				nextStep = new Vector3(transform.position.x + ( Input.GetAxis("Horizontal2") * 5f ), transform.position.y, transform.position.z);
 			}
 			if( Input.GetAxis("Vertical2") == -1 || Input.GetAxis("Vertical2") == 1 )
@@ -107,7 +104,6 @@ public class PlayerMovement : MonoBehaviour
 
 	public void Move( Vector3 pos )
 	{
-		Debug.Log("Enter func with pos : " + pos + " compare with " + transform.position);
 		if(pos.x != transform.position.x || pos.z != transform.position.z)
 		{
 			

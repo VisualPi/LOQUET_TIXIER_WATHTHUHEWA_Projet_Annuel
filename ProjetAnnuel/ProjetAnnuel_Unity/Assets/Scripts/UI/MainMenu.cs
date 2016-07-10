@@ -8,8 +8,8 @@ public class MainMenu : MonoBehaviour
 	public Transform StartGamePanel;
 
 	private string playerBlueName = "No name1";
-	private string playerRedName = "No name2";
-	private string playerGreenName = "No name3";
+	private string playerGreenName = "No name2";
+	private string playerRedName = "No name3";
 	private string playerYellowName = "No name4";
 
 	private bool playerBlueIsAI;
