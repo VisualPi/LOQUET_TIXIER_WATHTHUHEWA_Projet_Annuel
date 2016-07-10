@@ -129,7 +129,8 @@ public class RaceManagerScript : MonoBehaviour {
                 {
                     blueLapsText.gameObject.SetActive(false);
                     BlueCarScript.position = finishPosition;
-                    finishPosition++;
+					PlayerPrefs.SetInt("PLAYER_BLUE_WIN", finishPosition);
+					finishPosition++;
                     blueText.text = BlueCarScript.position.ToString();
                     blueText.gameObject.SetActive(true);
                     BlueCarScript.enableController = false;
@@ -149,7 +150,8 @@ public class RaceManagerScript : MonoBehaviour {
                 {
                     redLapsText.gameObject.SetActive(false);
                     RedCarScript.position = finishPosition;
-                    finishPosition++;
+					PlayerPrefs.SetInt("PLAYER_RED_WIN", finishPosition);
+					finishPosition++;
                     redText.text = RedCarScript.position.ToString();
                     redText.gameObject.SetActive(true);
                     RedCarScript.enableController = false;
@@ -169,7 +171,8 @@ public class RaceManagerScript : MonoBehaviour {
                 {
                     greenLapsText.gameObject.SetActive(false);
                     GreenCarScript.position = finishPosition;
-                    finishPosition++;
+					PlayerPrefs.SetInt("PLAYER_GREEN_WIN", finishPosition);
+					finishPosition++;
                     greenText.text = GreenCarScript.position.ToString();
                     greenText.gameObject.SetActive(true);
                     GreenCarScript.enableController = false;
@@ -189,7 +192,8 @@ public class RaceManagerScript : MonoBehaviour {
                 {
                     yellowLapsText.gameObject.SetActive(false);
                     YellowCarScript.position = finishPosition;
-                    finishPosition++;
+					PlayerPrefs.SetInt("PLAYER_YELLOW_WIN", finishPosition);
+					finishPosition++;
                     Debug.Log("END");
                     yellowText.text = YellowCarScript.position.ToString();
                     yellowText.gameObject.SetActive(true);
