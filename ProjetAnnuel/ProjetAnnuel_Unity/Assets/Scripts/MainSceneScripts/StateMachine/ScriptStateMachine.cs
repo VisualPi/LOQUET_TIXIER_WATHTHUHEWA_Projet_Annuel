@@ -66,6 +66,7 @@ public class ScriptStateMachine : MonoBehaviour
 						GetComponent<CameraManager>().GetMainCamera().SetActive(false);
 						GetComponent<CameraManager>().GetMainCamera().GetComponent<AudioListener>().enabled = false;
 						GetComponent<CameraManager>().GetPlayerCamera().SetActive(true);
+						GetComponent<CameraManager>().GetRoulette().gameObject.SetActive(true);
 						GetComponent<CameraManager>().GetRoulette().gameObject.SetActive(false);
 						GetComponent<CameraManager>().GetPlayerCamera().GetComponent<AudioListener>().enabled = true;
 						GetComponent<CameraManager>().GetPlayerCanvas().SetActive(true);
@@ -76,11 +77,10 @@ public class ScriptStateMachine : MonoBehaviour
 																												new Vector3(pos.x + 4, pos.y + 5, pos.z - 15),
 																												t);
 
-					var lookat =Utils.Instance.GetPlayerByColor(GetComponent<GameManager>().GetCurrentPlayer()).transform.position;
-					GetComponent<CameraManager>().GetPlayerCamera().transform.LookAt(lookat);
 					var tr = Utils.Instance.GetPlayerByColor(GetComponent<GameManager>().GetCurrentPlayer()).transform;
-					GetComponent<CameraManager>().GetRoulette().transform.position = tr.position;
-					GetComponent<CameraManager>().GetRoulette().transform.LookAt(GetComponent<CameraManager>().GetPlayerCamera().transform);
+					GetComponent<CameraManager>().GetPlayerCamera().transform.LookAt(tr.position + (tr.up *4)	);
+					GetComponent<CameraManager>().GetRoulette().transform.position = tr.position + (-tr.right *8) + (tr.up * 4);
+                    var trC = GetComponent<CameraManager>().GetPlayerCamera().transform;
 
 					if( t < 1 )
 						t += Time.deltaTime / _timeCameraZoom;
