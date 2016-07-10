@@ -30,7 +30,7 @@ public class PlayerMovement : MonoBehaviour
 			if( ( Mathf.Abs(transform.position.x - _endMarker.x) < 0.1f ) && ( Mathf.Abs(transform.position.z - _endMarker.z) < 0.1f ) )
 			{
 				transform.position = _endMarker;
-                GetComponent<Player>().GetAnimator().Play("idle");
+                GetComponent<Player>().GetAnimator().Play("walkingIdle");
 				_isMoving = false;
 			}
 		}
@@ -113,7 +113,7 @@ public class PlayerMovement : MonoBehaviour
 			_distance = Vector3.Distance(_startMarker, _endMarker);
 			_isMoving = true;
 			transform.LookAt(_endMarker);
-			GetComponent<Player>().GetAnimator().Play("jump");
+			GetComponent<Player>().GetAnimator().Play("walking2");
 		}
 	}
 }
