@@ -47,6 +47,14 @@ public class GameColorManager : MonoBehaviour
 	[SerializeField]
 	private AudioClip _timerEnd;
 
+	[SerializeField]
+	private AudioSource _audioSourceAmbient;
+	[SerializeField]
+	private AudioClip _crashBandicoot2;
+
+	[SerializeField]
+	private AudioClip _kaching;
+
 
 	void Start()
 	{
@@ -180,22 +188,10 @@ public class GameColorManager : MonoBehaviour
 	private int _yellowPoints;
 	private void GetPoints()
 	{
-		foreach( var c in _colorCases )
-		{
-			if( c.GetColor() == EColorCaseType.BLUE )
-				_bluePoints++;
-			if( c.GetColor() == EColorCaseType.GREEN )
-				_greenPoints++;
-			if( c.GetColor() == EColorCaseType.RED )
-				_redPoints++;
-			if( c.GetColor() == EColorCaseType.YELLOW )
-				_yellowPoints++;
-			_scoreBlue.text = _bluePoints.ToString();
-			_scoreGreen.text = _greenPoints.ToString();
-			_scoreRed.text = _redPoints.ToString();
-			_scoreYellow.text = _yellowPoints.ToString();
-		}
-		//afficher les points sur le HUD
+		_scoreBlue.text = _bluePoints.ToString();
+		_scoreGreen.text = _greenPoints.ToString();
+		_scoreRed.text = _redPoints.ToString();
+		_scoreYellow.text = _yellowPoints.ToString();
 	}
 
 	private List<Vector2> GetNeighboors( Vector2 coord )
@@ -247,6 +243,7 @@ public class GameColorManager : MonoBehaviour
 						{
 							ok = true;
 							FillCurrentSquare(_logicalCases[x][y], (EColorCaseType)i);
+							GetPointAndRes((EColorCaseType)i);
 							x = 10;
 							y = 10;
 							break;
@@ -357,6 +354,49 @@ public class GameColorManager : MonoBehaviour
 		}
 	}
 
+	private void GetPointAndRes( EColorCaseType type )
+	{
+		var pts = GetPoints(type);
+		switch( type )
+		{
+		case EColorCaseType.BLUE:
+			_bluePoints += pts;
+			EmptyCases(type);
+			_audioSource.PlayOneShot(_kaching);
+			break;
+
+		}
+	}
+
+	private int GetPoints( EColorCaseType type )
+	{
+		var pts = 0;
+		foreach( var c in _colorCases )
+		{
+			if( c.GetColor() == type )
+				pts++;
+		}
+		return pts;
+	}
+
+	private void EmptyCases( EColorCaseType type )
+	{
+		foreach( var c in _colorCases )
+		{
+			if( c.GetColor() == type )
+				c.SetColor(EColorCaseType.DEFAULT);
+		}
+	}
+
+
+	private void EmptyAllCases()
+	{
+		foreach( var c in _colorCases )
+		{
+			c.SetColor(EColorCaseType.DEFAULT);
+		}
+	}
+
 	[SerializeField]
 	private bool checkForSquare;
 
@@ -392,11 +432,7 @@ public class GameColorManager : MonoBehaviour
 				MovePlayers();
 				_timePerStepEllapsed = 0f;
 			}
-			if( _timeLapEllapsed >= 10f )
-			{
-				GetPoints();
-				_timeLapEllapsed = 0f;
-			}
+			GetPoints();
 			CheckForSquares();
 		}
 	}
@@ -404,7 +440,7 @@ public class GameColorManager : MonoBehaviour
 	IEnumerator Countdown()
 	{
 		_debut = false;
-        Debug.Log("first");
+		Debug.Log("first");
 		_audioSource.PlayOneShot(_timer);
 		_three.SetActive(true);
 		yield return new WaitForSeconds(1);
@@ -423,6 +459,7 @@ public class GameColorManager : MonoBehaviour
 		_one.SetActive(false);
 		_gameStarted = true;
 		_chrono.gameObject.SetActive(true);
+		_audioSourceAmbient.PlayOneShot(_crashBandicoot2);
 		yield return new WaitForSeconds(1);
 	}
 }
