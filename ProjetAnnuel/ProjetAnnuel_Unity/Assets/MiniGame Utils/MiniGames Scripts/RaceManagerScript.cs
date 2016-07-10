@@ -115,7 +115,7 @@ public class RaceManagerScript : MonoBehaviour {
     //Gestion des tours (Nombre de checkpoints codé en dur actuellement)
     void OnTriggerEnter(Collider car)
     {
-        if (car.gameObject.name == "Blue_Car")
+        if (car.gameObject.name == "Blue_car")
         {
             if (BlueCarScript.checkpointsPassed == path._path.Count)
             {
@@ -136,7 +136,7 @@ public class RaceManagerScript : MonoBehaviour {
                 }
             }
         }
-        if (car.gameObject.name == "Red_Car")
+        if (car.gameObject.name == "Red_car")
         {
             if (RedCarScript.checkpointsPassed == path._path.Count)
             {
@@ -156,7 +156,7 @@ public class RaceManagerScript : MonoBehaviour {
                 }
             }
         }
-        if (car.gameObject.name == "Green_Car")
+        if (car.gameObject.name == "Green_car")
         {
             if (GreenCarScript.checkpointsPassed == path._path.Count)
             {
@@ -176,7 +176,7 @@ public class RaceManagerScript : MonoBehaviour {
                 }
             }
         }
-        if (car.gameObject.name == "Yellow_Car")
+        if (car.gameObject.name == "Yellow_car")
         {
             if (YellowCarScript.checkpointsPassed == path._path.Count)
             {

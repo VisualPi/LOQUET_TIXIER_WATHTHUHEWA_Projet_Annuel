@@ -230,8 +230,19 @@ public class ScriptStateMachine : MonoBehaviour
 				}
 			case EState.CALLMINIGAME:
 				{
-					SceneManager.LoadScene(Random.Range(0, 1) + 3);
-					break;
+                        int random;
+                        random = (Random.Range(0, 10) % 2);
+                        Debug.Log(random);
+                        if(random!=0)
+                        {
+                            SceneManager.LoadScene(3);
+                        }
+                        else
+                        {
+                            SceneManager.LoadScene(4);
+                        }
+
+                        break;
 				}
 			}
 
