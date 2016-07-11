@@ -342,21 +342,77 @@ public class GameColorManager : MonoBehaviour
 	{
 		List<int> tmp = new List<int>() { _bluePoints, _greenPoints, _redPoints, _yellowPoints };
 		tmp.Sort();
+		//FIRST
 		if( tmp[3] == _bluePoints )
 		{
+			PlayerPrefs.SetInt("PLAYER_BLUE_WIN", 1);
 			_blueWinner.gameObject.SetActive(true);
 		}
 		if( tmp[3] == _greenPoints )
 		{
+			PlayerPrefs.SetInt("PLAYER_GREEN_WIN", 1);
 			_greenWinner.gameObject.SetActive(true);
 		}
 		if( tmp[3] == _redPoints )
 		{
+			PlayerPrefs.SetInt("PLAYER_RED_WIN", 1);
 			_redWinner.gameObject.SetActive(true);
 		}
 		if( tmp[3] == _yellowPoints )
 		{
+			PlayerPrefs.SetInt("PLAYER_YELLOW_WIN", 1);
 			_yellowWinner.gameObject.SetActive(true);
+		}
+		//TWO
+		if( tmp[2] == _bluePoints )
+		{
+			PlayerPrefs.SetInt("PLAYER_BLUE_WIN", 2);
+		}
+		if( tmp[2] == _greenPoints )
+		{
+			PlayerPrefs.SetInt("PLAYER_GREEN_WIN", 2);
+		}
+		if( tmp[2] == _redPoints )
+		{
+			PlayerPrefs.SetInt("PLAYER_RED_WIN", 2);
+		}
+		if( tmp[2] == _yellowPoints )
+		{
+			PlayerPrefs.SetInt("PLAYER_YELLOW_WIN", 2);
+		}
+		//THREE
+		if( tmp[1] == _bluePoints )
+		{
+			PlayerPrefs.SetInt("PLAYER_BLUE_WIN", 3);
+		}
+		if( tmp[1] == _greenPoints )
+		{
+			PlayerPrefs.SetInt("PLAYER_GREEN_WIN", 3);
+		}
+		if( tmp[1] == _redPoints )
+		{
+			PlayerPrefs.SetInt("PLAYER_RED_WIN", 3);
+		}
+		if( tmp[1] == _yellowPoints )
+		{
+			PlayerPrefs.SetInt("PLAYER_YELLOW_WIN", 3);
+		}
+		//FOUR
+		if( tmp[0] == _bluePoints )
+		{
+			PlayerPrefs.SetInt("PLAYER_BLUE_WIN", 4);
+		}
+		if( tmp[0] == _greenPoints )
+		{
+			PlayerPrefs.SetInt("PLAYER_GREEN_WIN", 4);
+		}
+		if( tmp[0] == _redPoints )
+		{
+			PlayerPrefs.SetInt("PLAYER_RED_WIN", 4);
+		}
+		if( tmp[0] == _yellowPoints )
+		{
+			PlayerPrefs.SetInt("PLAYER_YELLOW_WIN", 4);
 		}
 	}
 
@@ -440,7 +496,6 @@ public class GameColorManager : MonoBehaviour
 				_timeGameEllapsed = 0f;
 				GetWinner();
 				SceneManager.LoadScene("result");
-				//playerPref le winner
 			}
 			if( _timeGameEllapsed >= ( _gameDuration - 10f ) )
 			{

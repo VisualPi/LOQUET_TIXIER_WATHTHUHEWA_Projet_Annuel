@@ -142,6 +142,10 @@ public class ResultManagerScene : MonoBehaviour
 		}
 		if( Time.timeSinceLevelLoad >= 8 )
 		{
+			PlayerPrefs.SetInt("PLAYER_BLUE_WIN", 0);
+			PlayerPrefs.SetInt("PLAYER_GREEN_WIN", 0);
+			PlayerPrefs.SetInt("PLAYER_RED_WIN", 0);
+			PlayerPrefs.SetInt("PLAYER_YELLOW_WIN", 0);
 			Debug.Log("YOLO");
 			SceneManager.LoadScene(1);
 		}
