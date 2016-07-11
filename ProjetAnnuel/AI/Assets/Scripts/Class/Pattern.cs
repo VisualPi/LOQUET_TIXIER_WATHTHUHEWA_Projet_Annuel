@@ -6,7 +6,12 @@ using System.Collections.Generic;
 public class Pattern 
 {
     public int _score;
+
     public List<PlayerInput> _playerInputs;
+
+    public float _horizontalAxis;
+
+    public float _minDistanceBeforeTurning;
 
     public Pattern()
     {

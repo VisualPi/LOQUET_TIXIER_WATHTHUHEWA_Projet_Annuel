@@ -413,8 +413,6 @@ public class DectectQuadScript : MonoBehaviour
 
         if(quadOne.Count == quadTwo.Count)
         {
-            List<bool> sameQuad = new List<bool>();
-
             foreach(List<GameObject> lineOne in quadOne)
             {
                 foreach(List<GameObject> lineTwo in quadTwo)

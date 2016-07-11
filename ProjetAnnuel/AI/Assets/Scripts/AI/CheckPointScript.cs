@@ -9,12 +9,15 @@ public class CheckPointScript : MonoBehaviour
     [SerializeField]
     public Vector3 _cubeSize;
 
+    [SerializeField]
+    public BoxCollider _boxCollider;
+
     void OnDrawGizmos()
     {
         if (_enableGizmos)
         {
             Gizmos.color = Color.blue;
-            Gizmos.DrawWireCube(transform.position, _cubeSize);
+            Gizmos.DrawWireCube(transform.position, _boxCollider.size);
         }
     }
 }

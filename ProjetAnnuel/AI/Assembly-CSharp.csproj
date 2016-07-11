@@ -49,6 +49,7 @@
      <Compile Include="Assets\Scripts\AI\CheckPointScript.cs" />
      <Compile Include="Assets\Scripts\AI\PathScript.cs" />
      <Compile Include="Assets\Scripts\AI\RaceGameAi.cs" />
+     <Compile Include="Assets\Scripts\AI\RecordPlayerDatasScript.cs" />
      <Compile Include="Assets\Scripts\Class\Pattern.cs" />
      <Compile Include="Assets\Scripts\Class\PlayerInput.cs" />
      <Compile Include="Assets\Scripts\Class\PlayerIntention.cs" />

@@ -31,22 +31,31 @@ public class AiScript : MonoBehaviour
     List<CheckPointScript> _path;
 
     int _currentCheckPointIndex;
-    CheckPointScript _currentCheckPoint;
-    CheckPointScript _previousCheckPoint;
-    CheckPointScript _nextCheckPoint;
+    
+    public CheckPointScript _currentCheckPoint;
+    public CheckPointScript _previousCheckPoint;
+    public CheckPointScript _nextCheckPoint;
 
     void OnDrawGizmos()
     {
         if (_enableGizmos)
         {
+            if (_previousCheckPoint && _currentCheckPoint)
+            {
+                Gizmos.color = Color.black;
+                Gizmos.DrawRay(transform.position, transform.forward * (_currentCheckPoint.transform.position - _previousCheckPoint.transform.position).magnitude);
+                Gizmos.DrawRay(_previousCheckPoint.transform.position, (_currentCheckPoint.transform.position - _previousCheckPoint.transform.position));
+            }
+
             if (_currentCheckPoint)
             {
                 Gizmos.color = Color.red;
                 Gizmos.DrawWireSphere(_currentCheckPoint.transform.position, Mathf.Max(_currentCheckPoint._cubeSize.x, _currentCheckPoint._cubeSize.z) / 1.5f);
-                
+                /*
                 Gizmos.color = Color.black;
                 Gizmos.DrawRay(transform.position, (_currentCheckPoint.transform.position - transform.position));
                 Gizmos.DrawRay(transform.position, transform.forward * 5);
+                */
             }
 
             if(_previousCheckPoint)
@@ -81,7 +90,7 @@ public class AiScript : MonoBehaviour
 	// Use this for initialization
 	void Start () 
     {
-        _moveScript._playerMove = false;
+        //_moveScript._playerMove = false;
 
         _path = _pathScript._path;
 
@@ -138,6 +147,24 @@ public class AiScript : MonoBehaviour
 
             float angle = Vector3.Angle((_currentCheckPoint.transform.position - transform.position), transform.forward);
 
+            float angleCarForwardPreviousCurrentCheckPoint = 0;
+            //bool lookLeft = true;
+
+            if(_nextCheckPoint)
+            {
+                angleCarForwardPreviousCurrentCheckPoint = Vector3.Angle(transform.forward, _currentCheckPoint.transform.position - _previousCheckPoint.transform.position);
+                
+                float angleCarForwardCurrentNextCheckPoint = Vector3.Angle(transform.forward, _nextCheckPoint.transform.position - _currentCheckPoint.transform.position);
+
+                if (angleCarForwardCurrentNextCheckPoint >= 90 && angleCarForwardCurrentNextCheckPoint <= 180)
+                {
+                    angleCarForwardPreviousCurrentCheckPoint = -angleCarForwardPreviousCurrentCheckPoint;
+                    //lookLeft = false;
+                }
+            }
+
+            //Debug.Log(angleCarForwardPreviousCurrentCheckPoint);
+            
             // Si on est a peu près dans la direction du checkpoint à atteindre
             if (angle >= 0 && angle <= _angleApproximation)
             {
@@ -254,11 +281,16 @@ public class AiScript : MonoBehaviour
         GetNextPath();
     }
 
+    public bool HasCheckPoints()
+    {
+        return (_previousCheckPoint && _currentCheckPoint && _nextCheckPoint);
+    }
+
     void GetNextPath()
     {
         Vector3 positionToCurrentCheckPoint = (_currentCheckPoint.transform.position - transform.position);
-        
-        if (positionToCurrentCheckPoint.magnitude <= (Mathf.Max(_currentCheckPoint._cubeSize.x, _currentCheckPoint._cubeSize.z) / 1.5f))
+
+        if (positionToCurrentCheckPoint.magnitude <= (Mathf.Max(_currentCheckPoint._boxCollider.size.x, _currentCheckPoint._boxCollider.size.z) / 1.5f))
         {
             if(_currentCheckPointIndex < (_path.Count-1))
             {
