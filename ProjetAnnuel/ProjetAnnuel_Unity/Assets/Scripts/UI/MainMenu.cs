@@ -80,7 +80,19 @@ public class MainMenu : MonoBehaviour
 		PlayerPrefs.SetInt("PLAYER_RED_ISAI", playerRedIsAI ? 1 : 0);
 		PlayerPrefs.SetInt("PLAYER_GREEN_ISAI", playerGreenIsAI ? 1 : 0);
 		PlayerPrefs.SetInt("PLAYER_YELLOW_ISAI", playerYellowIsAI ? 1 : 0);
-        PlayerPrefs.SetInt("GAME_ISFIRSTRUN", 1);
+		
+		
+		PlayerPrefs.SetInt("PLAYER_BLUE_STARS", 0);
+		PlayerPrefs.SetInt("PLAYER_GREEN_STARS", 0);
+		PlayerPrefs.SetInt("PLAYER_RED_STARS", 0);
+		PlayerPrefs.SetInt("PLAYER_YELLOW_STARS", 0);
+		
+		PlayerPrefs.SetInt("PLAYER_BLUE_CASEID", 0);
+		PlayerPrefs.SetInt("PLAYER_GREEN_CASEID", 0);
+		PlayerPrefs.SetInt("PLAYER_RED_CASEID", 0);
+		PlayerPrefs.SetInt("PLAYER_YELLOW_CASEID", 0);
+		
+		PlayerPrefs.SetInt("GAME_ISFIRSTRUN", 1);
         SceneManager.LoadScene("main");
 	}
 

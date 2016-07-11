@@ -30,29 +30,29 @@ public class GameManager : MonoBehaviour
         audioSource.PlayOneShot(music);
 
 
-        PlayerPrefs.SetString("PLAYER_BLUE_NAME", "NONAME1");
-        PlayerPrefs.SetString("PLAYER_GREEN_NAME", "NONAME2");
-        PlayerPrefs.SetString("PLAYER_RED_NAME", "NONAME3");
-        PlayerPrefs.SetString("PLAYER_YELLOW_NAME", "NONAME4");
-
-        PlayerPrefs.SetInt("PLAYER_BLUE_ISAI", 1);
-        PlayerPrefs.SetInt("PLAYER_GREEN_ISAI", 1);
-        PlayerPrefs.SetInt("PLAYER_RED_ISAI", 1);
-        PlayerPrefs.SetInt("PLAYER_YELLOW_ISAI", 1);
-
-        PlayerPrefs.SetInt("PLAYER_BLUE_STARS", 0);
-        PlayerPrefs.SetInt("PLAYER_GREEN_STARS", 0);
-        PlayerPrefs.SetInt("PLAYER_RED_STARS", 0);
-        PlayerPrefs.SetInt("PLAYER_YELLOW_STARS", 0);
-
-       /* PlayerPrefs.SetInt("PLAYER_BLUE_CASEID", 0);
-        PlayerPrefs.SetInt("PLAYER_GREEN_CASEID", 0);
-        PlayerPrefs.SetInt("PLAYER_RED_CASEID", 0);
-        PlayerPrefs.SetInt("PLAYER_YELLOW_CASEID", 0);*/
-
-        PlayerPrefs.SetInt("GAME_ISFIRSTRUN", 0);
-
-        //TMP
+       //PlayerPrefs.SetString("PLAYER_BLUE_NAME", "NONAME1");
+       //PlayerPrefs.SetString("PLAYER_GREEN_NAME", "NONAME2");
+       //PlayerPrefs.SetString("PLAYER_RED_NAME", "NONAME3");
+       //PlayerPrefs.SetString("PLAYER_YELLOW_NAME", "NONAME4");
+	   //
+       //PlayerPrefs.SetInt("PLAYER_BLUE_ISAI", 1);
+       //PlayerPrefs.SetInt("PLAYER_GREEN_ISAI", 1);
+       //PlayerPrefs.SetInt("PLAYER_RED_ISAI", 1);
+       //PlayerPrefs.SetInt("PLAYER_YELLOW_ISAI", 1);
+	   //
+       //PlayerPrefs.SetInt("PLAYER_BLUE_STARS", 0);
+       //PlayerPrefs.SetInt("PLAYER_GREEN_STARS", 0);
+       //PlayerPrefs.SetInt("PLAYER_RED_STARS", 0);
+       //PlayerPrefs.SetInt("PLAYER_YELLOW_STARS", 0);
+	   //
+       //* PlayerPrefs.SetInt("PLAYER_BLUE_CASEID", 0);
+       //PlayerPrefs.SetInt("PLAYER_GREEN_CASEID", 0);
+       //PlayerPrefs.SetInt("PLAYER_RED_CASEID", 0);
+       //PlayerPrefs.SetInt("PLAYER_YELLOW_CASEID", 0);*/
+	   //
+       //PlayerPrefs.SetInt("GAME_ISFIRSTRUN", 0);
+	   //
+       ////TMP
 
 
 
@@ -79,11 +79,11 @@ public class GameManager : MonoBehaviour
             Utils.Instance.GetPlayerByColor(EPlayer.GREEN).transform.position = Utils.Instance.GetDepartCase().GetCasePosition(EPlayer.GREEN, false);
             Utils.Instance.GetPlayerByColor(EPlayer.RED).transform.position = Utils.Instance.GetDepartCase().GetCasePosition(EPlayer.RED, false);
             Utils.Instance.GetPlayerByColor(EPlayer.YELLOW).transform.position = Utils.Instance.GetDepartCase().GetCasePosition(EPlayer.YELLOW, false);
-            PlayerPrefs.SetInt("PLAYER_BLUE_CASEID", 0);
-            PlayerPrefs.SetInt("PLAYER_GREEN_CASEID", 0);
-            PlayerPrefs.SetInt("PLAYER_RED_CASEID", 0);
-            PlayerPrefs.SetInt("PLAYER_YELLOW_CASEID", 0);
-        }
+			Utils.Instance.GetPlayerByColor(EPlayer.BLUE).SetCaseID(0);
+			Utils.Instance.GetPlayerByColor(EPlayer.GREEN).SetCaseID(0);
+			Utils.Instance.GetPlayerByColor(EPlayer.RED).SetCaseID(0);
+			Utils.Instance.GetPlayerByColor(EPlayer.YELLOW).SetCaseID(0);
+		}
         else if (PlayerPrefs.GetInt("GAME_ISFIRSTRUN") == 0)//si ce n'est pas le premier lancement de la scene on lance pas la cinématique
         {
             _cinematique.SetCinematiqueFinished(true);
