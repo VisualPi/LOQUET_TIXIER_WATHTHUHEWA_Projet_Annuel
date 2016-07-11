@@ -132,7 +132,8 @@ public class RaceManagerScript : MonoBehaviour {
 					finishPosition++;
                     blueText.text = BlueCarScript.position.ToString();
                     blueText.gameObject.SetActive(true);
-                    BlueCarScript.enableController = false;
+                    BlueCarScript.isAI = true;
+                    //BlueCarScript.enableController = false;
                 }
             }
             else
@@ -156,7 +157,8 @@ public class RaceManagerScript : MonoBehaviour {
 					finishPosition++;
                     redText.text = RedCarScript.position.ToString();
                     redText.gameObject.SetActive(true);
-                    RedCarScript.enableController = false;
+                    // RedCarScript.enableController = false;
+                    RedCarScript.isAI = true;
                 }
                 else
                 {
@@ -179,7 +181,8 @@ public class RaceManagerScript : MonoBehaviour {
 					finishPosition++;
                     greenText.text = GreenCarScript.position.ToString();
                     greenText.gameObject.SetActive(true);
-                    GreenCarScript.enableController = false;
+                    // GreenCarScript.enableController = false;
+                    GreenCarScript.isAI = true;
                 }
                 else
                 {
@@ -203,7 +206,8 @@ public class RaceManagerScript : MonoBehaviour {
 					finishPosition++;
                     yellowText.text = YellowCarScript.position.ToString();
                     yellowText.gameObject.SetActive(true);
-                    YellowCarScript.enableController = false;
+                    //  YellowCarScript.enableController = false;
+                    YellowCarScript.isAI= true;
                 }
                 else
                 {

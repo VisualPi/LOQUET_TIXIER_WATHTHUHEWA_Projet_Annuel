@@ -35,9 +35,12 @@ public class ScriptStateMachine : MonoBehaviour
 	private bool _arriveAtCase = true;
 
 	private float t = 0f;
+    
+    
 
 	private void InitValeurs()
 	{
+        
 		_timeCameraZoom = 2f;
 		_enteringCameraState = true;
 		_enteringWheelSpinState = true;
@@ -230,17 +233,35 @@ public class ScriptStateMachine : MonoBehaviour
 				}
 			case EState.CALLMINIGAME:
 				{
-                        int random;
-                        random = (Random.Range(0, 10) % 2);
-                        Debug.Log(random);
-                        if(random!=0)
+                        if(PlayerPrefs.GetInt("GAME_MINIGMAE") == -1)
                         {
-                            SceneManager.LoadScene(3);
+                            int random;
+                            random = (Random.Range(0, 10) % 2);
+                            if (random != 0)
+                            {
+                                PlayerPrefs.SetInt("GAME_MINIGAME", 0);
+                            }
+                            else
+                            {
+                                PlayerPrefs.SetInt("GAME_MINIGAME", 1);
+                            }
                         }
-                        else
+                        else if(PlayerPrefs.GetInt("GAME_MINIGAME") == 0)
                         {
-                            SceneManager.LoadScene(4);
+                            PlayerPrefs.SetInt("GAME_MINIGAME", 1);
                         }
+                        else if (PlayerPrefs.GetInt("GAME_MINIGAME") == 1)
+                        {
+                            PlayerPrefs.SetInt("GAME_MINIGAME", 0);
+                        }
+
+                        SceneManager.LoadScene(5);
+
+
+
+
+
+                       
 
                         break;
 				}

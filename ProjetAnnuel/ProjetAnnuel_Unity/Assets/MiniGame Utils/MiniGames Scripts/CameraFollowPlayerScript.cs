@@ -32,17 +32,17 @@ public class CameraFollowPlayerScript : MonoBehaviour
 	// Update is called once per frame
 	void LateUpdate () 
     {
-        /*
+        
         float x = _targetTransform.position.x + _distanceX;
         float y = _targetTransform.position.y + _distanceZ;
         float z = _targetTransform.position.z + _distanceY;
         _cameraTransform.position = new Vector3(x, y, z);
         _cameraTransform.LookAt(_targetTransform);
-        */
+        
 
-        _cameraTransform.position = _targetTransform.position - (_targetTransform.forward * 8) + (_targetTransform.up * 8);
+        /*_cameraTransform.position = _targetTransform.position - (_targetTransform.forward * 8) + (_targetTransform.up * 8);
 
-        _cameraTransform.LookAt(_targetTransform.position + _targetTransform.forward*4);
+        _cameraTransform.LookAt(_targetTransform.position + _targetTransform.forward*10);*/
         
 	}
 }
