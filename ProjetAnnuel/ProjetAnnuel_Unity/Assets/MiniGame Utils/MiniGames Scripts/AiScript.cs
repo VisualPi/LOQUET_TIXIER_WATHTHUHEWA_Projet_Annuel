@@ -26,6 +26,11 @@ public class AiScript : MonoBehaviour
     [SerializeField]
     bool _sharpCurve;
 
+    private PatternRaceGame patternRaceGame;
+
+    [SerializeField]
+    public bool isInTheLab;
+
     float _angleApproximation;
 
     List<CheckPointScript> _path;
@@ -39,7 +44,7 @@ public class AiScript : MonoBehaviour
     [SerializeField]
     bool isIA;
 
-
+    bool isTurning = false;
 
     void OnDrawGizmos()
     {
@@ -96,6 +101,19 @@ public class AiScript : MonoBehaviour
             _previousCheckPoint = _path[_path.Count - 1];
             _currentCheckPoint = _path[0];
             _nextCheckPoint = _path[1];
+        }
+
+        if (isInTheLab)
+        {
+            Debug.Log("LAUCHING SHARABLE AI");
+            ReadXmlRaceScript readXmlScript = new ReadXmlRaceScript();
+            patternRaceGame = readXmlScript.ReadXmlFile(PlayerPrefs.GetString(_carControleScript.playerName));
+
+            if(patternRaceGame != null)
+            {
+                Debug.Log("Pattern Loaded");
+                _angleMaxRange = patternRaceGame._averageAngleInside;
+            }
         }
 
         StartCoroutine(randomAngle());
@@ -342,6 +360,12 @@ public class AiScript : MonoBehaviour
                     Debug.Log("hit ");// + rayCastHit.collider.gameObject.name + " - " + rayCastHit.distance);
                 }
                 */
+               // Debug.Log(transform.rotation.x + " - " + transform.rotation.z);
+                if(Mathf.Abs(transform.rotation.x) > 0.09f || Mathf.Abs(transform.rotation.z) > 0.09f)
+                {
+                    Debug.Log("Reset !");
+                    iaKeyCodes.Add(_carControleScript._inputResetCar);
+                }
                 PlayerInput pi = new PlayerInput(iaKeyCodes, axeX);
                 //Debug.Log(axeX);
                 _carControleScript.MoveCarWithIA(pi);
@@ -349,7 +373,19 @@ public class AiScript : MonoBehaviour
             }
         }
 
-        GetNextPath();
+        if (!isInTheLab)
+        {
+            GetNextPath();
+        }
+        else
+        {
+            GetNextPathSharableAI();
+        }
+    }
+
+    public bool HasCheckPoints()
+    {
+        return (_previousCheckPoint && _currentCheckPoint && _nextCheckPoint);
     }
 
     public void GetNextPath()
@@ -357,8 +393,8 @@ public class AiScript : MonoBehaviour
         Vector3 positionToCurrentCheckPoint = (_currentCheckPoint.transform.position - transform.position);
         
         if (positionToCurrentCheckPoint.magnitude <= (Mathf.Max(_currentCheckPoint._cubeSize.x, _currentCheckPoint._cubeSize.z)/1.5f))
-        {
-            if(_currentCheckPointIndex < (_path.Count-1))
+        {           
+            if (_currentCheckPointIndex < (_path.Count - 1))
             {
                 ++_currentCheckPointIndex;
             }
@@ -377,6 +413,89 @@ public class AiScript : MonoBehaviour
             else
             {
                 _nextCheckPoint = _path[0];
+            }
+        }
+    }
+
+    public void GetNextPathSharableAI()
+    {
+        //Debug.Log("GET NEXT PATH SAI");
+        Vector3 positionToCurrentCheckPoint = (_currentCheckPoint.transform.position - transform.position);
+
+        // Met à jour les CheckPoints
+        if (positionToCurrentCheckPoint.magnitude <= (Mathf.Max(_currentCheckPoint._cubeSize.x, _currentCheckPoint._cubeSize.z) / 1.5f))
+        {
+            if (_currentCheckPointIndex < (_path.Count - 1))
+            {
+                ++_currentCheckPointIndex;
+            }
+            else
+            {
+                _currentCheckPointIndex = 0;
+            }
+
+            _previousCheckPoint = _currentCheckPoint;
+            _currentCheckPoint = _path[_currentCheckPointIndex];
+
+            if (_currentCheckPointIndex != (_path.Count - 1))
+            {
+                _nextCheckPoint = _path[_currentCheckPointIndex + 1];
+            }
+            else
+            {
+                _nextCheckPoint = _path[0];
+            }
+        }
+
+        if (patternRaceGame != null)
+        {
+            // Vérifie si on est dans un virage ou sur une ligne droite
+            Vector3 positionToPreviousCheckPoint = (_previousCheckPoint.transform.position - transform.position);
+
+            // Cas dans le virage
+            if (positionToPreviousCheckPoint.magnitude <= (Mathf.Max(_currentCheckPoint._cubeSize.x, _currentCheckPoint._cubeSize.z) / 1.5f))
+            {
+                if (!isTurning)
+                {
+                    Debug.Log("ITS TURNING!");
+                    isTurning = true;
+                    _secondsBetweenRandom = 0.20f;
+                    float randomSharpCurve = Random.Range(0.0f, 11.0f);
+
+                    // Cas virage exterieur
+                    if (randomSharpCurve > patternRaceGame._percentInsideTurn)
+                    {
+                        _sharpCurve = false;
+
+                    }
+                    // Cas virage interieur
+                    else
+                    {
+                        _sharpCurve = true;
+                    }
+                }
+            }
+            // Cas Ligne droite
+            else
+            {
+                if (isTurning)
+                {
+                    Debug.Log("ITS NOT TURNING!");
+                    isTurning = false;
+                    _secondsBetweenRandom = 1.0f;
+                    float randomSharpCurve = Random.Range(0.0f, 11.0f);
+
+                    // Cas ligne droite exterieur
+                    if (randomSharpCurve > patternRaceGame._percentInsideStraightLine)
+                    {
+                        _sharpCurve = false;
+                    }
+                    // Cas ligne droite interieur
+                    else
+                    {
+                        _sharpCurve = true;
+                    }
+                }
             }
         }
     }

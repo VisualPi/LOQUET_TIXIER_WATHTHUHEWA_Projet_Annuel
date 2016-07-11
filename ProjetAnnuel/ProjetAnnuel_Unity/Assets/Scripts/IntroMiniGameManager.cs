@@ -8,17 +8,32 @@ public class IntroMiniGameManager : MonoBehaviour {
     [SerializeField]
     Text infoMiniGameText;
 
-	// Use this for initialization
-	void Start () {
+    [SerializeField]
+    Text TitleText;
+
+    [SerializeField]
+    Text ControlsTitleText;
+
+    [SerializeField]
+    Text ControlsText;
+
+    // Use this for initialization
+    void Start () {
 
         if(PlayerPrefs.GetInt("GAME_MINIGAME")==0) // voiture
         {
-            infoMiniGameText.text = "JEU DE LA VOITURE ECRIS TA VIE ICI ";
+            TitleText.text = "THE RACE";
+            infoMiniGameText.text = "Try to reach the end line first in this mini game !\r No powerup ! No cheating ! Just Skillzzzzz !!";
+            ControlsTitleText.text = "Controls";
+            ControlsText.text = "Movement";
             StartCoroutine(LaunchMiniGame(3));
         }
         else
         {
-            infoMiniGameText.text = "JEU DES COULEURS ECRIS TA VIE ICI";
+            TitleText.text = "THE COLOR GAME";
+            infoMiniGameText.text = "Try to color the are by doing square or rectangle !\r Earn point at each square or rectangle complete ! \r No powerUp ! No cheating ! Just Skillzzzzz!!";
+            ControlsTitleText.text = "Controls";
+            ControlsText.text = "Movement";
             StartCoroutine(LaunchMiniGame(4));
         }
 	

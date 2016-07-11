@@ -6,16 +6,19 @@ public class MainMenu : MonoBehaviour
 {
 	public Transform MainMenuPanel;
 	public Transform StartGamePanel;
+    public Transform TheLabPanel;
 
 	private string playerBlueName = "No name1";
 	private string playerGreenName = "No name2";
 	private string playerRedName = "No name3";
 	private string playerYellowName = "No name4";
+    private string playerLabName = "Hector";
 
 	private bool playerBlueIsAI;
 	private bool playerRedIsAI;
 	private bool playerGreenIsAI;
 	private bool playerYellowIsAI;
+
 
 
 	public void OnClickExit()
@@ -27,7 +30,19 @@ public class MainMenu : MonoBehaviour
 		MainMenuPanel.gameObject.SetActive(false);
 		StartGamePanel.gameObject.SetActive(true);
 	}
-	public void OnClickReturnFromStartPanel()
+
+    public void OnClickThelab()
+    {
+        MainMenuPanel.gameObject.SetActive(false);
+        TheLabPanel.gameObject.SetActive(true);
+    }
+
+    public void OnClickGoThelab()
+    {
+        PlayerPrefs.SetString("PLAYER_LAB_NAME", playerLabName);
+        SceneManager.LoadScene("TheLab");
+    }
+    public void OnClickReturnFromStartPanel()
 	{
 		StartGamePanel.gameObject.SetActive(false);
 		MainMenuPanel.gameObject.SetActive(true);
@@ -49,7 +64,11 @@ public class MainMenu : MonoBehaviour
 	{
 		playerYellowName = name;
 	}
-	public void OnBlueAIChecked( bool value )
+    public void OnLabnameEdit(string name)
+    {
+        playerLabName = name;
+    }
+    public void OnBlueAIChecked( bool value )
 	{
 		playerBlueIsAI = value;
 	}
