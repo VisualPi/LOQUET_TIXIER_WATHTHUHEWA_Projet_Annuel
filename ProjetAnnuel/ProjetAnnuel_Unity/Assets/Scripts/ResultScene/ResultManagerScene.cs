@@ -15,13 +15,22 @@ public class ResultManagerScene : MonoBehaviour
 	private Material _captainYellow;
 
 	[SerializeField]
-	private SkinnedMeshRenderer _player1;
+	private SkinnedMeshRenderer _player1Renderer;
 	[SerializeField]
-	private SkinnedMeshRenderer _player2;
+	private SkinnedMeshRenderer _player2Renderer;
 	[SerializeField]
-	private SkinnedMeshRenderer _player3;
+	private SkinnedMeshRenderer _player3Renderer;
 	[SerializeField]
-	private SkinnedMeshRenderer _player4;
+	private SkinnedMeshRenderer _player4Renderer;
+
+	[SerializeField]
+	private GameObject _player1;
+	[SerializeField]
+	private GameObject _player2;
+	[SerializeField]
+	private GameObject _player3;
+	[SerializeField]
+	private GameObject _player4;
 
 	[SerializeField]
 	AudioClip MusicResult;
@@ -42,61 +51,61 @@ public class ResultManagerScene : MonoBehaviour
 		switch( PlayerPrefs.GetInt("PLAYER_BLUE_WIN") )
 		{
 		case 1:
-			_player1.material = _captainBlue;
+			_player1Renderer.material = _captainBlue;
 			break;
 		case 2:
-			_player2.material = _captainBlue;
+			_player2Renderer.material = _captainBlue;
 			break;
 		case 3:
-			_player3.material = _captainBlue;
+			_player3Renderer.material = _captainBlue;
 			break;
 		case 4:
-			_player4.material = _captainBlue;
+			_player4Renderer.material = _captainBlue;
 			break;
 		}
 		switch( PlayerPrefs.GetInt("PLAYER_GREEN_WIN") )
 		{
 		case 1:
-			_player1.material = _captainGreen;
+			_player1Renderer.material = _captainGreen;
 			break;
 		case 2:
-			_player2.material = _captainGreen;
+			_player2Renderer.material = _captainGreen;
 			break;
 		case 3:
-			_player3.material = _captainGreen;
+			_player3Renderer.material = _captainGreen;
 			break;
 		case 4:
-			_player4.material = _captainGreen;
+			_player4Renderer.material = _captainGreen;
 			break;
 		}
 		switch( PlayerPrefs.GetInt("PLAYER_RED_WIN") )
 		{
 		case 1:
-			_player1.material = _captainRed;
+			_player1Renderer.material = _captainRed;
 			break;
 		case 2:
-			_player2.material = _captainRed;
+			_player2Renderer.material = _captainRed;
 			break;
 		case 3:
-			_player3.material = _captainRed;
+			_player3Renderer.material = _captainRed;
 			break;
 		case 4:
-			_player4.material = _captainRed;
+			_player4Renderer.material = _captainRed;
 			break;
 		}
 		switch( PlayerPrefs.GetInt("PLAYER_YELLOW_WIN") )
 		{
 		case 1:
-			_player1.material = _captainYellow;
+			_player1Renderer.material = _captainYellow;
 			break;
 		case 2:
-			_player2.material = _captainYellow;
+			_player2Renderer.material = _captainYellow;
 			break;
 		case 3:
-			_player3.material = _captainYellow;
+			_player3Renderer.material = _captainYellow;
 			break;
 		case 4:
-			_player4.material = _captainYellow;
+			_player4Renderer.material = _captainYellow;
 			break;
 		}
 
@@ -116,17 +125,22 @@ public class ResultManagerScene : MonoBehaviour
 		{
 			audioSource.PlayOneShot(EndingMusicResult);
 		}
-
-
-
+		_player1.GetComponent<Animator>().Play("victory_idle1");
+		_player2.GetComponent<Animator>().Play("victory_idle2");
+		_player3.GetComponent<Animator>().Play("victory_idle3");
 	}
 
 	// Update is called once per frame
 	void Update()
 	{
-
 		Debug.Log(Time.timeSinceLevelLoad);
-		if( Time.timeSinceLevelLoad >= 5 )
+		if( Time.timeSinceLevelLoad >= 1 )
+		{
+			_player4.transform.LookAt(new Vector3(20f, _player4.transform.position.y, _player4.transform.position.z));
+			_player4.transform.Translate(-_player4.transform.right* Time.deltaTime);
+			_player4.GetComponent<Animator>().Play("sad_walk");
+		}
+		if( Time.timeSinceLevelLoad >= 8 )
 		{
 			Debug.Log("YOLO");
 			SceneManager.LoadScene(1);

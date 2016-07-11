@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: 2c8e8f0019b1c774dbb944fdff7bcc4d
-timeCreated: 1468191230
+guid: 69064d625eb7ed046ba59c2d00767cb8
+timeCreated: 1468194769
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
@@ -73,7 +73,7 @@ ModelImporter:
     400062: mixamorig:Spine
     400064: mixamorig:Spine1
     400066: mixamorig:Spine2
-    7400000: sad_walk
+    7400000: victory_idle1
     9500000: //RootNode
   materials:
     importMaterials: 1
@@ -100,10 +100,10 @@ ModelImporter:
     extraExposedTransformPaths: []
     clipAnimations:
     - serializedVersion: 16
-      name: sad_walk
+      name: victory_idle1
       takeName: mixamo.com
       firstFrame: 0
-      lastFrame: 44
+      lastFrame: 54
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
