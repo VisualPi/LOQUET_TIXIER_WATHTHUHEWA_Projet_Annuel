@@ -13,17 +13,10 @@ public class PathScript : MonoBehaviour
 
     public List<CheckPointScript> _path;
 
-    public Transform yellowTransform;
+   
     void Update()
     {
-        for(int i=0;i<_path.Count;i++)
-        {
-            if(_path[i].yellowCheckpassed)
-            {
-                yellowTransform = _path[i].yellowLastCheckpointTransform;
-            }
-            
-        }
+       
         
     }
 

@@ -35,8 +35,7 @@ public class CheckPointScript : MonoBehaviour {
     CarControl RedCarScript;
     CarControl GreenCarScript;
 
-    public Transform yellowLastCheckpointTransform;
-
+    
     public bool yellowCheckpassed;
     bool redCheckpassed;
     bool greenCheckpassed;
@@ -89,7 +88,7 @@ public class CheckPointScript : MonoBehaviour {
                 blueCheckpassed = true;
                 LastCkeckPoint.LastCkeckPoint.blueCheckpassed = false;
                 BlueCarScript.checkpointsPassed += 1;
-                //redLastCheckpointTransform = RedCar.transform;
+                
 
                  Debug.Log("CHECKPOINT " + checkpointID);
                 Debug.Log(BlueCarScript.checkpointsPassed);
@@ -106,10 +105,7 @@ public class CheckPointScript : MonoBehaviour {
                 redCheckpassed = true;
                 LastCkeckPoint.LastCkeckPoint.redCheckpassed = false;
                 RedCarScript.checkpointsPassed += 1;
-                //redLastCheckpointTransform = RedCar.transform;
-
-                /* Debug.Log("CHECKPOINT " + checkpointID);
-                Debug.Log(YellowCarScript.checkpointsPassed);*/
+               
             }
         }
         if (car.gameObject.name == "Green_car")
@@ -121,10 +117,7 @@ public class CheckPointScript : MonoBehaviour {
                 greenCheckpassed = true;
                 LastCkeckPoint.LastCkeckPoint.greenCheckpassed = false;
                 GreenCarScript.checkpointsPassed += 1;
-                //greenLastCheckpointTransform = GreenCar.transform;
-
-                /* Debug.Log("CHECKPOINT " + checkpointID);
-                Debug.Log(YellowCarScript.checkpointsPassed);*/
+              
             }
         }
         if (car.gameObject.name == "Yellow_car")
@@ -135,10 +128,9 @@ public class CheckPointScript : MonoBehaviour {
                 yellowCheckpassed = true;
                 LastCkeckPoint.LastCkeckPoint.yellowCheckpassed = false;
                 YellowCarScript.checkpointsPassed += 1;
-               // yellowLastCheckpointTransform = startLine.transform;
+               
               
-                 Debug.Log("CHECKPOINT " + checkpointID);
-                Debug.Log(YellowCarScript.checkpointsPassed);
+             
             }
            
             

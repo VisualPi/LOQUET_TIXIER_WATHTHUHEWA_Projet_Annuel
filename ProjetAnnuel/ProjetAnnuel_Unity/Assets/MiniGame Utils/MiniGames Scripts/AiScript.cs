@@ -31,9 +31,9 @@ public class AiScript : MonoBehaviour
     List<CheckPointScript> _path;
 
     int _currentCheckPointIndex;
-    CheckPointScript _currentCheckPoint;
-    CheckPointScript _previousCheckPoint;
-    CheckPointScript _nextCheckPoint;
+    public CheckPointScript _currentCheckPoint;
+    public CheckPointScript _previousCheckPoint;
+    public CheckPointScript _nextCheckPoint;
 
     float _axeHorizontal;
     [SerializeField]
@@ -352,7 +352,7 @@ public class AiScript : MonoBehaviour
         GetNextPath();
     }
 
-    void GetNextPath()
+    public void GetNextPath()
     {
         Vector3 positionToCurrentCheckPoint = (_currentCheckPoint.transform.position - transform.position);
         

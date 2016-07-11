@@ -1,10 +1,13 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-[RequireComponent(typeof(AudioSource))]
+//[RequireComponent(typeof(AudioSource))]
 public class CarControl : MonoBehaviour {
+    [SerializeField]
     Rigidbody carRigid;
+    [SerializeField]
     Transform carTransform;
+
     Quaternion rotato;
     public int playerID;
     public int lapsDone;
@@ -23,6 +26,10 @@ public class CarControl : MonoBehaviour {
     [SerializeField]
     AudioClip slowSound;
 
+    [SerializeField]
+    AudioClip idleSound;
+
+    [SerializeField]
     AudioSource audio;
 
     Vector3 raycastForGround;
@@ -42,10 +49,30 @@ public class CarControl : MonoBehaviour {
     [SerializeField]
     PathScript Path;
 
+    [SerializeField]
+    AiScript aiScript;
+
     public bool isAI;
 
     [SerializeField]
     string playerPrefName;
+
+    [SerializeField]
+    MeshRenderer Body;
+
+    [SerializeField]
+    MeshRenderer Wheel;
+
+    [SerializeField]
+    MeshRenderer Wheel2;
+
+    [SerializeField]
+    MeshRenderer Wheel3;
+
+    [SerializeField]
+    MeshRenderer Wheel4;
+
+   bool oneStop;
 
     // Use this for initialization
     void Start () {
@@ -55,14 +82,18 @@ public class CarControl : MonoBehaviour {
             isAI = true;
         }
 
+        oneStop = false;
         enableController = false;
         //checkpointReach = false;
         lapsDone = 0;
         checkpointsPassed = 0;
         carRigid = GetComponent<Rigidbody>();
         carTransform = GetComponent<Transform>();
-        audio = GetComponent<AudioSource>();
+       // audio = GetComponent<AudioSource>();
         rotato = carTransform.rotation;
+        //audio.
+        //audio.Play();
+        audio.loop = true;
 
     }
 
@@ -74,7 +105,20 @@ public class CarControl : MonoBehaviour {
     }
 
     void Update()
-    { }
+    {
+        aiScript.GetNextPath();
+        if(enableController == true)
+        {
+            Debug.Log("GOGO");
+        }
+        if(enableController && !oneStop)
+        {
+            Debug.Log("ETEINT");
+            audio.loop = false;
+            audio.Stop();
+            oneStop = true;
+        }
+    }
 
     // Update is called once per frame
     void FixedUpdate() {
@@ -85,12 +129,13 @@ public class CarControl : MonoBehaviour {
 
                     carRigid.AddForce(carTransform.forward * 18 * 1.5f, ForceMode.Acceleration);
 
-                  /*  //Play Sound
+                    //Play Sound
                     if (!audio.isPlaying)
                     {
                         audio.Play();
+                        audio.loop = true;
                     }
-                    */
+                    
                 }
                 if (Input.GetKey(_inputBrakeCar))
                 {
@@ -106,9 +151,11 @@ public class CarControl : MonoBehaviour {
                 if (Input.GetKey(_inputResetCar))
                 {
                     Debug.Log("ResetCar");
-                   // carTransform = Path.yellowTransform;
-                    carTransform.rotation = rotato;
-
+                // carTransform = Path.yellowTransform;
+                carRigid.velocity = new Vector3(0,0,0);
+                carTransform.position = new Vector3(aiScript._previousCheckPoint.transform.position.x,0.3f, aiScript._previousCheckPoint.transform.position.z);
+                carTransform.LookAt(aiScript._currentCheckPoint.transform);
+                StartCoroutine(ResetCar());
                 }
            
         }
@@ -149,5 +196,24 @@ public class CarControl : MonoBehaviour {
                 Debug.Log("ResetCar");
                 carTransform.rotation = rotato;
             }
+        }
+
+        IEnumerator ResetCar()
+        {
+            enableController = false;
+            yield return new WaitForSeconds(0.1f);
+            Body.enabled = false;
+            yield return new WaitForSeconds(0.1f);
+            Body.enabled = true;
+            yield return new WaitForSeconds(0.1f);
+            Body.enabled = false;
+            yield return new WaitForSeconds(0.1f);
+            Body.enabled = true;
+            enableController = true;
+            yield return new WaitForSeconds(0.1f);
+            Body.enabled = false;
+            yield return new WaitForSeconds(0.1f);
+            Body.enabled = true;
+        
         }
     }
