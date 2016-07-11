@@ -3,24 +3,23 @@ using System.Collections;
 
 public class MovePlayerColorGameScript : MonoBehaviour 
 {
+    [SerializeField]
+    public Transform _cubeBottomLeft;
 
     [SerializeField]
-    Transform _cubeBottomLeft;
+    public Transform _cubeBottomRight;
 
     [SerializeField]
-    Transform _cubeBottomRight;
+    public Transform _cubeTopLeft;
 
     [SerializeField]
-    Transform _cubeTopLeft;
+    public Transform _cubeTopRight;
 
     [SerializeField]
-    Transform _cubeTopRight;
+    public Transform _cubeBottomLeftLeft;
 
     [SerializeField]
-    Transform _cubeBottomLeftLeft;
-
-    [SerializeField]
-    Transform _cubeBottomLeftUp;
+    public Transform _cubeBottomLeftUp;
 
     [SerializeField]
     public float _secondBetweenMove;
@@ -28,8 +27,11 @@ public class MovePlayerColorGameScript : MonoBehaviour
     [SerializeField]
     public bool _playerMove;
 
-    float _distanceBetweenCubeX;
-    float _distanceBetweenCubeZ;
+    public float _distanceBetweenCubeX;
+    public float _distanceBetweenCubeZ;
+
+    public float _boardWidth;
+    public float _boardHeight;
 
 
     void Start()
@@ -39,6 +41,9 @@ public class MovePlayerColorGameScript : MonoBehaviour
 
         _distanceBetweenCubeX = _cubeBottomLeftLeft.position.x - _cubeBottomLeft.position.x;
         _distanceBetweenCubeZ = _cubeBottomLeftUp.position.z - _cubeBottomLeft.position.z;
+
+        _boardWidth = _cubeBottomRight.position.x - _cubeBottomLeft.position.x;
+        _boardHeight = _cubeTopLeft.position.z - _cubeBottomLeft.position.z;
     }
 
     IEnumerator WaitInputMove()

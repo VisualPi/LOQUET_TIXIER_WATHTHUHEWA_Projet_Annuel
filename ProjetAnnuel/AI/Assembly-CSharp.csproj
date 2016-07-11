@@ -55,6 +55,7 @@
      <Compile Include="Assets\Scripts\Class\PlayerMove.cs" />
      <Compile Include="Assets\Scripts\ColorGame\AiMoveColorGameScript.cs" />
      <Compile Include="Assets\Scripts\ColorGame\ColorSquareScript.cs" />
+     <Compile Include="Assets\Scripts\ColorGame\DectectQuadScript.cs" />
      <Compile Include="Assets\Scripts\ColorGame\MovePlayerColorGameScript.cs" />
      <Compile Include="Assets\Scripts\ColorGame\PatternColorGame.cs" />
      <Compile Include="Assets\Scripts\MakeActionsScript.cs" />

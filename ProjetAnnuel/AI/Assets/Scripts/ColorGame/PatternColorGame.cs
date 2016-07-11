@@ -40,7 +40,7 @@ public class PatternColorGame
 
         for (int i = 1; i < _positions.Count; ++i)
         {
-            if (_positions[i].z < _positions[_indexTop].z)
+            if (_positions[i].z > _positions[_indexTop].z)
             {
                 _indexTop = i;
             }
@@ -50,15 +50,30 @@ public class PatternColorGame
                 _indexBottom = i;
             }
 
-            if (_positions[i].x > _positions[_indexLeft].x)
-            {
-                _indexLeft = i;
-            }
-
-            if (_positions[i].x < _positions[_indexRight].x)
+            if (_positions[i].x > _positions[_indexRight].x)
             {
                 _indexRight = i;
             }
+
+            if (_positions[i].x < _positions[_indexLeft].x)
+            {
+                _indexLeft = i;
+            }
         }
+    }
+
+    public float GetPatternHeight()
+    { 
+        return (_positions[_indexTop].z - _positions[_indexBottom].z);
+    }
+
+    public float GetPatternWidth()
+    {
+        return (_positions[_indexRight].x - _positions[_indexLeft].x);
+    }
+
+    public bool GoToRight()
+    {
+        return false;    
     }
 }

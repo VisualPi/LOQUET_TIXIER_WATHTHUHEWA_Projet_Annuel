@@ -13,9 +13,11 @@ public class AiMoveColorGameScript : MonoBehaviour
 
     List<PatternColorGame> _listPatterns;
 
+    int _indexCurrentPattern;
+
     PatternColorGame _currentPattern;
 
-    List<int> _indexPattern;
+    List<int> __indexCurrentPattern;
 
     //int _currentTargetIndex;
     Vector3 _currentTarget;
@@ -156,18 +158,18 @@ public class AiMoveColorGameScript : MonoBehaviour
 
         List<Vector3> positions = new List<Vector3>();
 
-        int indexPattern = Random.Range(0, _listPatterns.Count);
+        _indexCurrentPattern = Random.Range(0, _listPatterns.Count);
 
-        _currentPattern._count = _listPatterns[indexPattern]._count;
+        _currentPattern._count = _listPatterns[_indexCurrentPattern]._count;
 
-        _currentPattern._indexBottom = _listPatterns[indexPattern]._indexBottom;
-        _currentPattern._indexTop = _listPatterns[indexPattern]._indexTop;
-        _currentPattern._indexLeft = _listPatterns[indexPattern]._indexLeft;
-        _currentPattern._indexRight = _listPatterns[indexPattern]._indexRight;
+        _currentPattern._indexBottom = _listPatterns[_indexCurrentPattern]._indexBottom;
+        _currentPattern._indexTop = _listPatterns[_indexCurrentPattern]._indexTop;
+        _currentPattern._indexLeft = _listPatterns[_indexCurrentPattern]._indexLeft;
+        _currentPattern._indexRight = _listPatterns[_indexCurrentPattern]._indexRight;
 
-        for (int i = 0; i < _listPatterns[indexPattern]._count; ++i)
+        for (int i = 0; i < _listPatterns[_indexCurrentPattern]._count; ++i)
         {
-            positions.Add(_listPatterns[indexPattern]._positions[i]);
+            positions.Add(_listPatterns[_indexCurrentPattern]._positions[i]);
         }
 
         Vector3 previousPosition = positions[0];
@@ -192,12 +194,99 @@ public class AiMoveColorGameScript : MonoBehaviour
 
     bool PatternPossible()
     {
+        float patternHeight = _currentPattern.GetPatternHeight();
+        float patternWidth = _currentPattern.GetPatternWidth();
 
+        if(patternWidth <= _movePlayerColorGameScript._boardWidth && patternHeight <= _movePlayerColorGameScript._boardHeight)
+        {
+            float distanceUp = _movePlayerColorGameScript._cubeTopLeft.position.z - transform.position.z;
+            float distanceDown = transform.position.z - _movePlayerColorGameScript._cubeBottomLeft.position.z;            
+            float distanceRight = _movePlayerColorGameScript._cubeBottomRight.position.x - transform.position.x;
+            float distanceLeft = transform.position.x - _movePlayerColorGameScript._cubeBottomLeft.position.x;
+
+            bool canGoUp = false;
+            bool canGoDown = false;
+            bool canGoRight = false;
+            bool canGoLeft = false;
+
+            if ((patternWidth <= distanceUp || patternWidth <= distanceDown) && (patternHeight <= distanceRight || patternHeight <= distanceLeft))
+            {
+                if(patternWidth <= distanceLeft)
+                {
+                    canGoLeft = true;
+                }
+                else if(patternWidth <= distanceRight)
+                {
+                    canGoRight = true;
+                }
+
+                if (patternHeight <= distanceUp)
+                {
+                    canGoUp = true;
+                }
+                else if (patternHeight <= distanceDown)
+                {
+                    canGoDown = true;
+                }
+
+                MakePatternPossible(canGoUp, canGoDown, canGoRight, canGoLeft);
+            }
+            else
+            {
+                // le décalage le plus petit pour atteindre entre la position et le top/bottom/left/right
+            }
+        }
         return false;
     }
 
-    void MakePatternPossible(List<Vector3> patterToDo)
+    void MakePatternPossible(bool canGoUp, bool canGoDown, bool canGoRight, bool canGoLeft)
     {
+        if(canGoUp)
+        {
+            if(canGoRight)
+            {
 
+            }
+            else
+            {
+
+            }
+        }
+        else
+        {
+            if (canGoRight)
+            {
+
+            }
+            else
+            {
+
+            }
+        }
     }
+
+    void FillPositionsList(bool goUp, bool goRight)
+    {
+        int indexBegin;
+
+        if (goUp)
+        {
+            indexBegin = _listPatterns[_indexCurrentPattern]._indexBottom;
+        }
+        else
+        {
+            indexBegin = _listPatterns[_indexCurrentPattern]._indexTop;
+        }
+
+        if(goRight)
+        {
+
+        }
+        else
+        {
+
+        }
+    }
+
+
 }
