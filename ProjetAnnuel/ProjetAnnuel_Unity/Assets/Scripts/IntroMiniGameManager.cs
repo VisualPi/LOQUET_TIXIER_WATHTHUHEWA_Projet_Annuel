@@ -25,7 +25,7 @@ public class IntroMiniGameManager : MonoBehaviour {
             TitleText.text = "THE RACE";
             infoMiniGameText.text = "Try to reach the end line first in this mini game !\r No powerup ! No cheating ! Just Skillzzzzz !!";
             ControlsTitleText.text = "Controls";
-            ControlsText.text = "Movement";
+            ControlsText.text = "Left Joystick : Movement \n RB or R1 : Acceleration \n LB or L1 : Brake";
             StartCoroutine(LaunchMiniGame(3));
         }
         else
@@ -33,7 +33,7 @@ public class IntroMiniGameManager : MonoBehaviour {
             TitleText.text = "THE COLOR GAME";
             infoMiniGameText.text = "Try to color the are by doing square or rectangle !\r Earn point at each square or rectangle complete ! \r No powerUp ! No cheating ! Just Skillzzzzz!!";
             ControlsTitleText.text = "Controls";
-            ControlsText.text = "Movement";
+            ControlsText.text = "Left Joystick : Movement";
             StartCoroutine(LaunchMiniGame(4));
         }
 	

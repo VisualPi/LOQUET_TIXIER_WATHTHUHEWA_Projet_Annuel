@@ -85,8 +85,6 @@ public class RaceManagerScript : MonoBehaviour {
         finishPosition = 1;
         isGameEnd = false;
 
-       
-
         SetDisplayInfo();
 
         //Movement of camera for starting

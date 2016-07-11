@@ -81,19 +81,19 @@ public class CarControl : MonoBehaviour {
     // Use this for initialization
     void Start () {
 
-        if (PlayerPrefs.GetInt(playerPrefName) == 1)
+        if (PlayerPrefs.GetInt(playerPrefName) == 1 && !aiScript.isInTheLab)
         {
             isAI = true;
         }
 
         oneStop = false;
         enableController = false;
-        //checkpointReach = false;
+        
         lapsDone = 0;
         checkpointsPassed = 0;
         carRigid = GetComponent<Rigidbody>();
         carTransform = GetComponent<Transform>();
-       // audio = GetComponent<AudioSource>();
+      
         rotato = carTransform.rotation;
 
         audio.clip = idleSound;
@@ -154,8 +154,7 @@ public class CarControl : MonoBehaviour {
 
             if (Input.GetKey(_inputResetCar))
             {
-                Debug.Log("ResetCar");
-                // carTransform = Path.yellowTransform;
+                
                 carRigid.velocity = new Vector3(0,0,0);
                 carTransform.position = new Vector3(aiScript._previousCheckPoint.transform.position.x,0.3f, aiScript._previousCheckPoint.transform.position.z);
                 carTransform.LookAt(aiScript._currentCheckPoint.transform);
