@@ -17,6 +17,7 @@ public class PlayerMovement : MonoBehaviour
 	{
 		nextStep = new Vector3(transform.position.x, 0f, transform.position.z);
 		defaultPos = nextStep;
+		transform.position = nextStep; //arf.. 
 	}
 
 	void Update()
@@ -106,7 +107,6 @@ public class PlayerMovement : MonoBehaviour
 	{
 		if(pos.x != transform.position.x || pos.z != transform.position.z)
 		{
-			
 			_startTime = Time.time;
 			_startMarker = transform.position;
 			_endMarker = pos;

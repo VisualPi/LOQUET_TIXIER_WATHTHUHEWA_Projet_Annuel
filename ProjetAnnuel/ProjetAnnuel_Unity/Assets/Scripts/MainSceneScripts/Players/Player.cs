@@ -23,6 +23,18 @@ public class Player : MonoBehaviour
 	private string _name;
 	private int _caseID = 0;//id de la case départ
 
+	void Start()
+	{
+		if( _playerColor == EPlayer.BLUE )
+			_isAI = PlayerPrefs.GetInt("PLAYER_BLUE_ISAI") == 1 ? true : false;
+		if( _playerColor == EPlayer.GREEN )
+			_isAI = PlayerPrefs.GetInt("PLAYER_GREEN_ISAI") == 1 ? true : false;
+		if( _playerColor == EPlayer.RED )
+			_isAI = PlayerPrefs.GetInt("PLAYER_RED_ISAI") == 1 ? true : false;
+		if( _playerColor == EPlayer.YELLOW )
+			_isAI = PlayerPrefs.GetInt("PLAYER_YELLOW_ISAI") == 1 ? true : false;
+	}
+
 	public void SetIsAI( bool value )
 	{
 		_isAI = value;

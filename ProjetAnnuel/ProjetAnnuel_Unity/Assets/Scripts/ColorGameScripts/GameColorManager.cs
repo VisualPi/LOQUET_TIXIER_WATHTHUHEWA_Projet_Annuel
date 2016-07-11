@@ -81,7 +81,7 @@ public class GameColorManager : MonoBehaviour
 	private float _timePerStepEllapsed = 0f;//temps par mouvement
 
 	[SerializeField]
-	private bool _gameStarted;
+	public bool _gameStarted;
 
 	private void InitTmpLogicalCase()
 	{
@@ -159,20 +159,62 @@ public class GameColorManager : MonoBehaviour
 			return false;
 		}
 	}
+	private bool HasPlayerOnNextCase( EPlayer player, Vector3 pos )
+	{
+		switch( player )
+		{
+		case EPlayer.BLUE:
+			return (
+					ComparePos(Utils.Instance.playerGreen.GetComponent<PlayerMovement>().nextStep, pos)
+				|| ComparePos(Utils.Instance.playerRed.GetComponent<PlayerMovement>().nextStep, pos)
+				|| ComparePos(Utils.Instance.playerYellow.GetComponent<PlayerMovement>().nextStep, pos)
+				);
+		case EPlayer.GREEN:
+			return (
+				   ComparePos(Utils.Instance.playerBlue.GetComponent<PlayerMovement>().nextStep, pos)
+				|| ComparePos(Utils.Instance.playerRed.GetComponent<PlayerMovement>().nextStep, pos)
+				|| ComparePos(Utils.Instance.playerYellow.GetComponent<PlayerMovement>().nextStep, pos)
+				);
+		case EPlayer.RED:
+			return (
+					ComparePos(Utils.Instance.playerGreen.GetComponent<PlayerMovement>().nextStep, pos)
+				|| ComparePos(Utils.Instance.playerBlue.GetComponent<PlayerMovement>().nextStep, pos)
+				|| ComparePos(Utils.Instance.playerYellow.GetComponent<PlayerMovement>().nextStep, pos)
+				);
+		case EPlayer.YELLOW:
+			return (
+				   ComparePos(Utils.Instance.playerGreen.GetComponent<PlayerMovement>().nextStep, pos)
+				|| ComparePos(Utils.Instance.playerRed.GetComponent<PlayerMovement>().nextStep, pos)
+				|| ComparePos(Utils.Instance.playerBlue.GetComponent<PlayerMovement>().nextStep, pos)
+				);
+		default:
+			return false;
+		}
+	}
 
 	private void MovePlayers()
 	{
 		for( var i = 0 ; i < 4 ; i++ )
 		{
+			if( Utils.Instance.GetPlayerByColor((EPlayer)i).GetComponent<Player>().GetIsAI() )
+				Utils.Instance.GetPlayerByColor((EPlayer)i).GetComponent<AiMovement>().NextMove();
 			var pos = Utils.Instance.GetPlayerByColor((EPlayer)i).GetComponent<PlayerMovement>().nextStep;
 			var pPos = Utils.Instance.GetPlayerByColor((EPlayer)i).GetComponent<PlayerMovement>().defaultPos;
-			if( pos.x != pPos.x && pos.z != pPos.z )
+			if( pos.x != pPos.x || pos.z != pPos.z )
 			{
 				var c = IsCaseByPos(new Vector2(pos.x, pos.z));
-				if( c && !HasPlayerOnCase((EPlayer)i, pos) )
+				if( c && !HasPlayerOnCase((EPlayer)i, pos) && !HasPlayerOnNextCase((EPlayer)i, pos))
 				{
 					Utils.Instance.GetPlayerByColor((EPlayer)i).GetComponent<PlayerMovement>().Move(pos);
-					//Utils.Instance.GetPlayerByColor((EPlayer)i).transform.position = pos;
+				}
+				else
+				{
+					if( Utils.Instance.GetPlayerByColor((EPlayer)i).GetComponent<Player>().GetIsAI() )
+					{
+						Utils.Instance.GetPlayerByColor((EPlayer)i).GetComponent<AiMovement>()._currentPath.Clear();
+						Utils.Instance.GetPlayerByColor((EPlayer)i).GetComponent<AiMovement>()._currentIndex = 0;
+						Utils.Instance.GetPlayerByColor((EPlayer)i).GetComponent<PlayerMovement>().nextStep = Utils.Instance.GetPlayerByColor((EPlayer)i).transform.position;
+					}
 				}
 
 			}
@@ -246,9 +288,12 @@ public class GameColorManager : MonoBehaviour
 						{
 							ok = true;
 							FillCurrentSquare(_logicalCases[x][y], (EColorCaseType)i);
-							GetPoints((EColorCaseType)i);
-							if (! _toRes.Contains((EColorCaseType)i) )
+							if( !_toRes.Contains((EColorCaseType)i) )
+							{
 								_toRes.Add((EColorCaseType)i);
+								GetPoints((EColorCaseType)i);
+
+							}
 							//GetPointAndRes((EColorCaseType)i);
 							x = 10;
 							y = 10;
@@ -418,14 +463,8 @@ public class GameColorManager : MonoBehaviour
 
 	private void Reset( EColorCaseType type )
 	{
-		switch( type )
-		{
-		case EColorCaseType.BLUE:
-			EmptyCases(type);
-			_audioSource.PlayOneShot(_kaching);
-			break;
-
-		}
+		EmptyCases(type);
+		_audioSource.PlayOneShot(_kaching);
 	}
 
 	private void GetPoints( EColorCaseType type )
@@ -436,19 +475,19 @@ public class GameColorManager : MonoBehaviour
 			if( c.GetColor() == type )
 				pts++;
 		}
-		switch (type)
+		switch( type )
 		{
 		case EColorCaseType.BLUE:
-			_bluePoints = pts;
+			_bluePoints += pts;
 			break;
 		case EColorCaseType.GREEN:
-			_greenPoints = pts;
+			_greenPoints += pts;
 			break;
 		case EColorCaseType.RED:
-			_redPoints = pts;
+			_redPoints += pts;
 			break;
 		case EColorCaseType.YELLOW:
-			_yellowPoints = pts;
+			_yellowPoints += pts;
 			break;
 		}
 	}
@@ -500,15 +539,16 @@ public class GameColorManager : MonoBehaviour
 			if( _timeGameEllapsed >= ( _gameDuration - 10f ) )
 			{
 				_chrono.color = Color.red;
-			}
+				_timePerStep = 0.5f;
+            }
 			if( _timePerStepEllapsed >= _timePerStep )
 			{
-				if(_toRes.Count > 0)
+				if( _toRes.Count > 0 )
 				{
-					foreach (var t in _toRes)
+					foreach( var t in _toRes )
 					{
 						Reset(t);
-                    }
+					}
 					_toRes.Clear();
 				}
 				MovePlayers();
