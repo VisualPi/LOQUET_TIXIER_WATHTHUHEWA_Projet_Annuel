@@ -343,7 +343,7 @@ public class AiScript : MonoBehaviour
                 }
                 */
                 PlayerInput pi = new PlayerInput(iaKeyCodes, axeX);
-                Debug.Log(axeX);
+                //Debug.Log(axeX);
                 _carControleScript.MoveCarWithIA(pi);
 
             }

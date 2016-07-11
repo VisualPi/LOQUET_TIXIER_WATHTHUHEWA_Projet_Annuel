@@ -194,7 +194,7 @@ public class RaceManagerScript : MonoBehaviour {
                 YellowCarScript.lapsDone++;
                 YellowCarScript.checkpointsPassed = 0;
                 yellowLapsText.text = (YellowCarScript.lapsDone + 1) + "/" + LapsToDo.ToString() + " Laps";
-                Debug.Log(YellowCarScript.lapsDone.ToString());
+               // Debug.Log(YellowCarScript.lapsDone.ToString());
                 if (YellowCarScript.lapsDone == LapsToDo)
                 {
                     yellowLapsText.gameObject.SetActive(false);

@@ -90,8 +90,7 @@ public class CheckPointScript : MonoBehaviour {
                 BlueCarScript.checkpointsPassed += 1;
                 
 
-                 Debug.Log("CHECKPOINT " + checkpointID);
-                Debug.Log(BlueCarScript.checkpointsPassed);
+                
             }
 
 

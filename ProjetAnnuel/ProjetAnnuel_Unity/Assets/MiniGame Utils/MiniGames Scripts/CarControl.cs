@@ -91,8 +91,10 @@ public class CarControl : MonoBehaviour {
         carTransform = GetComponent<Transform>();
        // audio = GetComponent<AudioSource>();
         rotato = carTransform.rotation;
-        //audio.
-        //audio.Play();
+
+        audio.clip = idleSound;
+        audio.Play();
+       
         audio.loop = true;
 
     }
@@ -107,34 +109,27 @@ public class CarControl : MonoBehaviour {
     void Update()
     {
         aiScript.GetNextPath();
-        if(enableController == true)
-        {
-            Debug.Log("GOGO");
-        }
-        if(enableController && !oneStop)
-        {
-            Debug.Log("ETEINT");
-            audio.loop = false;
-            audio.Stop();
-            oneStop = true;
-        }
+        
+    
+        
     }
 
     // Update is called once per frame
     void FixedUpdate() {
-        if (enableController)
+        if (enableController && !isAI)
         {
                 if (Input.GetKey(_inputForwardCar))
                 {
-
+                    audio.Stop();
                     carRigid.AddForce(carTransform.forward * 18 * 1.5f, ForceMode.Acceleration);
 
                     //Play Sound
-                    if (!audio.isPlaying)
+                   /* if (!audio.isPlaying)
                     {
+                        audio.clip = accelerationSound;
                         audio.Play();
                         audio.loop = true;
-                    }
+                    }*/
                     
                 }
                 if (Input.GetKey(_inputBrakeCar))
