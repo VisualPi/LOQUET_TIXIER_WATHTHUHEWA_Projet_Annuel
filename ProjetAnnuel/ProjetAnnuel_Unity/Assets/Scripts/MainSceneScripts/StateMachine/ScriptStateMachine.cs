@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.SceneManagement;
+using System.Collections.Generic;
 
 public enum EState { CAMERAZOOM, WHEELSPIN, PLAYERPOINTING, WHEELFREEZE, CAMERARESET, PLAYERMOVE, CALLMINIGAME }
 
@@ -35,12 +36,12 @@ public class ScriptStateMachine : MonoBehaviour
 	private bool _arriveAtCase = true;
 
 	private float t = 0f;
-    
-    
+
+
 
 	private void InitValeurs()
 	{
-        
+
 		_timeCameraZoom = 2f;
 		_enteringCameraState = true;
 		_enteringWheelSpinState = true;
@@ -81,9 +82,9 @@ public class ScriptStateMachine : MonoBehaviour
 																												t);
 
 					var tr = Utils.Instance.GetPlayerByColor(GetComponent<GameManager>().GetCurrentPlayer()).transform;
-					GetComponent<CameraManager>().GetPlayerCamera().transform.LookAt(tr.position + (tr.up *4)	);
-					GetComponent<CameraManager>().GetRoulette().transform.position = tr.position + (-tr.right *8) + (tr.up * 4);
-                    var trC = GetComponent<CameraManager>().GetPlayerCamera().transform;
+					GetComponent<CameraManager>().GetPlayerCamera().transform.LookAt(tr.position + ( tr.up * 4 ));
+					GetComponent<CameraManager>().GetRoulette().transform.position = tr.position + ( -tr.right * 8 ) + ( tr.up * 4 );
+					var trC = GetComponent<CameraManager>().GetPlayerCamera().transform;
 
 					if( t < 1 )
 						t += Time.deltaTime / _timeCameraZoom;
@@ -172,10 +173,23 @@ public class ScriptStateMachine : MonoBehaviour
 						{
 							_iteration++;
 							var nextID = Utils.Instance.GetCaseByID(_currentPlayer.GetCaseID()).GetNextCaseID();
+							//if(nextID == 1)//case Fin
+							//{
+								//List<int> res = new List<int>(4);
+								//res.Insert(0, PlayerPrefs.GetInt("PLAYER_BLUE_NB_VICTORIES"));
+								//res.Insert(1, PlayerPrefs.GetInt("PLAYER_GREEN_NB_VICTORIES"));
+								//res.Insert(2, PlayerPrefs.GetInt("PLAYER_RED_NB_VICTORIES"));
+								//res.Insert(3, PlayerPrefs.GetInt("PLAYER_YELLOW_NB_VICTORIES"));
+								//res.Sort();
+								//switch (res[3])
+								//{
+
+								//}
+								//PlayerPrefs.SetInt("")
+							//}
 							_currentPlayer.SetCaseID(nextID);
 							if( Utils.Instance.GetCaseByID(nextID).GetCaseType() == ECaseType.INTERSECTION )
 								GetComponent<GameManager>().SetDiceNumber(GetComponent<GameManager>().GetDiceNumber() + 1);
-
 
 							switch( _currentPlayer.GetPlayerColor() )//a voir ! semble suffir player.SetCaseID(id)
 							{
@@ -192,7 +206,6 @@ public class ScriptStateMachine : MonoBehaviour
 								PlayerPrefs.SetInt("PLAYER_YELLOW_CASEID", nextID);
 								break;
 							}
-
 							_startMarker = _currentPlayer.transform.position;
 							_endMarker = Utils.Instance.GetCaseByID(nextID).GetCasePosition(_currentPlayer.GetPlayerColor(), false);
 							_startTime = Time.time;
@@ -233,37 +246,37 @@ public class ScriptStateMachine : MonoBehaviour
 				}
 			case EState.CALLMINIGAME:
 				{
-                        if(PlayerPrefs.GetInt("GAME_MINIGMAE") == -1)
-                        {
-                            int random;
-                            random = (Random.Range(0, 10) % 2);
-                            if (random != 0)
-                            {
-                                PlayerPrefs.SetInt("GAME_MINIGAME", 0);
-                            }
-                            else
-                            {
-                                PlayerPrefs.SetInt("GAME_MINIGAME", 1);
-                            }
-                        }
-                        else if(PlayerPrefs.GetInt("GAME_MINIGAME") == 0)
-                        {
-                            PlayerPrefs.SetInt("GAME_MINIGAME", 1);
-                        }
-                        else if (PlayerPrefs.GetInt("GAME_MINIGAME") == 1)
-                        {
-                            PlayerPrefs.SetInt("GAME_MINIGAME", 0);
-                        }
+					if( PlayerPrefs.GetInt("GAME_MINIGMAE") == -1 )
+					{
+						int random;
+						random = ( Random.Range(0, 10) % 2 );
+						if( random != 0 )
+						{
+							PlayerPrefs.SetInt("GAME_MINIGAME", 0);
+						}
+						else
+						{
+							PlayerPrefs.SetInt("GAME_MINIGAME", 1);
+						}
+					}
+					else if( PlayerPrefs.GetInt("GAME_MINIGAME") == 0 )
+					{
+						PlayerPrefs.SetInt("GAME_MINIGAME", 1);
+					}
+					else if( PlayerPrefs.GetInt("GAME_MINIGAME") == 1 )
+					{
+						PlayerPrefs.SetInt("GAME_MINIGAME", 0);
+					}
 
-                        SceneManager.LoadScene(5);
-
-
+					SceneManager.LoadScene(5);
 
 
 
-                       
 
-                        break;
+
+
+
+					break;
 				}
 			}
 

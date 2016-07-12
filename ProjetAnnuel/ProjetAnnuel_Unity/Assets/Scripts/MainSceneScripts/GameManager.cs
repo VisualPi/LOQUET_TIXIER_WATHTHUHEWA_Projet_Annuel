@@ -57,7 +57,6 @@ public class GameManager : MonoBehaviour
 		//TMP
 
 
-
 		//PlayerPrefs.SetString("PLAYER_BLUE_NAME", "NONAME1");
 		//PlayerPrefs.SetString("PLAYER_GREEN_NAME", "NONAME2");
 		//PlayerPrefs.SetString("PLAYER_RED_NAME", "NONAME3");
@@ -130,6 +129,8 @@ public class GameManager : MonoBehaviour
 			id = PlayerPrefs.GetInt("PLAYER_YELLOW_CASEID");
 			Utils.Instance.GetPlayerByColor(EPlayer.YELLOW).transform.position = Utils.Instance.GetCaseByID(id).GetCasePosition(EPlayer.YELLOW, true);
 			Utils.Instance.GetPlayerByColor(EPlayer.YELLOW).SetCaseID(id);
+
+			
 		}
 
 		_currentPlayer = EPlayer.BLUE;//TODO:choisir par l'ordre aléatoire (lancé de dé)

@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 [RequireComponent(typeof(AudioSource))]
 public class ResultManagerScene : MonoBehaviour
@@ -41,6 +42,9 @@ public class ResultManagerScene : MonoBehaviour
 	[SerializeField]
 	AudioClip EndingMusicResult;
 
+	[SerializeField]
+	Text _victoryName;
+
 
 	AudioSource audioSource;
 
@@ -48,9 +52,10 @@ public class ResultManagerScene : MonoBehaviour
 
 	private void PrepareScene()
 	{
-		switch( PlayerPrefs.GetInt("PLAYER_BLUE_WIN") )
+        switch( PlayerPrefs.GetInt("PLAYER_BLUE_WIN") )
 		{
 		case 1:
+			PlayerPrefs.SetInt("PLAYER_BLUE_NB_VICTORIES", PlayerPrefs.GetInt("PLAYER_BLUE_NB_VICTORIES") + 1);
 			_player1Renderer.material = _captainBlue;
 			break;
 		case 2:
@@ -66,6 +71,7 @@ public class ResultManagerScene : MonoBehaviour
 		switch( PlayerPrefs.GetInt("PLAYER_GREEN_WIN") )
 		{
 		case 1:
+			PlayerPrefs.SetInt("PLAYER_GREEN_NB_VICTORIES", PlayerPrefs.GetInt("PLAYER_GREEN_NB_VICTORIES") + 1);
 			_player1Renderer.material = _captainGreen;
 			break;
 		case 2:
@@ -81,6 +87,7 @@ public class ResultManagerScene : MonoBehaviour
 		switch( PlayerPrefs.GetInt("PLAYER_RED_WIN") )
 		{
 		case 1:
+			PlayerPrefs.SetInt("PLAYER_RED_NB_VICTORIES", PlayerPrefs.GetInt("PLAYER_RED_NB_VICTORIES") + 1);
 			_player1Renderer.material = _captainRed;
 			break;
 		case 2:
@@ -96,6 +103,7 @@ public class ResultManagerScene : MonoBehaviour
 		switch( PlayerPrefs.GetInt("PLAYER_YELLOW_WIN") )
 		{
 		case 1:
+			PlayerPrefs.SetInt("PLAYER_YELLOW_NB_VICTORIES", PlayerPrefs.GetInt("PLAYER_YELLOW_NB_VICTORIES") + 1);
 			_player1Renderer.material = _captainYellow;
 			break;
 		case 2:
@@ -115,8 +123,44 @@ public class ResultManagerScene : MonoBehaviour
 	void Start()
 	{
 		PrepareScene();
-		audioSource = GetComponent<AudioSource>();
-
+        audioSource = GetComponent<AudioSource>();
+		if( PlayerPrefs.GetInt("PLAYER_BLUE_NB_VICTORIES") == 5 )
+		{
+			Debug.Log("Blue won");
+			_player1Renderer.material = _captainBlue;//tmp
+			_player2Renderer.material = _captainGreen;//tmp
+			_player3Renderer.material = _captainRed;//tmp
+			_player4Renderer.material = _captainYellow;//tmp
+			isFinalResult = true;
+			_victoryName.text = PlayerPrefs.GetString("PLAYER_BLUE_NAME").ToUpper();
+		}
+		else if( PlayerPrefs.GetInt("PLAYER_GREEN_NB_VICTORIES") == 5 )
+		{
+			_player1Renderer.material = _captainGreen;//tmp
+			_player2Renderer.material = _captainBlue;//tmp
+			_player3Renderer.material = _captainRed;//tmp
+			_player4Renderer.material = _captainYellow;//tmp
+			isFinalResult = true;
+			_victoryName.text = PlayerPrefs.GetString("PLAYER_GREEN_NAME").ToUpper();
+		}
+		else if( PlayerPrefs.GetInt("PLAYER_RED_NB_VICTORIES") == 5 )
+		{
+			_player1Renderer.material = _captainRed;//tmp
+			_player2Renderer.material = _captainGreen;//tmp
+			_player3Renderer.material = _captainBlue;//tmp
+			_player4Renderer.material = _captainYellow;//tmp
+			isFinalResult = true;
+			_victoryName.text = PlayerPrefs.GetString("PLAYER_RED_NAME").ToUpper();
+		}
+		else if( PlayerPrefs.GetInt("PLAYER_YELLOW_NB_VICTORIES") == 5 )
+		{
+			_player1Renderer.material = _captainYellow;//tmp
+			_player2Renderer.material = _captainGreen;//tmp
+			_player3Renderer.material = _captainRed;//tmp
+			_player4Renderer.material = _captainBlue;//tmp
+			isFinalResult = true;
+			_victoryName.text = PlayerPrefs.GetString("PLAYER_YELLOW_NAME").ToUpper();
+		}
 		if( !isFinalResult )
 		{
 			audioSource.PlayOneShot(MusicResult);
@@ -133,11 +177,10 @@ public class ResultManagerScene : MonoBehaviour
 	// Update is called once per frame
 	void Update()
 	{
-		Debug.Log(Time.timeSinceLevelLoad);
 		if( Time.timeSinceLevelLoad >= 1 )
 		{
 			_player4.transform.LookAt(new Vector3(20f, _player4.transform.position.y, _player4.transform.position.z));
-			_player4.transform.Translate(-_player4.transform.right* Time.deltaTime);
+			_player4.transform.Translate(-_player4.transform.right * Time.deltaTime);
 			_player4.GetComponent<Animator>().Play("sad_walk");
 		}
 		if( Time.timeSinceLevelLoad >= 8 )
@@ -147,7 +190,8 @@ public class ResultManagerScene : MonoBehaviour
 			PlayerPrefs.SetInt("PLAYER_RED_WIN", 0);
 			PlayerPrefs.SetInt("PLAYER_YELLOW_WIN", 0);
 			Debug.Log("YOLO");
-			SceneManager.LoadScene(1);
+			if( !isFinalResult )
+				SceneManager.LoadScene(1);
 		}
 
 	}

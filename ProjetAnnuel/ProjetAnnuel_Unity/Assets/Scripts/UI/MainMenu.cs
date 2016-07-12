@@ -111,9 +111,15 @@ public class MainMenu : MonoBehaviour
 		PlayerPrefs.SetInt("PLAYER_GREEN_CASEID", 0);
 		PlayerPrefs.SetInt("PLAYER_RED_CASEID", 0);
 		PlayerPrefs.SetInt("PLAYER_YELLOW_CASEID", 0);
-		
+
+		PlayerPrefs.SetInt("PLAYER_BLUE_NB_VICTORIES", 0);
+		PlayerPrefs.SetInt("PLAYER_GREEN_NB_VICTORIES", 0);
+		PlayerPrefs.SetInt("PLAYER_RED_NB_VICTORIES", 0);
+		PlayerPrefs.SetInt("PLAYER_YELLOW_NB_VICTORIES", 0);
+
 		PlayerPrefs.SetInt("GAME_ISFIRSTRUN", 1);
-        SceneManager.LoadScene("main");
+
+		SceneManager.LoadScene("main");
 	}
 
 }
