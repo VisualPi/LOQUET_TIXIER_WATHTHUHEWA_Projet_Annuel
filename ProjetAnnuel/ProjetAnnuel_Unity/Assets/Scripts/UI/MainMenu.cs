@@ -41,6 +41,7 @@ public class MainMenu : MonoBehaviour
     public void OnClickGoThelab()
     {
         PlayerPrefs.SetString("PLAYER_LAB_NAME", playerLabName);
+        PlayerPrefs.SetInt("IS_IN_LAB_MODE", 1);
         SceneManager.LoadScene("TheLab");
     }
     public void OnClickReturnFromStartPanel()

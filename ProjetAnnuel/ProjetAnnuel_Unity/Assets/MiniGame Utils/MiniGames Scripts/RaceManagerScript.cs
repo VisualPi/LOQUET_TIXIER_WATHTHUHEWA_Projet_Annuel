@@ -126,18 +126,27 @@ public class RaceManagerScript : MonoBehaviour {
 
                 if (BlueCarScript.lapsDone == LapsToDo  )
                 {
-                    blueLapsText.gameObject.SetActive(false);
-                    BlueCarScript.position = finishPosition;
-					PlayerPrefs.SetInt("PLAYER_BLUE_WIN", finishPosition);
-					finishPosition++;
-                  //  if(!aiScriptinfo.isInTheLab)
-                  //  {
-                        blueText.text = BlueCarScript.position.ToString();
-                /*    }
-                    else
+                    PlayerPrefs.SetInt("IS_IN_LAB_MODE", 1);
+                    if (PlayerPrefs.GetInt("IS_IN_LAB_MODE") != 1)
                     {
-                        blueText.text = "PLAY RECORDED !";
-                    }*/
+                        blueLapsText.gameObject.SetActive(false);
+                        PlayerPrefs.SetInt("PLAYER_BLUE_WIN", finishPosition);
+                        blueText.text = BlueCarScript.position.ToString();
+                    }
+                   if(PlayerPrefs.GetInt("IS_IN_LAB_MODE") == 1 && !BlueCarScript.isAI)
+                    {
+                        blueLapsText.gameObject.SetActive(false);
+                        blueText.text = "RECORDED !";
+                    }
+                    if (PlayerPrefs.GetInt("IS_IN_LAB_MODE") == 1 && BlueCarScript.isAI)
+                    {
+                        blueLapsText.gameObject.SetActive(false);
+                        blueText.text = "REPLAYED !";
+                    }
+
+                    BlueCarScript.position = finishPosition;
+					finishPosition++;
+              
                     
                     blueText.gameObject.SetActive(true);
                     BlueCarScript.isAI = true;
