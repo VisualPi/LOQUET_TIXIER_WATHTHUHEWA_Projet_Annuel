@@ -81,7 +81,11 @@ public class CarControl : MonoBehaviour {
     // Use this for initialization
     void Start () {
 
-        if (PlayerPrefs.GetInt(playerPrefName) == 1 && !aiScript.isInTheLab)
+        if(aiScript.isInTheLab)
+        {
+            isAI = true;
+        }
+        if (PlayerPrefs.GetInt(playerPrefName) == 1)
         {
             isAI = true;
         }

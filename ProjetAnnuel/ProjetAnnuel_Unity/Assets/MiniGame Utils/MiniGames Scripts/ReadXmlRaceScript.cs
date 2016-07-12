@@ -9,7 +9,7 @@ public class ReadXmlRaceScript
     [SerializeField]
     MoveScript _moveScript;
 
-    public string _fileName = "race_game_ai";
+    public string _fileName = "Assets/Saves/race_game_ai";
     public string _extention = ".xml";
 
     public RaceGameAi _raceGameAi;

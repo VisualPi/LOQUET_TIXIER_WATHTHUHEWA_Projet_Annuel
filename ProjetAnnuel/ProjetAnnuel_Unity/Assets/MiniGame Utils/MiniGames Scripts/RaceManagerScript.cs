@@ -72,6 +72,9 @@ public class RaceManagerScript : MonoBehaviour {
     [SerializeField]
     CarControl GreenCarScript;
 
+    //[SerializeField]
+   // AiScript aiScriptinfo;
+
     public int LapsToDo;
     int finishPosition;
     bool isGameEnd;
@@ -84,7 +87,6 @@ public class RaceManagerScript : MonoBehaviour {
         //InitForPosition and game
         finishPosition = 1;
         isGameEnd = false;
-
         SetDisplayInfo();
 
         //Movement of camera for starting
@@ -128,7 +130,15 @@ public class RaceManagerScript : MonoBehaviour {
                     BlueCarScript.position = finishPosition;
 					PlayerPrefs.SetInt("PLAYER_BLUE_WIN", finishPosition);
 					finishPosition++;
-                    blueText.text = BlueCarScript.position.ToString();
+                    if(!aiScriptinfo.isInTheLab)
+                    {
+                        blueText.text = BlueCarScript.position.ToString();
+                    }
+                    else
+                    {
+                        blueText.text = "PLAY RECORDED !";
+                    }
+                    
                     blueText.gameObject.SetActive(true);
                     BlueCarScript.isAI = true;
                     //BlueCarScript.enableController = false;
