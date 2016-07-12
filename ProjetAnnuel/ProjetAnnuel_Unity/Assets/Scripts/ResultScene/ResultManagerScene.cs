@@ -45,6 +45,9 @@ public class ResultManagerScene : MonoBehaviour
 	[SerializeField]
 	Text _victoryName;
 
+	[SerializeField]
+	private GameObject _victoryCanvas;
+
 
 	AudioSource audioSource;
 
@@ -167,7 +170,8 @@ public class ResultManagerScene : MonoBehaviour
 		}
 		else
 		{
-			audioSource.PlayOneShot(EndingMusicResult);
+			_victoryCanvas.SetActive(true);
+            audioSource.PlayOneShot(EndingMusicResult);
 		}
 		_player1.GetComponent<Animator>().Play("victory_idle1");
 		_player2.GetComponent<Animator>().Play("victory_idle2");
