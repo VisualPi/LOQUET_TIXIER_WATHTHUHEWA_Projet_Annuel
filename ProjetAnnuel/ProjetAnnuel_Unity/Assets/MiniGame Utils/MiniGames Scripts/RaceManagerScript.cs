@@ -124,20 +124,20 @@ public class RaceManagerScript : MonoBehaviour {
                 BlueCarScript.checkpointsPassed = 0;
                 blueLapsText.text = (BlueCarScript.lapsDone + 1) + "/" + LapsToDo.ToString() + " Laps";
 
-                if (BlueCarScript.lapsDone == LapsToDo)
+                if (BlueCarScript.lapsDone == LapsToDo  )
                 {
                     blueLapsText.gameObject.SetActive(false);
                     BlueCarScript.position = finishPosition;
 					PlayerPrefs.SetInt("PLAYER_BLUE_WIN", finishPosition);
 					finishPosition++;
-                    if(!aiScriptinfo.isInTheLab)
-                    {
+                  //  if(!aiScriptinfo.isInTheLab)
+                  //  {
                         blueText.text = BlueCarScript.position.ToString();
-                    }
+                /*    }
                     else
                     {
                         blueText.text = "PLAY RECORDED !";
-                    }
+                    }*/
                     
                     blueText.gameObject.SetActive(true);
                     BlueCarScript.isAI = true;
