@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine.SceneManagement;
 using System.Collections;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -28,6 +29,27 @@ public class GameManager : MonoBehaviour
 
 	[SerializeField]
 	AudioClip wavesound;
+
+	[SerializeField]
+	private GameObject _canvasCinematique;
+
+	[SerializeField]
+	private Text _blueName;
+	[SerializeField]
+	private Text _greenName;
+	[SerializeField]
+	private Text _redName;
+	[SerializeField]
+	private Text _yellowName;
+
+	[SerializeField]
+	private Image _blueHead;
+	[SerializeField]
+	private Image _greenHead;
+	[SerializeField]
+	private Image _redHead;
+	[SerializeField]
+	private Image _yellowHead;
 
 
 	void Start()
@@ -68,8 +90,8 @@ public class GameManager : MonoBehaviour
 
 		_playerOrder = new List<EPlayer>(4);
 		Utils.Instance.GetPlayerByColor(EPlayer.BLUE).SetName(PlayerPrefs.GetString("PLAYER_BLUE_NAME"));
-		Utils.Instance.GetPlayerByColor(EPlayer.RED).SetName(PlayerPrefs.GetString("PLAYER_GREEN_NAME"));
-		Utils.Instance.GetPlayerByColor(EPlayer.GREEN).SetName(PlayerPrefs.GetString("PLAYER_RED_NAME"));
+		Utils.Instance.GetPlayerByColor(EPlayer.GREEN).SetName(PlayerPrefs.GetString("PLAYER_GREEN_NAME"));
+		Utils.Instance.GetPlayerByColor(EPlayer.RED).SetName(PlayerPrefs.GetString("PLAYER_RED_NAME"));
 		Utils.Instance.GetPlayerByColor(EPlayer.YELLOW).SetName(PlayerPrefs.GetString("PLAYER_YELLOW_NAME"));
 		Utils.Instance.GetPlayerByColor(EPlayer.BLUE).SetIsAI(PlayerPrefs.GetInt("PLAYER_BLUE_ISAI") == 1 ? true : false);
 		Utils.Instance.GetPlayerByColor(EPlayer.GREEN).SetIsAI(PlayerPrefs.GetInt("PLAYER_GREEN_ISAI") == 1 ? true : false);
@@ -129,6 +151,7 @@ public class GameManager : MonoBehaviour
 			SceneManager.LoadScene("main");
 		if( _cinematique.GetCinematiqueFinished() )
 		{
+			_canvasCinematique.SetActive(false);
 			_cinematique.gameObject.SetActive(false);
 			_cameraManager.GetMainCamera().gameObject.SetActive(true);
 			GetComponent<Animator>().SetBool("IsCinematiqueFinished", true);
@@ -141,14 +164,42 @@ public class GameManager : MonoBehaviour
 		yield return new WaitForSeconds(1);
 		while( !_cinematique.GetCinematiqueFinished() )
 		{
+			if( Time.timeSinceLevelLoad >= 6 )
+			{
+				StartCoroutine(DisplayPlayers());
+				_canvasCinematique.SetActive(true);
+
+			}
 			audioSource.volume -= 0.05f;
 			yield return new WaitForSeconds(1);
 		}
 		audioSource2.PlayOneShot(music);
 		yield return new WaitForSeconds(1);
-        audioSource.Stop();
+		audioSource.Stop();
 	}
 
+	private IEnumerator DisplayPlayers()
+	{
+		while( !_cinematique.GetCinematiqueFinished() )
+		{
+			_blueName.text = PlayerPrefs.GetString("PLAYER_BLUE_NAME").ToUpper();
+			_greenName.text = PlayerPrefs.GetString("PLAYER_GREEN_NAME").ToUpper();
+			_redName.text = PlayerPrefs.GetString("PLAYER_RED_NAME").ToUpper();
+			_yellowName.text = PlayerPrefs.GetString("PLAYER_YELLOW_NAME").ToUpper();
+			_blueName.color = new Color(_blueName.color.r, _blueName.color.g, _blueName.color.b, _blueName.color.a + 0.02f);
+			_greenName.color = new Color(_greenName.color.r, _greenName.color.g, _greenName.color.b, _greenName.color.a + 0.02f);
+			_redName.color = new Color(_redName.color.r, _redName.color.g, _redName.color.b, _redName.color.a + 0.02f);
+			_yellowName.color = new Color(_yellowName.color.r, _yellowName.color.g, _yellowName.color.b, _yellowName.color.a + 0.02f);
+
+			_blueHead.color = new Color(_blueHead.color.r, _blueHead.color.g, _blueHead.color.b, _blueHead.color.a + 0.02f);
+			_greenHead.color = new Color(_greenHead.color.r, _greenHead.color.g, _greenHead.color.b, _greenHead.color.a + 0.02f);
+			_redHead.color = new Color(_redHead.color.r, _redHead.color.g, _redHead.color.b, _redHead.color.a + 0.02f);
+			_yellowHead.color = new Color(_yellowHead.color.r, _yellowHead.color.g, _yellowHead.color.b, _yellowHead.color.a + 0.02f);
+			yield return new WaitForSeconds(0.2f);
+		}
+
+
+	}
 
 	public EPlayer GetNextPlayer()//TODO: faire un ordre aleatoire en début de partie
 	{
